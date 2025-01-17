@@ -49,8 +49,8 @@ const Nav = () => {
   );
 
   return (
-    <div>
-      <Navbar fluid rounded>
+    <div className="sticky top-0 z-10 backdrop-blur-xl w-11/12 mx-auto rounded-3xl">
+      <Navbar fluid rounded className="bg-cyan-300 text-black bg-opacity-40 rounded-2xl mt-4">
         <Navbar.Brand>
           <img src="" className="mr-3 h-6 sm:h-9" alt="" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
