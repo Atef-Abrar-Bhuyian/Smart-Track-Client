@@ -1,11 +1,6 @@
 import React from "react";
 import { Footer } from "flowbite-react";
-import {
-  BsFacebook,
-  BsGithub,
-  BsInstagram,
-  BsTwitter,
-} from "react-icons/bs";
+import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const SharedFooter = () => {
@@ -14,40 +9,40 @@ const SharedFooter = () => {
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>
-            <Footer.Brand
-              href="https://flowbite.com"
+            {/* <Footer.Brand
+              href="/"
               src="https://flowbite.com/docs/images/logo.svg"
               alt="Flowbite Logo"
-              name="Flowbite"
-            />
+              name="SmartTrack"
+            /> */}
+            <h1 className="text-2xl font-bold">SmartTrack </h1>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
               <Footer.Title title="about" />
               <Footer.LinkGroup col>
-                <Link>Flowbite</Link>
-                <Link>Tailwind CSS</Link>
+                <Link>SmartTrack</Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title="Follow us" />
               <Footer.LinkGroup col>
-                <Link>Github</Link>
-                <Link>Discord</Link>
+                <Link to={"/"}>Github</Link>
+                <Link to={"/"}>Discord</Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title="Legal" />
               <Footer.LinkGroup col>
-                <Link>Privacy Policy</Link>
-                <Link>Terms &amp; Conditions</Link>
+                <Link to={"/"}>Privacy Policy</Link>
+                <Link to={"/"}>Terms &amp; Conditions</Link>
               </Footer.LinkGroup>
             </div>
           </div>
         </div>
         <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright by="Flowbite™" year={2022} />
+          <Footer.Copyright by="SmartTrack" year={2022} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon icon={BsFacebook} />
             <Footer.Icon icon={BsInstagram} />

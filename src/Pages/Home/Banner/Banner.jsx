@@ -26,7 +26,7 @@ const Banner = () => {
               Discover innovative HR solutions that streamline recruitment,
               boost employee engagement, and drive organizational success
             </p>
-            <Link to={"/hrLogin"}>
+            <Link to={"/hrReg"}>
               <Button>Join as HR Manager</Button>
             </Link>
           </div>
@@ -42,7 +42,7 @@ const Banner = () => {
               Explore opportunities, enhance your skills, and achieve your
               career goals in a supportive and inspiring workplace.
             </p>
-            <Link className="flex items-center justify-center" to={"/employeeLogin"}>
+            <Link className="flex items-center justify-center" to={"/employeeReg"}>
               <Button>Join as an Employee</Button>
             </Link>
           </div>

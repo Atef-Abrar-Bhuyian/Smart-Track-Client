@@ -1,15 +1,16 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Nav from '../../Shared/Navbar/Nav';
-import SharedFooter from '../../Shared/Footer/SharedFooter';
-import Banner from '../Banner/Banner';
+import React from "react";
+import Banner from "../Banner/Banner";
+import ReactHelmet from "../../../Components/ReactHelmet/ReactHelmet";
+import WhoWeAre from "../WhoWeAre/WhoWeAre";
 
 const Home = () => {
-    return (
-        <div>
-            <Banner></Banner>
-        </div>
-    );
+  return (
+    <div>
+      <ReactHelmet title={"Home"}></ReactHelmet>
+      <Banner></Banner>
+      <WhoWeAre></WhoWeAre>
+    </div>
+  );
 };
 
 export default Home;
