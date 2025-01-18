@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Navbar } from "flowbite-react";
+import { Button, Navbar, NavbarCollapse } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import CustomBtn from "../CustomBtn/CustomBtn";
 
@@ -63,10 +63,11 @@ const Nav = () => {
           </span>
         </Navbar.Brand>
         <Navbar.Toggle />
-
+        <NavbarCollapse>
         <div className="flex flex-col sm:flex-row sm:space-x-4 items-center">
           {links}
         </div>
+        </NavbarCollapse>
       </Navbar>
     </div>
   );
