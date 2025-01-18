@@ -5,7 +5,6 @@ import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottieReact/loginLottie.json";
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 
@@ -30,7 +29,7 @@ const Login = () => {
         <div className="flex-1">
           <Card className="max-w-sm">
             <form
-              onSubmit={(e) => handleLogin(e)}
+              onSubmit={handleLogin}
               className="flex flex-col gap-4"
             >
               <div>

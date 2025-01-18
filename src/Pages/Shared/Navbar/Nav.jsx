@@ -17,7 +17,7 @@ const Nav = () => {
         Home
       </NavLink>
       <NavLink
-        to="/employeeReg"
+        to="/joinAsEmployee"
         className={({ isActive }) =>
           isActive
             ? "text-blue-700 dark:text-white font-semibold"
