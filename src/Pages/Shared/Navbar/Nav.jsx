@@ -207,6 +207,7 @@ const Nav = () => {
           Join as HR Manager
         </NavLink>
       )}
+      
       {user ? (
         <li>
           <button

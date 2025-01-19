@@ -230,7 +230,7 @@ const JoinAsHR = () => {
                   {error && <p className="text-red-500">{error}</p>}
                 </div>
               </div>
-              <CustomBtn text={"Join as Employee"} type="submit"></CustomBtn>
+              <CustomBtn text={"Join as HR"} type="submit"></CustomBtn>
             </form>
           </Card>
         </div>
