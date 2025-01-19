@@ -27,7 +27,7 @@ const Nav = () => {
         Join as Employee
       </NavLink>
       <NavLink
-        to="/hrReg"
+        to="/joinAsHR"
         className={({ isActive }) =>
           isActive
             ? "text-blue-700 dark:text-white font-semibold"
@@ -64,9 +64,9 @@ const Nav = () => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <NavbarCollapse>
-        <div className="flex flex-col sm:flex-row sm:space-x-4 items-center">
-          {links}
-        </div>
+          <div className="flex flex-col sm:flex-row sm:space-x-4 items-center">
+            {links}
+          </div>
         </NavbarCollapse>
       </Navbar>
     </div>
