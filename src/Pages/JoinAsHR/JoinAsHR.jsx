@@ -1,15 +1,22 @@
 import { Card, FileInput, Label, Select, TextInput } from "flowbite-react";
 import Lottie from "lottie-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
-import { GrGoogle } from "react-icons/gr";
 import JoinAsHRLottie from "../../assets/lottieReact/joinAsHRLottie.json";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const JoinAsHR = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
+  const axiosPublic = useAxiosPublic();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleJoinAsHR = (e) => {
     e.preventDefault();
@@ -21,15 +28,66 @@ const JoinAsHR = () => {
     const password = form.password.value;
     const dateOfBirth = form.dateOfBirth.value;
     const selectedPackage = form.selectedPackage.value;
-    console.log(
-      name,
-      companyName,
-      companyLogo,
-      dateOfBirth,
-      selectedPackage,
-      email,
-      password
-    );
+
+    if (password.length < 6) {
+      setError("Password Must Contain At Least 6 Characters");
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setError("Password Must Contain At Least One Lowercase Letter");
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError("Password Must Contain At Least One Uppercase Letter");
+      return;
+    }
+
+    createUser(email, password).then((result) => {
+      updateUserProfile(name, companyLogo)
+        .then(() => {
+          // create user entry in the database
+          const hrInfo = {
+            name: name,
+            companyName: companyName,
+            companyLogo: companyLogo,
+            dateOfBirth: dateOfBirth,
+            email: email,
+            password: password,
+            selectedPackage: selectedPackage,
+            role: "HR",
+          };
+          axiosPublic.post("/users", hrInfo).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Profile Created Successfully",
+                background: "#003333",
+                color: "#fff",
+                confirmButtonColor: "#001919",
+                showClass: {
+                  popup: `
+                      animate__animated
+                      animate__fadeInUp
+                      animate__faster
+                    `,
+                },
+                hideClass: {
+                  popup: `
+                      animate__animated
+                      animate__fadeOutDown
+                      animate__faster
+                    `,
+                },
+              });
+              navigate("/");
+            }
+          });
+        })
+        .catch((err) => {
+          console.log("Error Here", err);
+        });
+    });
   };
 
   return (
@@ -149,6 +207,7 @@ const JoinAsHR = () => {
                   >
                     {showPass ? <FaEye /> : <FaEyeSlash />}
                   </button>
+                  {error && <p className="text-red-500">{error}</p>}
                 </div>
               </div>
               <CustomBtn text={"Join as Employee"} type="submit"></CustomBtn>
