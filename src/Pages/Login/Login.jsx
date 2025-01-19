@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Label, TextInput } from "flowbite-react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottieReact/loginLottie.json";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
-  const {
-    setUser,
-    googleSignIn,
-    handleLogin: loginWithFirebase,
-  } = useContext(authContext);
+  const { setUser, signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -23,10 +23,10 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    loginWithFirebase(email, password)
+    signIn(email, password)
       .then((result) => {
         const user = result.user;
-        location("/");
+        navigate(from, { replace: true });
         setUser(user);
       })
       .catch((error) => {

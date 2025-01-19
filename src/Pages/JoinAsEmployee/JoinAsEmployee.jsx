@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { Card, Label, TextInput } from "flowbite-react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -8,10 +8,17 @@ import joinAsEmployeeLottie from "../../assets/lottieReact/joinAsEmployeeLottie.
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const JoinAsEmployee = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [showPass, setShowPass] = useState(false);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate=useNavigate()
 
   const handleJoinAsEmployee = (e) => {
     e.preventDefault();
@@ -20,7 +27,62 @@ const JoinAsEmployee = () => {
     const dateOfBirth = form.dateOfBirth.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password, name, dateOfBirth);
+
+    if (password.length < 6) {
+      setError("Password Must Contain At Least 6 Characters");
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setError("Password Must Contain At Least One Lowercase Letter");
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError("Password Must Contain At Least One Uppercase Letter");
+      return;
+    }
+
+    createUser(email, password).then((result) => {
+      updateUserProfile(name)
+        .then(() => {
+          // create user entry in the database
+          const userInfo = {
+            name: name,
+            dateOfBirth: dateOfBirth,
+            email: email,
+            password: password,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Profile Created Successfully",
+                background: "#003333",
+                color: "#fff",
+                confirmButtonColor: "#001919",
+                showClass: {
+                  popup: `
+                          animate__animated
+                          animate__fadeInUp
+                          animate__faster
+                        `,
+                },
+                hideClass: {
+                  popup: `
+                          animate__animated
+                          animate__fadeOutDown
+                          animate__faster
+                        `,
+                },
+              });
+              navigate("/");
+            }
+          });
+        })
+        .catch((err) => {
+          console.log("Error Here", err);
+        });
+    });
   };
 
   return (

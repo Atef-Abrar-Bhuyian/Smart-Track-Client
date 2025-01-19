@@ -48,7 +48,7 @@ const JoinAsHR = () => {
       updateUserProfile(name, companyLogo)
         .then(() => {
           // create user entry in the database
-          const hrInfo = {
+          const userInfo = {
             name: name,
             companyName: companyName,
             companyLogo: companyLogo,
@@ -58,7 +58,7 @@ const JoinAsHR = () => {
             selectedPackage: selectedPackage,
             role: "HR",
           };
-          axiosPublic.post("/users", hrInfo).then((res) => {
+          axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               Swal.fire({
                 title: "Profile Created Successfully",
