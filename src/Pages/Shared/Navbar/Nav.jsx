@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { Button, Navbar, NavbarCollapse } from "flowbite-react";
+import {
+  Avatar,
+  Button,
+  Navbar,
+  NavbarCollapse,
+  Tooltip,
+} from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
@@ -9,6 +15,7 @@ const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
 
+  // Logout
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -40,6 +47,7 @@ const Nav = () => {
 
   const links = (
     <>
+      {/* Home */}
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -50,9 +58,11 @@ const Nav = () => {
       >
         Home
       </NavLink>
+
+      {/* Asset List For Admin */}
       {user && isAdmin && (
         <NavLink
-          to="/"
+          to="/assetList"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -62,9 +72,11 @@ const Nav = () => {
           Asset List
         </NavLink>
       )}
+
+      {/* Add Asset For Admin */}
       {user && isAdmin && (
         <NavLink
-          to="/"
+          to="/addAsset"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -74,9 +86,11 @@ const Nav = () => {
           Add an Asset
         </NavLink>
       )}
+
+      {/* Request to join team Fro Admin */}
       {user && isAdmin && (
         <NavLink
-          to="/"
+          to="/allRequest"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -86,9 +100,11 @@ const Nav = () => {
           All Requests
         </NavLink>
       )}
+
+      {/* My Team for Admin */}
       {user && isAdmin && (
         <NavLink
-          to="/"
+          to="/myTeam"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -98,9 +114,11 @@ const Nav = () => {
           My Employee List
         </NavLink>
       )}
+
+      {/* Add an Employee for Admin */}
       {user && isAdmin && (
         <NavLink
-          to="/"
+          to="/addEmployee"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -110,6 +128,59 @@ const Nav = () => {
           Add an Employee
         </NavLink>
       )}
+
+      {/* My Assets For Employee */}
+      {user && !isAdmin && (
+        <NavLink
+          to="/myAsstes"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-700 dark:text-white font-semibold"
+              : "text-gray-700 dark:text-gray-400"
+          }
+        >
+          My Assets
+        </NavLink>
+      )}
+
+      {/* My Assets For Employee */}
+      {user && !isAdmin && (
+        <NavLink
+          to="/employeeTeam"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-700 dark:text-white font-semibold"
+              : "text-gray-700 dark:text-gray-400"
+          }
+        >
+          My Team
+        </NavLink>
+      )}
+
+      {/* My Assets For Employee */}
+      {user && !isAdmin && (
+        <NavLink
+          to="/assetsRequest"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-700 dark:text-white font-semibold"
+              : "text-gray-700 dark:text-gray-400"
+          }
+        >
+          Request for an Asset
+        </NavLink>
+      )}
+
+      {/* Profile */}
+      {user && (
+        <NavLink to="/myProfile">
+          <Tooltip content={user?.displayName}>
+            <Avatar img={user?.photoURL} rounded bordered color="success" />
+          </Tooltip>
+        </NavLink>
+      )}
+
+      {/* For not Logged in Users */}
       {!user && (
         <NavLink
           to="/joinAsEmployee"
@@ -122,6 +193,8 @@ const Nav = () => {
           Join as Employee
         </NavLink>
       )}
+
+      {/* For not Logged in Users */}
       {!user && (
         <NavLink
           to="/joinAsHR"

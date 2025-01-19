@@ -18,7 +18,7 @@ const JoinAsEmployee = () => {
   const [showPass, setShowPass] = useState(false);
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleJoinAsEmployee = (e) => {
     e.preventDefault();
@@ -27,6 +27,7 @@ const JoinAsEmployee = () => {
     const dateOfBirth = form.dateOfBirth.value;
     const email = form.email.value;
     const password = form.password.value;
+    const photo = form.photo.value;
 
     if (password.length < 6) {
       setError("Password Must Contain At Least 6 Characters");
@@ -44,14 +45,14 @@ const JoinAsEmployee = () => {
     }
 
     createUser(email, password).then((result) => {
-      updateUserProfile(name)
+      updateUserProfile(name, photo)
         .then(() => {
           // create user entry in the database
           const userInfo = {
             name: name,
+            photo: photo,
             dateOfBirth: dateOfBirth,
             email: email,
-            password: password,
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
@@ -113,6 +114,18 @@ const JoinAsEmployee = () => {
                   type="text"
                   name="name"
                   placeholder="Your Name"
+                  required
+                />
+              </div>
+              {/* photo */}
+              <div>
+                <div className="mb-2 block">
+                  <Label value="Your Photo URL" />
+                </div>
+                <TextInput
+                  type="url"
+                  name="photo"
+                  placeholder="Your Photo URL"
                   required
                 />
               </div>

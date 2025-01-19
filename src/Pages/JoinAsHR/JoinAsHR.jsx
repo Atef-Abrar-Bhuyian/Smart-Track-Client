@@ -22,6 +22,7 @@ const JoinAsHR = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
+    const photo = form.photo.value;
     const companyName = form.companyName.value;
     const companyLogo = form.companyLogo.value;
     const email = form.email.value;
@@ -50,11 +51,11 @@ const JoinAsHR = () => {
           // create user entry in the database
           const userInfo = {
             name: name,
+            photo: photo,
             companyName: companyName,
             companyLogo: companyLogo,
             dateOfBirth: dateOfBirth,
             email: email,
-            password: password,
             selectedPackage: selectedPackage,
             role: "HR",
           };
@@ -131,7 +132,7 @@ const JoinAsHR = () => {
               </div>
 
               {/* Company logo */}
-              <div id="fileUpload" className="max-w-md">
+              <div className="max-w-md">
                 <div className="mb-2 block">
                   <Label value="Comapny Logo" />
                 </div>
@@ -144,7 +145,26 @@ const JoinAsHR = () => {
                 <TextInput
                   type="url"
                   name="companyLogo"
-                  placeholder="Your Company Name"
+                  placeholder="Your Company Logo"
+                  required
+                />
+              </div>
+
+              {/* Company logo */}
+              <div className="max-w-md">
+                <div className="mb-2 block">
+                  <Label value="Your Photo" />
+                </div>
+                {/* <FileInput
+                  id="file"
+
+                  helperText="A profile picture is useful to confirm your are logged into your account"
+                /> */}
+
+                <TextInput
+                  type="url"
+                  name="photo"
+                  placeholder="Your Photo"
                   required
                 />
               </div>
