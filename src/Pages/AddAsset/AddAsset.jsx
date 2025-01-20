@@ -6,9 +6,12 @@ import { toast, ToastContainer } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Typewriter from "typewriter-effect";
+import { useNavigate } from "react-router-dom";
 
 const AddAsset = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const assetAddedDate = new Date();
 
   const axiosSecure = useAxiosSecure();
   const handleAddAsset = (e) => {
@@ -24,6 +27,7 @@ const AddAsset = () => {
       quantity,
       productType,
       hrEmail,
+      assetAddedDate
     };
 
     if (quantity === 0 || quantity < 0) {
@@ -42,6 +46,7 @@ const AddAsset = () => {
         });
       }
       if (res.data.insertedId) {
+        navigate("/assetList");
         Swal.fire({
           title: "Asset Added Successfully",
           background: "#003333",
@@ -81,7 +86,9 @@ const AddAsset = () => {
                 }}
               />
             </h1>
-            <p className="font-medium">Add a new asset to the system with ease and efficiency.</p>
+            <p className="font-medium">
+              Add a new asset to the system with ease and efficiency.
+            </p>
           </div>
           <div className="flex-1">
             <Card className="">
