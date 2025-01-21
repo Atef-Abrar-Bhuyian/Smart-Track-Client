@@ -20,8 +20,6 @@ const MyEmployeeList = () => {
 
   const allEmployeesInTeam = employees?.flatMap((team) => team.employees);
 
-  console.log(allEmployeesInTeam);
-
   const handleRemoveEmployee = (deleteUserId, name) => {
     axiosSecure
       .delete(`/myTeam/${user?.email}`, {
@@ -46,7 +44,7 @@ const MyEmployeeList = () => {
           </Table.HeadCell>
         </Table.Head>
         {allEmployeesInTeam.map((employee) => (
-          <Table.Body key={employee?._id} className="divide-y">
+          <Table.Body key={employee?.employee_id} className="divide-y">
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="p-4">
                 <Checkbox />

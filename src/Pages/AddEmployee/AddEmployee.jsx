@@ -36,7 +36,7 @@ const AddEmployee = () => {
   return (
     <div className="w-11/12 mx-auto my-10">
       <div className="flex justify-between">
-        <h1>Total Employee: {employees?.length}</h1>
+        <h1 className="text-xl font-bold">Total Employee: {employees?.length}</h1>
         <div>
           <Popover
             aria-labelledby="profile-popover"

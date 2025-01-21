@@ -1,8 +1,7 @@
 import React from "react";
 import { Table } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 const AssetsListTable = ({
   assetName,
@@ -13,8 +12,7 @@ const AssetsListTable = ({
   return (
     <div>
       <Table hoverable>
-       
-        <Table.Body className="divide-y">
+        <Table.Body>
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
               {assetName}

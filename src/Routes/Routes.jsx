@@ -10,6 +10,7 @@ import AssetList from "../Pages/AssetList/AssetList";
 import AllRequest from "../Pages/AllRequest/AllRequest";
 import MyEmployeeList from "../Pages/MyEmployeeList/MyEmployeeList";
 import AddEmployee from "../Pages/AddEmployee/AddEmployee";
+import AdminRoute from "./AdminRoute/AdminRoute";
 
 
 export const router = createBrowserRouter([
@@ -36,23 +37,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addAsset",
-        element: <AddAsset></AddAsset>,
+        element: <AdminRoute><AddAsset></AddAsset></AdminRoute>,
       },
       {
         path: "/assetList",
-        element: <AssetList></AssetList>,
+        element: <AdminRoute><AssetList></AssetList></AdminRoute>,
       },
       {
         path: "/allRequest",
-        element: <AllRequest></AllRequest>,
+        element: <AdminRoute><AllRequest></AllRequest></AdminRoute>,
       },
       {
         path: "/myTeam",
-        element: <MyEmployeeList></MyEmployeeList>,
+        element: <AdminRoute><MyEmployeeList></MyEmployeeList></AdminRoute>,
       },
       {
         path: "/addEmployee",
-        element: <AddEmployee></AddEmployee>,
+        element: <AdminRoute><AddEmployee></AddEmployee></AdminRoute>,
       },
     ],
   },

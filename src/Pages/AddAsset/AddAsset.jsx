@@ -134,8 +134,8 @@ const AddAsset = () => {
                       <option value={"default"} disabled>
                         Select Type
                       </option>
-                      <option value={"returnable"}>Returnable</option>
-                      <option value={"nonReturnable"}>Non-Returnable</option>
+                      <option value={"Returnable"}>Returnable</option>
+                      <option value={"Non-Returnable"}>Non-Returnable</option>
                     </Select>
                   </div>
                 </div>
