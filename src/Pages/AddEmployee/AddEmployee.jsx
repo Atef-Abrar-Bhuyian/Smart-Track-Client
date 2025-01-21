@@ -24,19 +24,54 @@ const AddEmployee = () => {
       employeeName: name,
       employeePhoto: img,
     };
-    axiosSecure.post("/addToTeam", addNewEmpoloyee).then((res) => {
-      if (res.data.insertedId) {
-        refetch();
-        Swal.fire(`${name} is in Your Team Now.`);
-      }
-      return res.data;
-    });
+    axiosSecure
+      .post("/addToTeam", addNewEmpoloyee)
+      .then((res) => {
+        if (res.data.insertedId) {
+          refetch();
+          Swal.fire({
+            title: `${name} is in Your Team Now.`,
+            background: "#003333",
+            color: "#fff",
+            confirmButtonColor: "#001919",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
+        }
+        return res.data;
+      })
+      .catch((err) => {
+        if (err.response.data.message === "limit reached") {
+          Swal.fire({
+            icon: "error",
+            title: "Limit Reached",
+            text: "You’ve reached the team member limit. Please upgrade!",
+            background: "#003333",
+            color: "#fff",
+            confirmButtonColor: "#001919",
+          });
+        }
+      });
   };
 
   return (
     <div className="w-11/12 mx-auto my-10">
-      <div className="flex justify-between">
-        <h1 className="text-xl font-bold">Total Employee: {employees?.length}</h1>
+      <div className="flex justify-between items-center my-6">
+        <h1 className="text-xl font-bold">
+          Total Employee: {employees?.length}
+        </h1>
         <div>
           <Popover
             aria-labelledby="profile-popover"
@@ -83,7 +118,11 @@ const AddEmployee = () => {
                   <Checkbox />
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  <Avatar className="w-fit" img={employee?.photo} />
+                  {/* <Avatar className="w-fit" img={employee?.photo} /> */}
+                  <img
+                    className="w-16 h-16 rounded-full"
+                    src={employee?.photo}
+                  />
                 </Table.Cell>
                 <Table.Cell>{employee?.name}</Table.Cell>
                 <Table.Cell>

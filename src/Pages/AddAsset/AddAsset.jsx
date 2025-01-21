@@ -49,7 +49,7 @@ const AddAsset = () => {
       if (res.data.insertedId) {
         navigate("/assetList");
         Swal.fire({
-          title: "Asset Added Successfully",
+          title: `${productName} Added Successfully`,
           background: "#003333",
           color: "#fff",
           confirmButtonColor: "#001919",

@@ -21,16 +21,37 @@ const MyEmployeeList = () => {
   const allEmployeesInTeam = employees?.flatMap((team) => team.employees);
 
   const handleRemoveEmployee = (deleteUserId, name) => {
-    axiosSecure
-      .delete(`/myTeam/${user?.email}`, {
-        data: { deleteUserId },
-      })
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          Swal.fire(`${name} is Removed From Your Teams`);
-          refetch();
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#001919",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: "#003333",
+      color: "#fff",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/myTeam/${user?.email}`, {
+            data: { deleteUserId },
+          })
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              Swal.fire({
+                title: "Removed!",
+                text: `${name} is Removed From Your Teams`,
+                icon: "success",
+                confirmButtonColor: "#001919",
+                background: "#003333",
+                color: "#fff",
+              });
+              refetch();
+            }
+          });
+      }
+    });
   };
   return (
     <div className="my-10 w-11/12 mx-auto">
