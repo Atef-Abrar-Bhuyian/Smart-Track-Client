@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Typewriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const AddAsset = () => {
   const { user } = useAuth();
@@ -27,7 +28,7 @@ const AddAsset = () => {
       quantity,
       productType,
       hrEmail,
-      assetAddedDate
+      assetAddedDate,
     };
 
     if (quantity === 0 || quantity < 0) {
@@ -73,6 +74,7 @@ const AddAsset = () => {
 
   return (
     <div>
+      <ReactHelmet title={"Add List"}></ReactHelmet>
       <ToastContainer />
       <div className="my-20 w-4/5 mx-auto">
         <div className="lg:flex justify-evenly gap-6">
@@ -137,7 +139,6 @@ const AddAsset = () => {
                     </Select>
                   </div>
                 </div>
-
                 <CustomBtn text={"Add Asset"} type="submit"></CustomBtn>
               </form>
             </Card>
