@@ -11,6 +11,7 @@ import AllRequest from "../Pages/AllRequest/AllRequest";
 import MyEmployeeList from "../Pages/MyEmployeeList/MyEmployeeList";
 import AddEmployee from "../Pages/AddEmployee/AddEmployee";
 import AdminRoute from "./AdminRoute/AdminRoute";
+import EmployeeTeam from "../Pages/EmployeeTeam/EmployeeTeam";
 
 
 export const router = createBrowserRouter([
@@ -23,6 +24,15 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
+
+      // employee
+      {
+        path:"employeeTeam",
+        element:<EmployeeTeam></EmployeeTeam>
+      },
+
+
+      // for Admin
       {
         path: "/joinAsEmployee",
         element: <JoinAsEmployee></JoinAsEmployee>,
