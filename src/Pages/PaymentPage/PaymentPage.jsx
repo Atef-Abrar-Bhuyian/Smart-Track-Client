@@ -10,61 +10,9 @@ import Lottie from "lottie-react";
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const PaymentPage = () => {
-  const location = useLocation();
+  const location = useLocation(); 
   const { userInfo } = location?.state || {};
 
-  console.log(userInfo);
-
-  // // Create user and update profile
-  // createUser(email, password)
-  //   .then((result) => {
-  //     updateUserProfile(name, companyLogo)
-  //       .then(() => {
-  //         // Create user entry in the database
-  //         const userInfo = {
-  //           name: name,
-  //           photo: photo,
-  //           companyName: companyName,
-  //           companyLogo: companyLogo,
-  //           dateOfBirth: dateOfBirth,
-  //           email: email,
-  //           selectedPackage: selectedPackage,
-  //           role: "HR",
-  //           transactionId: transactionId, // Include transaction ID
-  //         };
-  //         axiosPublic.post("/users", userInfo).then((res) => {
-  //           if (res.data.insertedId) {
-  //             Swal.fire({
-  //               title: "Profile Created Successfully",
-  //               background: "#003333",
-  //               color: "#fff",
-  //               confirmButtonColor: "#001919",
-  //               showClass: {
-  //                 popup: `
-  //                   animate__animated
-  //                   animate__fadeInUp
-  //                   animate__faster
-  //                 `,
-  //               },
-  //               hideClass: {
-  //                 popup: `
-  //                   animate__animated
-  //                   animate__fadeOutDown
-  //                   animate__faster
-  //                 `,
-  //               },
-  //             });
-  //             navigate("/");
-  //           }
-  //         });
-  //       })
-  //       .catch((err) => {
-  //         console.log("Error updating profile:", err);
-  //       });
-  //   })
-  //   .catch((err) => {
-  //     console.log("Error creating user:", err);
-  //   });
 
   return (
     <div className="w-11/12 mx-auto">

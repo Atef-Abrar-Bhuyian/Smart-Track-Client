@@ -12,6 +12,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const JoinAsEmployee = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -183,10 +184,7 @@ const JoinAsEmployee = () => {
               <div></div>
               <div>
                 <h4 className="text-md font-bold text-center my-4">OR</h4>
-                <button className="flex items-center justify-center gap-1 w-full text-center p-2 rounded-lg bg-cyan-600 text-white">
-                  Continue With Google{" "}
-                  <GrGoogle className="text-lg text-white" />
-                </button>
+                <SocialLogin />
               </div>
             </div>
           </Card>

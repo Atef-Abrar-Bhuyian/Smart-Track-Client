@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -10,10 +10,22 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import useAdmin from "../../../hooks/useAdmin";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
+  const [cUser,setCUser] = useState({})
+
+  useEffect(()=>{
+    axiosPublic.get("/users")
+    .then(res => {
+    const currentUser=  res.data.find(r=> r.email === user?.email);
+    setCUser(currentUser);
+    })
+  },[])
 
   // Logout
   const handleLogOut = () => {
@@ -175,7 +187,7 @@ const Nav = () => {
       {user && (
         <NavLink to="/myProfile">
           <Tooltip content={user?.displayName}>
-            <Avatar img={user?.photoURL} rounded bordered color="success" />
+            <Avatar  img={cUser?.photo} rounded bordered color="success" />
           </Tooltip>
         </NavLink>
       )}
@@ -207,7 +219,7 @@ const Nav = () => {
           Join as HR Manager
         </NavLink>
       )}
-      
+
       {user ? (
         <li>
           <button
@@ -241,9 +253,14 @@ const Nav = () => {
       >
         <Navbar.Brand>
           <img src="" className="mr-3 h-6 sm:h-9" alt="" />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          {user && isAdmin ?
+           (
+            <img className="w-16" src={user?.photoURL} alt="" />
+          ): (
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             SmartTrack
           </span>
+          ) }
         </Navbar.Brand>
         <Navbar.Toggle />
         <NavbarCollapse>

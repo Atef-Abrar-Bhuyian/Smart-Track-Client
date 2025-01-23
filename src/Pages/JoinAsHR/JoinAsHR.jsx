@@ -14,8 +14,8 @@ const JoinAsHR = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
-  const axiosPublic = useAxiosPublic();
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+
+ 
   const navigate = useNavigate();
 
   // Handle form submission

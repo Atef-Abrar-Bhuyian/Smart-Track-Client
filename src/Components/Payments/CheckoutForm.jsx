@@ -1,18 +1,23 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const CheckOutForm = ({ userInfo }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-const [transactionId, setTransactionId] = useState("");
+  const axiosPublic = useAxiosPublic();
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   useEffect(() => {
     if (userInfo?.price > 0) {
-      axios
-        .post("http://localhost:5000/create-payment-intent", {
+      axiosPublic
+        .post("/create-payment-intent", {
           price: userInfo?.price,
         })
         .then((res) => {
@@ -72,27 +77,44 @@ const [transactionId, setTransactionId] = useState("");
     } else {
       console.log("Payment intent:", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        setTransactionId(paymentIntent.id);
-
-        const payment = {
-          email: userInfo?.email,
-          price: userInfo?.price,
-          transectionId: paymentIntent.id,
-          date: new Date(),
+        const updatedUserInfo = {
+          ...userInfo,
+          role: "HR",
+          transactionId: paymentIntent.id,
         };
 
-        const res = await axios.post("/payment", payment);
-        if (res.data?.paymentResult?.insertedId) {
+        await createUser(userInfo?.email, userInfo?.password);
+
+        // Update Firebase user profile
+        await updateUserProfile(userInfo?.name, userInfo?.companyLogo);
+
+        // Create user in the database
+        const res = await axiosPublic.post("/users", updatedUserInfo);
+
+        if (res.data?.insertedId) {
           Swal.fire({
-            position: "middle-center",
-            icon: "success",
-            title: "Thank you. Your Payment is Successful",
-            background: "#000",
+            title: "Payment Successful & Account Created!",
+            text: "Thank you for your payment. Your account has been successfully created.",
+            background: "#003333",
             color: "#fff",
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonColor: "#001919",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
           });
-          setPaymentSuccess(true);
+          setError(""); // Clear any error messages
+          navigate("/");
         }
       }
     }
