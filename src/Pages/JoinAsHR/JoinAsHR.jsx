@@ -1,4 +1,4 @@
-import { Card, FileInput, Label, Select, TextInput } from "flowbite-react";
+import { Card, Label, Select, TextInput } from "flowbite-react";
 import Lottie from "lottie-react";
 import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -7,8 +7,8 @@ import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import JoinAsHRLottie from "../../assets/lottieReact/joinAsHRLottie.json";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AuthContext } from "../../provider/AuthProvider";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+
 
 const JoinAsHR = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -18,8 +18,11 @@ const JoinAsHR = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // Handle form submission
   const handleJoinAsHR = (e) => {
     e.preventDefault();
+
+    // Get form data
     const form = e.target;
     const name = form.name.value;
     const photo = form.photo.value;
@@ -29,83 +32,69 @@ const JoinAsHR = () => {
     const password = form.password.value;
     const dateOfBirth = form.dateOfBirth.value;
     const selectedPackage = form.selectedPackage.value;
+    let price = 0;
 
+    // Set package price based on selection
+
+    if (selectedPackage === "basic") {
+      price = 5;
+    }
+    if (selectedPackage === "advance") {
+      price = 8;
+    }
+    if (selectedPackage === "ultimate") {
+      price = 15;
+    }
+
+    // Password validation
     if (password.length < 6) {
       setError("Password Must Contain At Least 6 Characters");
       return;
     }
-
     if (!/[a-z]/.test(password)) {
       setError("Password Must Contain At Least One Lowercase Letter");
       return;
     }
-
     if (!/[A-Z]/.test(password)) {
       setError("Password Must Contain At Least One Uppercase Letter");
       return;
     }
 
-    createUser(email, password).then((result) => {
-      updateUserProfile(name, companyLogo)
-        .then(() => {
-          // create user entry in the database
-          const userInfo = {
-            name: name,
-            photo: photo,
-            companyName: companyName,
-            companyLogo: companyLogo,
-            dateOfBirth: dateOfBirth,
-            email: email,
-            selectedPackage: selectedPackage,
-            role: "HR",
-          };
-          axiosPublic.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              Swal.fire({
-                title: "Profile Created Successfully",
-                background: "#003333",
-                color: "#fff",
-                confirmButtonColor: "#001919",
-                showClass: {
-                  popup: `
-                      animate__animated
-                      animate__fadeInUp
-                      animate__faster
-                    `,
-                },
-                hideClass: {
-                  popup: `
-                      animate__animated
-                      animate__fadeOutDown
-                      animate__faster
-                    `,
-                },
-              });
-              navigate("/");
-            }
-          });
-        })
-        .catch((err) => {
-          console.log("Error Here", err);
-        });
-    });
+    // Update user info state
+    const userInfo = {
+      email,
+      password,
+      name,
+      photo,
+      companyName,
+      companyLogo,
+      dateOfBirth,
+      selectedPackage,
+      price,
+    };
+
+   
+    navigate("/payment", { state: { userInfo } });
+
   };
 
   return (
     <div className="my-20 w-4/5 mx-auto">
       <div className="lg:flex justify-evenly gap-6">
+        {/* Left Side: Animation and Heading */}
         <div className="flex-1 flex flex-col items-center justify-center mb-6">
           <h1 className="text-center text-xl font-bold">
             Lead the way in building a smarter, stronger team.
           </h1>
           <Lottie animationData={JoinAsHRLottie} className="w-3/4"></Lottie>
         </div>
+
+        {/* Right Side: Form */}
         <div className="flex-1">
-          <Card className="">
+          <Card>
             <form onSubmit={handleJoinAsHR} className="flex flex-col gap-4">
-              {/* Name & comapnay name */}
+              {/* Name & Company Name */}
               <div className="lg:flex gap-6">
-                {/* name */}
                 <div className="flex-1 mb-3">
                   <div className="mb-2 block">
                     <Label value="Your Name" />
@@ -117,7 +106,6 @@ const JoinAsHR = () => {
                     required
                   />
                 </div>
-                {/* Comapny Name */}
                 <div className="flex-1">
                   <div className="mb-2 block">
                     <Label value="Company Name" />
@@ -131,17 +119,11 @@ const JoinAsHR = () => {
                 </div>
               </div>
 
-              {/* Company logo */}
+              {/* Company Logo */}
               <div className="max-w-md">
                 <div className="mb-2 block">
-                  <Label value="Comapny Logo" />
+                  <Label value="Company Logo" />
                 </div>
-                {/* <FileInput
-                  id="file"
-
-                  helperText="A profile picture is useful to confirm your are logged into your account"
-                /> */}
-
                 <TextInput
                   type="url"
                   name="companyLogo"
@@ -150,17 +132,11 @@ const JoinAsHR = () => {
                 />
               </div>
 
-              {/* Company logo */}
+              {/* Your Photo */}
               <div className="max-w-md">
                 <div className="mb-2 block">
                   <Label value="Your Photo" />
                 </div>
-                {/* <FileInput
-                  id="file"
-
-                  helperText="A profile picture is useful to confirm your are logged into your account"
-                /> */}
-
                 <TextInput
                   type="url"
                   name="photo"
@@ -169,7 +145,7 @@ const JoinAsHR = () => {
                 />
               </div>
 
-              {/* Date of Birth */}
+              {/* Date of Birth & Plan Selection */}
               <div className="md:flex gap-6">
                 <div className="flex-1 mb-3">
                   <div className="mb-2 block">
@@ -184,7 +160,7 @@ const JoinAsHR = () => {
                 </div>
                 <div className="flex-1">
                   <div className="mb-2 block">
-                    <Label value="Select a Package" />
+                    <Label value="Select a Plan" />
                   </div>
                   <Select name="selectedPackage" required>
                     <option value={"basic"}>Basic Plan 5$</option>
@@ -206,6 +182,7 @@ const JoinAsHR = () => {
                   required
                 />
               </div>
+
               {/* Password */}
               <div>
                 <div className="mb-2">
@@ -230,7 +207,11 @@ const JoinAsHR = () => {
                   {error && <p className="text-red-500">{error}</p>}
                 </div>
               </div>
-              <CustomBtn text={"Join as HR"} type="submit"></CustomBtn>
+
+              <CustomBtn
+                text={"Pay and Join as HR"}
+                type={"submit"}
+              ></CustomBtn>
             </form>
           </Card>
         </div>

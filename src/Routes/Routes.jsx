@@ -12,6 +12,7 @@ import MyEmployeeList from "../Pages/MyEmployeeList/MyEmployeeList";
 import AddEmployee from "../Pages/AddEmployee/AddEmployee";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import EmployeeTeam from "../Pages/EmployeeTeam/EmployeeTeam";
+import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 
 
 export const router = createBrowserRouter([
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/payment",
+        element: <PaymentPage></PaymentPage>,
       },
 
       // employee
