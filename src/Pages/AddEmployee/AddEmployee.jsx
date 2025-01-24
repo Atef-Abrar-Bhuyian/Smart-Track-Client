@@ -118,7 +118,6 @@ const AddEmployee = () => {
                   <Checkbox />
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {/* <Avatar className="w-fit" img={employee?.photo} /> */}
                   <img
                     className="w-16 h-16 rounded-full"
                     src={employee?.photo}

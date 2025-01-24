@@ -13,13 +13,14 @@ import AddEmployee from "../Pages/AddEmployee/AddEmployee";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import EmployeeTeam from "../Pages/EmployeeTeam/EmployeeTeam";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
-
+import EmployeeAssets from "../Pages/EmployeeAssets/EmployeeAssets";
+import AssetsRequest from "../Pages/AssetsRequest/AssetsRequest";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -32,10 +33,17 @@ export const router = createBrowserRouter([
 
       // employee
       {
-        path:"employeeTeam",
-        element:<EmployeeTeam></EmployeeTeam>
+        path: "employeeTeam",
+        element: <EmployeeTeam></EmployeeTeam>,
       },
-
+      {
+        path: "employeeAssets",
+        element: <EmployeeAssets></EmployeeAssets>,
+      },
+      {
+        path: "assetsRequest",
+        element: <AssetsRequest></AssetsRequest>,
+      },
 
       // for Admin
       {
@@ -52,23 +60,43 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addAsset",
-        element: <AdminRoute><AddAsset></AddAsset></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AddAsset></AddAsset>
+          </AdminRoute>
+        ),
       },
       {
         path: "/assetList",
-        element: <AdminRoute><AssetList></AssetList></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AssetList></AssetList>
+          </AdminRoute>
+        ),
       },
       {
         path: "/allRequest",
-        element: <AdminRoute><AllRequest></AllRequest></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AllRequest></AllRequest>
+          </AdminRoute>
+        ),
       },
       {
         path: "/myTeam",
-        element: <AdminRoute><MyEmployeeList></MyEmployeeList></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <MyEmployeeList></MyEmployeeList>
+          </AdminRoute>
+        ),
       },
       {
         path: "/addEmployee",
-        element: <AdminRoute><AddEmployee></AddEmployee></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AddEmployee></AddEmployee>
+          </AdminRoute>
+        ),
       },
     ],
   },

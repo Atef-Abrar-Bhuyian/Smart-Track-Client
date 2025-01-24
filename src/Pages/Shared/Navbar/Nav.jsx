@@ -6,26 +6,25 @@ import {
   NavbarCollapse,
   Tooltip,
 } from "flowbite-react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import useAdmin from "../../../hooks/useAdmin";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
-
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
-  const [cUser,setCUser] = useState({})
+  const [cUser, setCUser] = useState({});
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    axiosPublic.get("/users")
-    .then(res => {
-    const currentUser=  res.data.find(r=> r.email === user?.email);
-    setCUser(currentUser);
-    })
-  },[])
+  useEffect(() => {
+    axiosPublic.get("/users").then((res) => {
+      const currentUser = res.data.find((r) => r.email === user?.email);
+      setCUser(currentUser);
+    });
+  }, []);
 
   // Logout
   const handleLogOut = () => {
@@ -51,6 +50,7 @@ const Nav = () => {
                   `,
           },
         });
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -71,6 +71,7 @@ const Nav = () => {
         Home
       </NavLink>
 
+      {/* Admin */}
       {/* Asset List For Admin */}
       {user && isAdmin && (
         <NavLink
@@ -141,10 +142,11 @@ const Nav = () => {
         </NavLink>
       )}
 
+      {/* Employee */}
       {/* My Assets For Employee */}
       {user && !isAdmin && (
         <NavLink
-          to="/myAsstes"
+          to="/employeeAssets"
           className={({ isActive }) =>
             isActive
               ? "text-blue-700 dark:text-white font-semibold"
@@ -187,7 +189,7 @@ const Nav = () => {
       {user && (
         <NavLink to="/myProfile">
           <Tooltip content={user?.displayName}>
-            <Avatar  img={cUser?.photo} rounded bordered color="success" />
+            <Avatar img={cUser?.photo} rounded bordered color="success" />
           </Tooltip>
         </NavLink>
       )}
@@ -253,14 +255,13 @@ const Nav = () => {
       >
         <Navbar.Brand>
           <img src="" className="mr-3 h-6 sm:h-9" alt="" />
-          {user && isAdmin ?
-           (
+          {user && isAdmin ? (
             <img className="w-16" src={user?.photoURL} alt="" />
-          ): (
+          ) : (
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            SmartTrack
-          </span>
-          ) }
+              SmartTrack
+            </span>
+          )}
         </Navbar.Brand>
         <Navbar.Toggle />
         <NavbarCollapse>
