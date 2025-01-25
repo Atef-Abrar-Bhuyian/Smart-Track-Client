@@ -111,8 +111,8 @@ const AddEmployee = () => {
               <span>Add Your Team</span>
             </Table.HeadCell>
           </Table.Head>
-          {employees.map((employee) => (
-            <Table.Body key={employee._id} className="divide-y">
+          {employees.map((employee,idx) => (
+            <Table.Body key={idx} className="divide-y">
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="p-4">
                   <Checkbox />

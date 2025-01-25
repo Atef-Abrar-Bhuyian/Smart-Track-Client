@@ -64,8 +64,8 @@ const MyEmployeeList = () => {
             <span>Remove From Your Team</span>
           </Table.HeadCell>
         </Table.Head>
-        {allEmployeesInTeam.map((employee) => (
-          <Table.Body key={employee?.employee_id} className="divide-y">
+        {allEmployeesInTeam.map((employee, idx) => (
+          <Table.Body key={idx} className="divide-y">
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="p-4">
                 <Checkbox />

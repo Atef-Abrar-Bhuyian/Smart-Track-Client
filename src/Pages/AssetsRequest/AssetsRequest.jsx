@@ -28,7 +28,7 @@ const AssetsRequest = () => {
       userName: user?.name,
       assetsId: id,
       message: message,
-      status: "Pending",
+      status: "Approved",
       requestedDate: new Date(),
     };
     setMessage("");
