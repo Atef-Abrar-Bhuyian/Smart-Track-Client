@@ -6,7 +6,6 @@ import { Table } from "flowbite-react";
 import { format } from "date-fns";
 import { GiCancel } from "react-icons/gi";
 
-
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -36,9 +35,9 @@ const EmployeeAssets = () => {
             <Table.HeadCell>Actions</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {employeesAssets.map((asset, idx) => (
+            {employeesAssets.map((asset, idx) =>
               asset?.requests
-                .filter(request => request?.userEmail === user?.email) 
+                .filter((request) => request?.userEmail === user?.email)
                 .map((request, idx) => (
                   <Table.Row
                     key={idx}
@@ -61,7 +60,12 @@ const EmployeeAssets = () => {
                         className={`${
                           request?.status === "Pending"
                             ? "bg-yellow-400 text-black p-2 w-fit rounded-xl"
-                            : ""} ${request?.status === "Approved" ? "bg-green-600 text-white p-2 w-fit rounded-xl": ""}
+                            : ""
+                        } ${
+                          request?.status === "Approved"
+                            ? "bg-green-600 text-white p-2 w-fit rounded-xl"
+                            : ""
+                        }
                         }`}
                       >
                         {request?.status}
@@ -74,9 +78,22 @@ const EmployeeAssets = () => {
                         </button>
                       </Table.Cell>
                     )}
+                    {request?.status === "Approved" && (
+                      <Table.Cell className="flex gap-2">
+                        <button className="bg-blue-600 p-2 rounded-xl text-white">
+                          Print
+                        </button>
+                        {request?.status === "Approved" &&
+                          asset?.productType === "Returnable" && (
+                            <button className="bg-blue-600 p-2 rounded-xl text-white">
+                              Return
+                            </button>
+                          )}
+                      </Table.Cell>
+                    )}
                   </Table.Row>
                 ))
-            ))}
+            )}
           </Table.Body>
         </Table>
       </div>
