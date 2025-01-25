@@ -5,6 +5,8 @@ import useAuth from "../../hooks/useAuth";
 import { Table } from "flowbite-react";
 import { format } from "date-fns";
 import { GiCancel } from "react-icons/gi";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDocument from "../../Components/PdfDocument/PdfDocument";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
@@ -65,7 +67,6 @@ const EmployeeAssets = () => {
                           request?.status === "Approved"
                             ? "bg-green-600 text-white p-2 w-fit rounded-xl"
                             : ""
-                        }
                         }`}
                       >
                         {request?.status}
@@ -80,9 +81,15 @@ const EmployeeAssets = () => {
                     )}
                     {request?.status === "Approved" && (
                       <Table.Cell className="flex gap-2">
-                        <button className="bg-blue-600 p-2 rounded-xl text-white">
-                          Print
-                        </button>
+                        <PDFDownloadLink
+                          document={<PdfDocument />}
+                          fileName="Asset's Information.pdf"
+                          className="bg-blue-600 p-2 rounded-xl text-white"
+                        >
+                          {({ loading }) =>
+                            loading ? "Generating..." : "Print"
+                          }
+                        </PDFDownloadLink>
                         {request?.status === "Approved" &&
                           asset?.productType === "Returnable" && (
                             <button className="bg-blue-600 p-2 rounded-xl text-white">
