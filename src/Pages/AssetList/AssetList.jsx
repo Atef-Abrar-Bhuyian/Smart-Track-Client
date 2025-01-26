@@ -21,17 +21,38 @@ const AssetList = () => {
     },
   });
 
-  const handleDeleteAsset = (id, name) => {
-    axiosSecure
-      .delete(`/assetsList/${user?.email}`, {
-        data: { id },
-      })
-      .then((res) => {
-        if (res.data.deletedCount) {
-          Swal.fire(`${name} is Removed From Your Asset`);
-          refetch();
-        }
-      });
+  const handleDeleteAsset = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: "#003333",
+      color: "#fff",
+      confirmButtonColor: "#001919",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/assetsList/${user?.email}`, {
+            data: { id },
+          })
+          .then((res) => {
+            if (res.data.deletedCount) {
+              Swal.fire({
+                title: "Deleted!",
+                text: `Asset has been deleted.`,
+                icon: "success",
+                background: "#003333",
+                color: "#fff",
+                confirmButtonColor: "#001919",
+              });
+              refetch();
+            }
+          });
+      }
+    });
   };
 
   return (

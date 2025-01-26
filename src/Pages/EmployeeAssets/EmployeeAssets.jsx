@@ -7,12 +7,13 @@ import { format } from "date-fns";
 import { GiCancel } from "react-icons/gi";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDocument from "../../Components/PdfDocument/PdfDocument";
+import Swal from "sweetalert2";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: employeesAssets = [] } = useQuery({
+  const { data: employeesAssets = [], refetch } = useQuery({
     queryKey: ["emplyeesAsset", user?.email],
     enabled: !loading,
     queryFn: async () => {
@@ -20,6 +21,48 @@ const EmployeeAssets = () => {
       return res.data;
     },
   });
+
+  const handleCancelRequest = (assetId, requestId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: "#003333",
+      color: "#fff",
+      confirmButtonColor: "#001919",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/deleteRequest`, {
+            data: { assetId, requestId },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your request has been successfully deleted.",
+                icon: "success",
+                background: "#003333",
+                color: "#fff",
+                confirmButtonColor: "#001919",
+              });
+              refetch();
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete the request. Please try again.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
 
   return (
     <div className="w-11/12 mx-auto my-10">
@@ -74,7 +117,12 @@ const EmployeeAssets = () => {
                     </Table.Cell>
                     {request?.status === "Pending" && (
                       <Table.Cell>
-                        <button className="text-red-500 flex items-center gap-1">
+                        <button
+                          onClick={() =>
+                            handleCancelRequest(asset?._id, request?._id)
+                          }
+                          className="text-red-500 flex items-center gap-1"
+                        >
                           Cancel <GiCancel />
                         </button>
                       </Table.Cell>
@@ -82,13 +130,20 @@ const EmployeeAssets = () => {
                     {request?.status === "Approved" && (
                       <Table.Cell className="flex gap-2">
                         <PDFDownloadLink
-                          document={<PdfDocument />}
+                          document={
+                            <PdfDocument
+                              companyName={asset?.companyName}
+                              hrEmail={asset?.hrEmail}
+                              productName={asset?.productName}
+                              productType={asset?.productType}
+                              requestDate={request?.requestedDate}
+                              approvalDate={request?.approvaldDate}
+                            />
+                          }
                           fileName="Asset's Information.pdf"
                           className="bg-blue-600 p-2 rounded-xl text-white"
                         >
-                          {({ loading }) =>
-                            loading ? "Generating..." : "Print"
-                          }
+                          Print
                         </PDFDownloadLink>
                         {request?.status === "Approved" &&
                           asset?.productType === "Returnable" && (
