@@ -11,7 +11,6 @@ const AddEmployee = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const userInfo = userHrInfo()
-console.log(userInfo);
 
   const { data: employees = [], refetch } = useQuery({
     queryKey: ["usersNotInTeam"],

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
-import { Table } from "flowbite-react";
+import { Button, Modal, Table } from "flowbite-react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
@@ -12,6 +12,10 @@ import { useQuery } from "@tanstack/react-query";
 const AssetList = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
+  // State for modal and current asset
+  const [openModal, setOpenModal] = useState(false);
+  const [currentAsset, setCurrentAsset] = useState(null);
 
   const { data: assets = [], refetch } = useQuery({
     queryKey: ["myTeam"],
@@ -35,14 +39,12 @@ const AssetList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`/assetsList/${user?.email}`, {
-            data: { id },
-          })
+          .delete(`/assetsList/${user?.email}`, { data: { id } })
           .then((res) => {
             if (res.data.deletedCount) {
               Swal.fire({
                 title: "Deleted!",
-                text: `Asset has been deleted.`,
+                text: "Asset has been deleted.",
                 icon: "success",
                 background: "#003333",
                 color: "#fff",
@@ -53,6 +55,36 @@ const AssetList = () => {
           });
       }
     });
+  };
+
+  const handleModifyAsset = (asset) => {
+    setCurrentAsset(asset);
+    setOpenModal(true);
+  };
+
+  const handleUpdateAsset = (e) => {
+    e.preventDefault();
+    const updatedData = {
+      quantity: currentAsset.quantity,
+      hrEmail: user?.email,
+    };
+
+    axiosSecure
+      .patch(`/assetsList/${currentAsset._id}`, updatedData)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            title: "Updated!",
+            text: "Asset quantity has been updated successfully.",
+            icon: "success",
+            background: "#003333",
+            color: "#fff",
+            confirmButtonColor: "#001919",
+          });
+          refetch(); 
+          setOpenModal(false); 
+        }
+      })
   };
 
   return (
@@ -80,9 +112,7 @@ const AssetList = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {asset?.productName}
                 </Table.Cell>
-                <Table.Cell className="overflow-hidden">
-                  {asset?.productType}
-                </Table.Cell>
+                <Table.Cell>{asset?.productType}</Table.Cell>
                 <Table.Cell>{asset?.quantity}</Table.Cell>
                 <Table.Cell>
                   {asset?.assetAddedDate
@@ -91,7 +121,7 @@ const AssetList = () => {
                 </Table.Cell>
                 <Table.Cell>
                   <div className="flex gap-3">
-                    <button>
+                    <button onClick={() => handleModifyAsset(asset)}>
                       <FiEdit className="text-xl text-cyan-700" />
                     </button>
                     <button onClick={() => handleDeleteAsset(asset?._id)}>
@@ -104,6 +134,58 @@ const AssetList = () => {
           </Table.Body>
         </Table>
       </div>
+
+      {currentAsset && (
+        <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+          <Modal.Header>Modify Asset</Modal.Header>
+          <Modal.Body>
+            <form onSubmit={handleUpdateAsset}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Product Name
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={currentAsset?.productName}
+                    readOnly
+                    className="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Product Type
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={currentAsset?.productType}
+                    readOnly
+                    className="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Quantity
+                  </label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    defaultValue={currentAsset.quantity}
+                    onChange={(e) =>
+                      setCurrentAsset({
+                        ...currentAsset,
+                        quantity: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border rounded-lg"
+                  />
+                </div>
+                <Button type="submit">Save Changes</Button>
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 };
