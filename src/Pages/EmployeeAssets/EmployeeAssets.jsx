@@ -110,6 +110,10 @@ const EmployeeAssets = () => {
                           request?.status === "Approved"
                             ? "bg-green-600 text-white p-2 w-fit rounded-xl"
                             : ""
+                        } ${
+                          request?.status === "Rejected"
+                            ? "bg-red-600 text-white p-2 w-fit rounded-xl"
+                            : ""
                         }`}
                       >
                         {request?.status}
