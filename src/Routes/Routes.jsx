@@ -15,6 +15,7 @@ import EmployeeTeam from "../Pages/EmployeeTeam/EmployeeTeam";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import EmployeeAssets from "../Pages/EmployeeAssets/EmployeeAssets";
 import AssetsRequest from "../Pages/AssetsRequest/AssetsRequest";
+import IncreaseLimit from "../Pages/IncreaseLimit/IncreaseLimit";
 
 export const router = createBrowserRouter([
   {
@@ -95,6 +96,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddEmployee></AddEmployee>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/increaseLimit",
+        element: (
+          <AdminRoute>
+            <IncreaseLimit></IncreaseLimit>
           </AdminRoute>
         ),
       },
