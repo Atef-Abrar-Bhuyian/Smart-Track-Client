@@ -35,7 +35,7 @@ const PdfDocument = ({
   productName,
   productType,
   requestDate,
-  approvalDate
+  approvalDate,
 }) => {
   return (
     <Document>
@@ -47,10 +47,11 @@ const PdfDocument = ({
           <Text style={styles.header}>Asset's Information</Text>
           <Text style={styles.paragraph}>Product Name: {productName} </Text>
           <Text style={styles.paragraph}>Product Type: {productType}</Text>
-          <Text style={styles.paragraph}>Request Date: {requestDate}</Text>
           <Text style={styles.paragraph}>
-          {/* {format(new Date(approvalDate), "PPP")} */}
-            Approval Date: {approvalDate} 
+            Request Date: {format(new Date(requestDate), "PPP")}
+          </Text>
+          <Text style={styles.paragraph}>
+            Approval Date: {format(new Date(approvalDate), "PPP")}
           </Text>
         </View>
         <Text style={styles.footer}>

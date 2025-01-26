@@ -64,6 +64,46 @@ const EmployeeAssets = () => {
     });
   };
 
+  const handleReturn = (assetId, requestId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to return this asset?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, return it!",
+      background: "#003333",
+      color: "#fff",
+      confirmButtonColor: "#001919",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch("/returnAsset", { assetId, requestId })
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              Swal.fire({
+                title: "Returned!",
+                text: "Your asset has been successfully returned.",
+                icon: "success",
+                background: "#003333",
+                color: "#fff",
+                confirmButtonColor: "#001919",
+              });
+              refetch();
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to return the asset. Please try again.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
+
   return (
     <div className="w-11/12 mx-auto my-10">
       <div>
@@ -80,7 +120,7 @@ const EmployeeAssets = () => {
             <Table.HeadCell>Actions</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {employeesAssets.map((asset, idx) =>
+            {employeesAssets.map((asset) =>
               asset?.requests
                 .filter((request) => request?.userEmail === user?.email)
                 .map((request, idx) => (
@@ -96,7 +136,9 @@ const EmployeeAssets = () => {
                       {format(new Date(request?.requestedDate), "PPP")}
                     </Table.Cell>
                     <Table.Cell>
-                      {request?.approvaldDate
+                      {request?.status === "Returned"
+                        ? ""
+                        : request?.approvaldDate
                         ? format(new Date(request?.approvaldDate), "PPP")
                         : "Not Approved Yet"}
                     </Table.Cell>
@@ -125,7 +167,7 @@ const EmployeeAssets = () => {
                           onClick={() =>
                             handleCancelRequest(asset?._id, request?._id)
                           }
-                          className="text-red-500 flex items-center gap-1"
+                          className="text-white flex items-center gap-1 p-2 rounded-xl bg-red-600"
                         >
                           Cancel <GiCancel />
                         </button>
@@ -151,8 +193,20 @@ const EmployeeAssets = () => {
                         </PDFDownloadLink>
                         {request?.status === "Approved" &&
                           asset?.productType === "Returnable" && (
-                            <button className="bg-blue-600 p-2 rounded-xl text-white">
-                              Return
+                            <button
+                              onClick={() =>
+                                handleReturn(asset._id, request._id)
+                              }
+                              disabled={request?.status === "Returned"}
+                              className={`${
+                                request?.status === "Returned"
+                                  ? "bg-gray-400"
+                                  : "bg-blue-600"
+                              } p-2 rounded-xl text-white`}
+                            >
+                              {request?.status === "Returned"
+                                ? "Returned"
+                                : "Return"}
                             </button>
                           )}
                       </Table.Cell>

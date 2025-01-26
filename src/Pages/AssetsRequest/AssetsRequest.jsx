@@ -9,7 +9,7 @@ const AssetsRequest = () => {
   const { user, loading } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [selectedAsset, setSelectedAsset] = useState(null);
-  const [message, setMessage] = useState(""); // State to hold the message
+  const [message, setMessage] = useState("");
 
   const axiosSecure = useAxiosSecure();
 
@@ -84,7 +84,9 @@ const AssetsRequest = () => {
                   </Table.Cell>
                   <Table.Cell>
                     <button
-                      className="inline-flex justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
+                      
+                      disabled={asset?.quantity === 0}
+                      className={`inline-flex justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 disabled:bg-gray-700 disabled:cursor-not-allowed`}
                       onClick={() => {
                         setSelectedAsset(asset);
                         setOpenModal(true);
@@ -99,7 +101,7 @@ const AssetsRequest = () => {
           </Table>
         ) : (
           <h1 className="text-2xl font-bold text-center">
-            No assets available.
+            No assets available
           </h1>
         )}
       </div>

@@ -36,7 +36,7 @@ const AllRequest = () => {
       });
   };
 
-  const handleApproveReject = (assetId, requestId) => {
+  const handleRequestReject = (assetId, requestId) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -122,6 +122,10 @@ const AllRequest = () => {
                         request?.status === "Rejected"
                           ? "bg-red-600 text-white"
                           : ""
+                      } ${
+                        request?.status === "Returned"
+                          ? "bg-blue-600 text-white"
+                          : ""
                       }`}
                     >
                       {request.status}
@@ -140,7 +144,7 @@ const AllRequest = () => {
                       </button>
                       <button
                         onClick={() =>
-                          handleApproveReject(asset?._id, request?._id)
+                          handleRequestReject(asset?._id, request?._id)
                         }
                         className="p-2 rounded-xl bg-red-600 text-white"
                       >
