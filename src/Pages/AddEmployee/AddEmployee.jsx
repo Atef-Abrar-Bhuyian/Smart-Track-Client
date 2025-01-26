@@ -4,10 +4,14 @@ import React, { useContext, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import userHrInfo from "../../hooks/userHrInfo";
+import { Link } from "react-router-dom";
 
 const AddEmployee = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const userInfo = userHrInfo()
+console.log(userInfo);
 
   const { data: employees = [], refetch } = useQuery({
     queryKey: ["usersNotInTeam"],
@@ -16,6 +20,9 @@ const AddEmployee = () => {
       return res.data;
     },
   });
+
+
+  
 
   const handleAddEmployee = (id, name, img) => {
     const addNewEmpoloyee = {
@@ -79,23 +86,28 @@ const AddEmployee = () => {
               <div className="w-64 p-3">
                 <div className="mb-2 flex items-center justify-between">
                   <div>
-                    <h4>Selected Packge</h4>
+                    <h4>Selected Packge: {userInfo[0]?.selectedPackage}</h4>
                   </div>
                 </div>
-                <p className="mb-4 text-sm">Maximum Number</p>
+                <p className="mb-4 text-sm">Maximum Member: {userInfo[0]?.selectedPackage === "basic" ? 5 : ""}
+                {userInfo[0]?.selectedPackage === "advance" ? 10 : ""}
+                {userInfo[0]?.selectedPackage === "ultimate" ? 20 : ""}
+        
+                </p>
                 <div>
+                  <Link to={"/increaseLimit"}>
                   <button
                     type="button"
                     className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Increase Your Limit
-                  </button>
+                  </button></Link>
                 </div>
               </div>
             }
           >
             <button className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">
-              Your Package
+              Package Details
             </button>
           </Popover>
         </div>

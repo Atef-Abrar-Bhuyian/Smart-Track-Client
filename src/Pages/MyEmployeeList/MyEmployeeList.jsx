@@ -55,6 +55,10 @@ const MyEmployeeList = () => {
   };
   return (
     <div className="my-10 w-11/12 mx-auto">
+      <div>
+        <h1 className="text-xl font-bold text-center my-10">Team Members</h1>
+        <p className="font-bold my-4">Total Members: {allEmployeesInTeam.length}</p>
+      </div>
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell className="p-4"></Table.HeadCell>

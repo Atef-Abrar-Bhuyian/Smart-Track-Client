@@ -20,7 +20,7 @@ const AllRequest = () => {
 
   const handleApproveRequest = (assetId, requestId) => {
     axiosSecure
-      .patch("/assetRequestAccept", { assetId, requestId })
+      .patch(`/assetRequestAccept/${user?.email}`, { assetId, requestId })
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           Swal.fire({
@@ -50,7 +50,7 @@ const AllRequest = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch("/assetRequestReject", { assetId, requestId })
+          .patch(`/assetRequestReject/${user?.email}`, { assetId, requestId })
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               Swal.fire({

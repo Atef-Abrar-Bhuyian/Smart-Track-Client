@@ -16,6 +16,7 @@ const EmployeeTeam = () => {
       return res.data;
     },
   });
+  console.log(employees);
   
   return (
     <div className="md:w-6/12 mx-auto my-10">
