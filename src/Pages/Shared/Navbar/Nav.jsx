@@ -33,9 +33,6 @@ const Nav = () => {
     }
   }, [user, axiosPublic]);
 
-  console.log(cUser);
-  console.log(user);
-
   // Logout
   const handleLogOut = () => {
     logOut()

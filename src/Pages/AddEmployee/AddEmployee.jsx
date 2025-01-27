@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 const AddEmployee = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const userInfo = userHrInfo()
+  const userInfo = userHrInfo();
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
 
   const { data: employees = [], refetch } = useQuery({
     queryKey: ["usersNotInTeam"],
@@ -20,8 +21,67 @@ const AddEmployee = () => {
     },
   });
 
+  const handleCheckboxChange = (employeeId) => {
+    setSelectedEmployees((prevSelected) => {
+      if (prevSelected.includes(employeeId)) {
+        return prevSelected.filter((id) => id !== employeeId); 
+      } else {
+        return [...prevSelected, employeeId]; 
+      }
+    });
+  };
 
-  
+  const handleAddMultipleEmployees = () => {
+    const selectedEmployeeDetails = employees.filter((employee) =>
+      selectedEmployees.includes(employee._id)
+    );
+
+    const addNewEmployees = selectedEmployeeDetails.map((employee) => ({
+      employee_id: employee._id,
+      hrEmail: user?.email,
+      employeeName: employee.name,
+      employeePhoto: employee.photo,
+    }));
+
+    axiosSecure
+  .post("/addMultipleEmployeeTeam", { employees: addNewEmployees, hrEmail: user?.email })
+      .then((res) => {
+        if (res.data.insertedIds) {
+          refetch();
+          Swal.fire({
+            title: `Employees added to your team.`,
+            background: "#003333",
+            color: "#fff",
+            confirmButtonColor: "#001919",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to add employees. Please try again!",
+          background: "#003333",
+          color: "#fff",
+          confirmButtonColor: "#001919",
+        });
+      });
+  };
 
   const handleAddEmployee = (id, name, img) => {
     const addNewEmpoloyee = {
@@ -88,19 +148,21 @@ const AddEmployee = () => {
                     <h4>Selected Packge: {userInfo[0]?.selectedPackage}</h4>
                   </div>
                 </div>
-                <p className="mb-4 text-sm">Maximum Member: {userInfo[0]?.selectedPackage === "basic" ? 5 : ""}
-                {userInfo[0]?.selectedPackage === "advance" ? 10 : ""}
-                {userInfo[0]?.selectedPackage === "ultimate" ? 20 : ""}
-        
+                <p className="mb-4 text-sm">
+                  Maximum Member:{" "}
+                  {userInfo[0]?.selectedPackage === "basic" ? 5 : ""}
+                  {userInfo[0]?.selectedPackage === "advance" ? 10 : ""}
+                  {userInfo[0]?.selectedPackage === "ultimate" ? 20 : ""}
                 </p>
                 <div>
                   <Link to={"/increaseLimit"}>
-                  <button
-                    type="button"
-                    className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Increase Your Limit
-                  </button></Link>
+                    <button
+                      type="button"
+                      className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Increase Your Limit
+                    </button>
+                  </Link>
                 </div>
               </div>
             }
@@ -122,11 +184,14 @@ const AddEmployee = () => {
               <span>Add Your Team</span>
             </Table.HeadCell>
           </Table.Head>
-          {employees.map((employee,idx) => (
+          {employees.map((employee, idx) => (
             <Table.Body key={idx} className="divide-y">
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="p-4">
-                  <Checkbox />
+                  <Checkbox
+                    checked={selectedEmployees.includes(employee._id)}
+                    onChange={() => handleCheckboxChange(employee._id)}
+                  />
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   <img
@@ -153,6 +218,9 @@ const AddEmployee = () => {
             </Table.Body>
           ))}
         </Table>
+          <button onClick={handleAddMultipleEmployees}
+          disabled={selectedEmployees.length === 0}
+          className="disabled:bg-gray-600 disabled:cursor-not-allowed mt-4 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">Add Selected Employee</button>
       </div>
     </div>
   );
