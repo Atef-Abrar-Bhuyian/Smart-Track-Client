@@ -9,6 +9,7 @@ import useAdmin from "../../../hooks/useAdmin";
 import useUserInTeamOrNot from "../../../hooks/useUserInTeamOrNot";
 import EmployeePendingRequests from "../EmployeePendingRequests/EmployeePendingRequests";
 import EmployeeRequestOfOneMonth from "../EmployeeRequestOfOneMonth/EmployeeRequestOfOneMonth";
+import CalanderSection from "../CalanderSection/CalanderSection";
 
 const Home = () => {
   const { user } = useAuth();
@@ -24,6 +25,7 @@ const Home = () => {
       {!user && <PackagePrice></PackagePrice>}
       {cUser?.team === "in-a-team" && !isAdmin && <EmployeePendingRequests></EmployeePendingRequests>}
       {cUser?.team === "in-a-team" && !isAdmin && <EmployeeRequestOfOneMonth></EmployeeRequestOfOneMonth>}
+      {cUser?.team === "in-a-team" && !isAdmin && <CalanderSection></CalanderSection>}
     </div>
   );
 };
