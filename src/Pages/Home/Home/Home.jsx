@@ -4,7 +4,6 @@ import ReactHelmet from "../../../Components/ReactHelmet/ReactHelmet";
 import WhoWeAre from "../WhoWeAre/WhoWeAre";
 import PackagePrice from "../PackagePrice/PackagePrice";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAdmin from "../../../hooks/useAdmin";
 import useUserInTeamOrNot from "../../../hooks/useUserInTeamOrNot";
 import EmployeePendingRequests from "../EmployeePendingRequests/EmployeePendingRequests";
@@ -12,10 +11,10 @@ import EmployeeRequestOfOneMonth from "../EmployeeRequestOfOneMonth/EmployeeRequ
 import CalanderSection from "../CalanderSection/CalanderSection";
 import UpcommingEvents from "../UpcommingEvents/UpcommingEvents";
 import ContactYourHr from "../ContactYourHr/ContactYourHr";
+import PendingRequestsForHr from "../PendingRequestsForHr/PendingRequestsForHr";
 
 const Home = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
   const [isAdmin] = useAdmin();
   const [cUser] = useUserInTeamOrNot();
 
@@ -31,6 +30,7 @@ const Home = () => {
       {cUser?.team === "in-a-team" && !isAdmin && <CalanderSection></CalanderSection>}
       {cUser?.team === "in-a-team" && !isAdmin && <UpcommingEvents></UpcommingEvents>}
       {cUser?.team === "not-in-team" && !isAdmin && <ContactYourHr></ContactYourHr>}
+      {isAdmin && <PendingRequestsForHr></PendingRequestsForHr>}
     </div>
   );
 };
