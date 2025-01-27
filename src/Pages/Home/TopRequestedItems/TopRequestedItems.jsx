@@ -20,7 +20,7 @@ const TopRequestedItems = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="w-11/12 mx-auto my-10">
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Top Most Requested Items
@@ -42,7 +42,11 @@ const TopRequestedItems = () => {
             ))}
           </div>
         ) : (
-          <></>
+          <>
+          <h1 className="text-center flex items-center justify-center font-bold text-3xl">
+              No One Requested Yet
+            </h1>
+          </>
         )}
       </div>
     </div>

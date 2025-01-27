@@ -5,16 +5,16 @@ import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
 
-const PendingRequestsForHr = () => {
+const LimitedStockItems = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [pendingRequests, setPendingRequests] = useState([]);
+  const [items, setItems] = useState();
 
   useEffect(() => {
     axiosSecure
-      .get(`/pendingRequestsForHr/${user?.email}`)
+      .get(`/limitedStockItems/${user?.email}`)
       .then((res) => {
-        setPendingRequests(res.data);
+        setItems(res.data);
       })
       .catch((error) => {
         console.error("Error fetching pending requests:", error.message);
@@ -25,39 +25,35 @@ const PendingRequestsForHr = () => {
     <div className="w-11/12 mx-auto my-10">
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-          Pending Requests
+          Limited Stock Items
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pendingRequests?.length > 0 ? (
-          <>
-            {pendingRequests?.map((request, index) => (
-              <Card key={index} className="max-w-sm">
+      <div>
+        {items?.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {items?.map((item, idx) => (
+              <Card key={idx} className="max-w-sm mb-6">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  Product Name: {request?.productName}
+                  Product Name: {item?.productName}
                 </h5>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
-                  Quantity: {request?.quantity}
+                  Quantity: {item?.quantity}
                 </p>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
-                  Type: {request?.productType}
+                  Product Type: {item?.productType}
                 </p>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
-                  Status: {request?.requests?.status}
-                </p>
-                <Link to={"/allRequest"}>
-                  <CustomBtn text={"See Details"}></CustomBtn>
+                <Link to={"/assetList"}>
+                  <CustomBtn text={"See More"}></CustomBtn>
                 </Link>
               </Card>
             ))}
-          </>
+          </div>
         ) : (
           <>
-            {" "}
             <h1 className="text-center flex items-center justify-center font-bold text-3xl">
-              No Request Available
-            </h1>{" "}
+              All items are well-stocked.
+            </h1>
           </>
         )}
       </div>
@@ -65,4 +61,4 @@ const PendingRequestsForHr = () => {
   );
 };
 
-export default PendingRequestsForHr;
+export default LimitedStockItems;

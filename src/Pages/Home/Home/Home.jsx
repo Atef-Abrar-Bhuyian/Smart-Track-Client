@@ -13,6 +13,7 @@ import UpcommingEvents from "../UpcommingEvents/UpcommingEvents";
 import ContactYourHr from "../ContactYourHr/ContactYourHr";
 import PendingRequestsForHr from "../PendingRequestsForHr/PendingRequestsForHr";
 import TopRequestedItems from "../TopRequestedItems/TopRequestedItems";
+import LimitedStockItems from "../LimitedStockItems/LimitedStockItems";
 
 const Home = () => {
   const { user } = useAuth();
@@ -33,6 +34,7 @@ const Home = () => {
       {cUser?.team === "not-in-team" && !isAdmin && <ContactYourHr></ContactYourHr>}
       {isAdmin && <PendingRequestsForHr></PendingRequestsForHr>}
       {isAdmin && <TopRequestedItems></TopRequestedItems>}
+      {isAdmin && <LimitedStockItems></LimitedStockItems>}
     </div>
   );
 };
