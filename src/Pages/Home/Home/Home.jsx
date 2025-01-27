@@ -8,6 +8,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAdmin from "../../../hooks/useAdmin";
 import useUserInTeamOrNot from "../../../hooks/useUserInTeamOrNot";
 import EmployeePendingRequests from "../EmployeePendingRequests/EmployeePendingRequests";
+import EmployeeRequestOfOneMonth from "../EmployeeRequestOfOneMonth/EmployeeRequestOfOneMonth";
 
 const Home = () => {
   const { user } = useAuth();
@@ -21,7 +22,8 @@ const Home = () => {
       <Banner></Banner>
       <WhoWeAre></WhoWeAre>
       {!user && <PackagePrice></PackagePrice>}
-      {cUser?.team === "in-a-team" && <EmployeePendingRequests></EmployeePendingRequests>}
+      {cUser?.team === "in-a-team" && !isAdmin && <EmployeePendingRequests></EmployeePendingRequests>}
+      {cUser?.team === "in-a-team" && !isAdmin && <EmployeeRequestOfOneMonth></EmployeeRequestOfOneMonth>}
     </div>
   );
 };

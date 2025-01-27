@@ -29,7 +29,6 @@ const AssetsRequest = () => {
       assetsId: id,
       message: message,
       status: "Pending",
-      requestedDate: new Date(),
     };
     setMessage("");
     setOpenModal(false);

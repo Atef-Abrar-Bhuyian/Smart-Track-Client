@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { Button, Card } from "flowbite-react";
-import { format } from "date-fns";
+import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
+import { format } from "date-fns";
 
-const EmployeePendingRequests = () => {
+const EmployeeRequestOfOneMonth = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [pendingRequests, setPendingRequests] = useState([]);
-
+  const [allRequests, setAllRequests] = useState([]);
   useEffect(() => {
     axiosSecure
-      .get(`/pendingRequests/${user?.email}`)
+      .get(`/allRequestsOfOneMonth/${user?.email}`)
       .then((res) => {
-        setPendingRequests(res.data);
+        setAllRequests(res.data);
       })
       .catch((error) => {
         console.error("Error fetching pending requests:", error.message);
@@ -24,13 +23,14 @@ const EmployeePendingRequests = () => {
 
   return (
     <div className="w-11/12 mx-auto">
-      <div className="my-10">
-        <h1 className="text-center text-3xl md:text-4xl font-bold">Pending Requests</h1>
+      <div>
+        <h1 className="text-3xl md:text-4xl text-center font-bold my-14">
+          My Monthly Requests{" "}
+        </h1>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {pendingRequests?.length > 0 ? (
-          pendingRequests?.map((asset) => {
+        {allRequests?.length > 0 ? (
+          allRequests?.map((asset) => {
             return asset?.requests?.map((request, index) => {
               if (request?.status === "Pending") {
                 return (
@@ -43,7 +43,8 @@ const EmployeePendingRequests = () => {
                         Status : {request?.status}
                       </p>
                       <p className="font-normal text-gray-700 dark:text-gray-400">
-                        Requested Date : {format(new Date(request?.requestedDate), "PPP")}
+                        Requested Date :{" "}
+                        {format(new Date(request?.requestedDate), "PPP")}
                       </p>
                       <Link to={"/employeeAssets"}>
                         <CustomBtn text={"See Details"}></CustomBtn>
@@ -64,4 +65,4 @@ const EmployeePendingRequests = () => {
   );
 };
 
-export default EmployeePendingRequests;
+export default EmployeeRequestOfOneMonth;
