@@ -12,6 +12,7 @@ import CalanderSection from "../CalanderSection/CalanderSection";
 import UpcommingEvents from "../UpcommingEvents/UpcommingEvents";
 import ContactYourHr from "../ContactYourHr/ContactYourHr";
 import PendingRequestsForHr from "../PendingRequestsForHr/PendingRequestsForHr";
+import TopRequestedItems from "../TopRequestedItems/TopRequestedItems";
 
 const Home = () => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const Home = () => {
       {cUser?.team === "in-a-team" && !isAdmin && <UpcommingEvents></UpcommingEvents>}
       {cUser?.team === "not-in-team" && !isAdmin && <ContactYourHr></ContactYourHr>}
       {isAdmin && <PendingRequestsForHr></PendingRequestsForHr>}
+      {isAdmin && <TopRequestedItems></TopRequestedItems>}
     </div>
   );
 };
