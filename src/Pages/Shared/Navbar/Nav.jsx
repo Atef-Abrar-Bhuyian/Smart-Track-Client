@@ -14,17 +14,27 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
+
   const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
   const [cUser, setCUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosPublic.get("/users").then((res) => {
-      const currentUser = res.data.find((r) => r.email === user?.email);
-      setCUser(currentUser);
-    });
-  }, []);
+    if (user?.email) {
+      axiosPublic
+        .get(`/users/${user.email}`)
+        .then((res) => {
+          setCUser(res.data);
+        })
+        .catch((err) => {
+          console.error("Error fetching user data:", err);
+        });
+    }
+  }, [user, axiosPublic]);
+
+  console.log(cUser);
+  console.log(user);
 
   // Logout
   const handleLogOut = () => {
@@ -189,7 +199,12 @@ const Nav = () => {
       {user && (
         <NavLink to="/myProfile">
           <Tooltip content={user?.displayName}>
-            <Avatar img={cUser?.photo} rounded bordered color="success" />
+            <img
+              referrerPolicy="no-referrer"
+              className="rounded-full w-12 h-12"
+              src={cUser?.photo}
+              alt=""
+            />
           </Tooltip>
         </NavLink>
       )}
@@ -256,7 +271,11 @@ const Nav = () => {
         <Navbar.Brand>
           <img src="" className="mr-3 h-6 sm:h-9" alt="" />
           {user && isAdmin ? (
-            <img className="w-16" src={user?.photoURL} alt="" />
+            <img
+              className="w-16 h-16 rounded-full"
+              src={cUser?.companyLogo}
+              alt=""
+            />
           ) : (
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
               SmartTrack

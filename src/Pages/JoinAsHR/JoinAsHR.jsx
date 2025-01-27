@@ -5,8 +5,6 @@ import DatePicker from "react-datepicker";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import JoinAsHRLottie from "../../assets/lottieReact/joinAsHRLottie.json";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { AuthContext } from "../../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 

@@ -77,7 +77,7 @@ const IncreaseLimitForm = ({ selectedPackage, price }) => {
           };
 
           const res = await axiosPublic.patch(
-            `/users/${hrInfo[0]?.email}`,
+            `/increaseLimit/${hrInfo[0]?.email}`,
             updatedUserInfo
           );
 

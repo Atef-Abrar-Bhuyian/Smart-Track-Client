@@ -16,6 +16,7 @@ import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import EmployeeAssets from "../Pages/EmployeeAssets/EmployeeAssets";
 import AssetsRequest from "../Pages/AssetsRequest/AssetsRequest";
 import IncreaseLimit from "../Pages/IncreaseLimit/IncreaseLimit";
+import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/myProfile",
+        element: <ProfilePage></ProfilePage>,
       },
       {
         path: "/payment",

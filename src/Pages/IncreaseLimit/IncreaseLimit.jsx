@@ -1,7 +1,6 @@
 import { Elements } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLocation, useNavigate } from "react-router-dom";
 import payment from "../../assets/lottieReact/payment.json";
 import Lottie from "lottie-react";
 import userHrInfo from "../../hooks/userHrInfo";
@@ -12,7 +11,6 @@ import { Label, Select } from "flowbite-react";
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const IncreaseLimit = () => {
-  const location = useLocation();
   const hrInfo = userHrInfo();
   const [price,setPrice] = useState(0);
   const [selectedPackage, setSelectedPackage] = useState("");

@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Footer } from "flowbite-react";
 import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
+import useAdmin from "../../../hooks/useAdmin";
 
 const SharedFooter = () => {
+  const { user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   return (
     <Footer container>
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>
-            {/* <Footer.Brand
-              href="/"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="SmartTrack"
-            /> */}
+            {/* {user && isAdmin ? (
+              <img
+                className="w-16 h-16 rounded-full"
+                src={hrInfo[0]?.companyLogo}
+                alt=""
+              />
+            ) : (
+              <h1 className="text-2xl font-bold">SmartTrack </h1>
+            )} */}
             <h1 className="text-2xl font-bold">SmartTrack </h1>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">

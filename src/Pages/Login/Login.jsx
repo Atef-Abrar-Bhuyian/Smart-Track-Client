@@ -4,7 +4,7 @@ import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottieReact/loginLottie.json";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 import Swal from "sweetalert2";
@@ -15,8 +15,6 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const { setUser, signIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -27,7 +25,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        navigate(from, { replace: true });
+        navigate("/");
         setUser(user);
       })
       .catch((error) => {

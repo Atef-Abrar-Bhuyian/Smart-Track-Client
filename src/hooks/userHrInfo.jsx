@@ -5,8 +5,9 @@ import useAuth from "./useAuth";
 const userHrInfo = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
   const { data: userHr = [] } = useQuery({
-    queryKey: ["hrInfo"],
+    queryKey: ["hrInfo",user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/adminInfo/${user?.email}`);
       return res.data;

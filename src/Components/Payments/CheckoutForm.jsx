@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 
@@ -12,7 +12,7 @@ const CheckOutForm = ({ userInfo }) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
 
   useEffect(() => {
     if (userInfo?.price > 0) {
@@ -86,7 +86,7 @@ const CheckOutForm = ({ userInfo }) => {
         await createUser(userInfo?.email, userInfo?.password);
 
         // Update Firebase user profile
-        await updateUserProfile(userInfo?.name, userInfo?.companyLogo);
+        await updateUserProfile(userInfo?.name, userInfo?.photo);
 
         // Create user in the database
         const res = await axiosPublic.post("/users", updatedUserInfo);
@@ -113,7 +113,8 @@ const CheckOutForm = ({ userInfo }) => {
               `,
             },
           });
-          setError(""); // Clear any error messages
+          setError("");
+          logOut();
           navigate("/");
         }
       }
