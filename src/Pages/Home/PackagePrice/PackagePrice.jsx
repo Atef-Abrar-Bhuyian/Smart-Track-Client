@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "flowbite-react";
 import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
+import { Link } from "react-router-dom";
 
 const PackagePrice = () => {
   return (
@@ -132,12 +133,14 @@ const PackagePrice = () => {
                 </span>
               </li>
             </ul>
-            <button
-              type="button"
-              className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
-            >
-              Get Started
-            </button>
+            <Link to={"/increaseLimit"}>
+              <button
+                type="button"
+                className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
+              >
+                Get Started
+              </button>
+            </Link>
           </Card>
         </div>
 
@@ -259,12 +262,14 @@ const PackagePrice = () => {
                 </span>
               </li>
             </ul>
-            <button
-              type="button"
-              className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
-            >
-              Get Started
-            </button>
+            <Link to={"/increaseLimit"}>
+              <button
+                type="button"
+                className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
+              >
+                Get Started
+              </button>
+            </Link>
           </Card>
         </div>
 
@@ -385,12 +390,14 @@ const PackagePrice = () => {
                 </span>
               </li>
             </ul>
-            <button
-              type="button"
-              className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
-            >
-              Get Started
-            </button>
+            <Link to={"/increaseLimit"}>
+              <button
+                type="button"
+                className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
+              >
+                Get Started
+              </button>
+            </Link>
           </Card>
         </div>
       </div>

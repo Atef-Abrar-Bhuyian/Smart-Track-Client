@@ -32,7 +32,7 @@ const IncreaseLimit = () => {
   return (
     <div className="w-11/12 mx-auto">
       <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center">
-        <div className="md:w-2/4 mx-auto">
+        <div className="md:w-2/4 mx-auto mt-4">
           <h1 className="text-xl font-bold text-center mb-4">
             Kindly Pay to Increase Your Limit
           </h1>
