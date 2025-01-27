@@ -72,7 +72,6 @@ const MyEmployeeList = () => {
           <Table.Body key={idx} className="divide-y">
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="p-4">
-                <Checkbox />
               </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 <Avatar className="w-fit" img={employee?.employeePhoto} />

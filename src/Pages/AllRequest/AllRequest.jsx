@@ -60,7 +60,6 @@ const AllRequest = () => {
                 timer: 1500,
                 color: "#fff",
                 background: "#003333",
-                color: "#fff",
                 confirmButtonColor: "#001919",
               });
               refetch();
