@@ -14,6 +14,7 @@ import ContactYourHr from "../ContactYourHr/ContactYourHr";
 import PendingRequestsForHr from "../PendingRequestsForHr/PendingRequestsForHr";
 import TopRequestedItems from "../TopRequestedItems/TopRequestedItems";
 import LimitedStockItems from "../LimitedStockItems/LimitedStockItems";
+import RequestedItemsOverview from "../RequestedItemsOverview/RequestedItemsOverview";
 
 const Home = () => {
   const { user } = useAuth();
@@ -27,14 +28,25 @@ const Home = () => {
       <WhoWeAre></WhoWeAre>
       {!user && <PackagePrice></PackagePrice>}
       {isAdmin && <PackagePrice></PackagePrice>}
-      {cUser?.team === "in-a-team" && !isAdmin && <EmployeePendingRequests></EmployeePendingRequests>}
-      {cUser?.team === "in-a-team" && !isAdmin && <EmployeeRequestOfOneMonth></EmployeeRequestOfOneMonth>}
-      {cUser?.team === "in-a-team" && !isAdmin && <CalanderSection></CalanderSection>}
-      {cUser?.team === "in-a-team" && !isAdmin && <UpcommingEvents></UpcommingEvents>}
-      {cUser?.team === "not-in-team" && !isAdmin && <ContactYourHr></ContactYourHr>}
+      {cUser?.team === "in-a-team" && !isAdmin && (
+        <EmployeePendingRequests></EmployeePendingRequests>
+      )}
+      {cUser?.team === "in-a-team" && !isAdmin && (
+        <EmployeeRequestOfOneMonth></EmployeeRequestOfOneMonth>
+      )}
+      {cUser?.team === "in-a-team" && !isAdmin && (
+        <CalanderSection></CalanderSection>
+      )}
+      {cUser?.team === "in-a-team" && !isAdmin && (
+        <UpcommingEvents></UpcommingEvents>
+      )}
+      {cUser?.team === "not-in-team" && !isAdmin && (
+        <ContactYourHr></ContactYourHr>
+      )}
       {isAdmin && <PendingRequestsForHr></PendingRequestsForHr>}
       {isAdmin && <TopRequestedItems></TopRequestedItems>}
       {isAdmin && <LimitedStockItems></LimitedStockItems>}
+      {isAdmin && <RequestedItemsOverview></RequestedItemsOverview>}
     </div>
   );
 };
