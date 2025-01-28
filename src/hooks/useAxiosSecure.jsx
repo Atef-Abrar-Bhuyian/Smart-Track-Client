@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useEffect, useState } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://smarttrackserver.vercel.app",
 });
 
 const useAxiosSecure = () => {
