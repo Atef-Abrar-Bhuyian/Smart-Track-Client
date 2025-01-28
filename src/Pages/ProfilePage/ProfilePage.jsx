@@ -74,14 +74,16 @@ const ProfilePage = () => {
       <div className="relative">
         <div className="bg-blue-100 w-full h-36 my-10"></div>
         <div className="bg-white h-48 w-4/6 mx-auto rounded-2xl border border-cyan-700 absolute left-1/2 transform -translate-x-1/2 top-[90%] -translate-y-1/2 flex gap-3 p-10 flex-col">
+          <div>
           <img
             src={cUser?.photo}
             alt=""
             className="h-20 w-20 rounded-xl mx-auto"
           />
-          <div className="space-y-2 md:space-y-4 text-center">
+          <div className="text-center flex items-center justify-center flex-col">
             <h1 className="text-xl font-bold">{cUser?.name}</h1>
             <p>{cUser?.email}</p>
+          </div>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -98,7 +100,7 @@ const ProfilePage = () => {
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="New Name"
+              placeholder="New Name"c
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               className="w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-cyan-500"
