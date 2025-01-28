@@ -72,6 +72,21 @@ const AssetsRequest = () => {
       });
   };
 
+
+  const handleSort = async (value) => {
+    if (value === "null") return;
+    try {
+      const response = await axiosSecure.get(`/requestAssetsFilter/${user?.email}`, {
+        params: { filterType: value },
+      });
+  
+      setSearchItems(response.data);
+      console.log(response.data); 
+    } catch (error) {
+      console.error("Error fetching filtered assets:", error);
+    }
+  };
+
   return (
     <div className="w-11/12 mx-auto my-10">
       <ReactHelmet title={"Asset Requests"}></ReactHelmet>
@@ -92,8 +107,8 @@ const AssetsRequest = () => {
             <option value="null" disabled>
               Filter
             </option>
-            <option value="Pending">Pending Requests</option>
-            <option value="Approved">Approved Requests</option>
+            <option value="available">Available</option>
+            <option value="outOfStock">Out of Stock</option>
             <option value="Returnable">Returnable</option>
             <option value="Non-Returnable">Non-Returnable</option>
           </Select>
