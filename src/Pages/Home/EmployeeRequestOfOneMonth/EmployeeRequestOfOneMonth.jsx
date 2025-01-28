@@ -22,7 +22,8 @@ const EmployeeRequestOfOneMonth = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="bg-gray-100 p-4 my-10">
+      <div className="w-11/12 mx-auto">
       <div>
         <h1 className="text-3xl md:text-4xl text-center font-bold my-14">
           My Monthly Requests{" "}
@@ -60,6 +61,7 @@ const EmployeeRequestOfOneMonth = () => {
         ) : (
           <p>No pending requests found.</p>
         )}
+      </div>
       </div>
     </div>
   );

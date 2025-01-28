@@ -67,7 +67,8 @@ const RequestedItemsOverview = () => {
   console.log("Pie Chart Data:", pieChartData);
 
   return (
-    <div className="w-11/12 mx-auto my-10">
+    <div className="my-10 bg-gray-100 p-4">
+      <div className="w-11/12 mx-auto">
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Requested Items Overview
@@ -111,6 +112,7 @@ const RequestedItemsOverview = () => {
         ) : (
           <p className="text-center">No data available</p>
         )}
+      </div>
       </div>
     </div>
   );

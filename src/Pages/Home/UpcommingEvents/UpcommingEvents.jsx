@@ -15,7 +15,8 @@ const events = [
 
 const UpcommingEvents = () => {
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="bg-gray-100 p-4 my-10">
+      <div className="w-11/12 mx-auto">
       <h2 className="text-2xl md:text-4xl text-center font-bold my-10">Upcoming Events</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {events.map((event, index) => (
@@ -27,6 +28,7 @@ const UpcommingEvents = () => {
           <p>{event.description}</p>
         </Card>
       ))}
+      </div>
       </div>
     </div>
   );

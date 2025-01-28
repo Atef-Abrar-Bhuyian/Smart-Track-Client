@@ -22,7 +22,8 @@ const PendingRequestsForHr = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="w-11/12 mx-auto my-10">
+    <div className="bg-gray-100 p-4">
+      <div className="w-11/12 mx-auto my-10">
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Pending Requests
@@ -60,6 +61,7 @@ const PendingRequestsForHr = () => {
             </h1>{" "}
           </>
         )}
+      </div>
       </div>
     </div>
   );
