@@ -5,6 +5,7 @@ import { data } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Avatar, Checkbox, Table } from "flowbite-react";
 import Swal from "sweetalert2";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const MyEmployeeList = () => {
   const { user } = useContext(AuthContext);
@@ -55,6 +56,7 @@ const MyEmployeeList = () => {
   };
   return (
     <div className="my-10 w-11/12 mx-auto">
+      <ReactHelmet title={"My Employees"}></ReactHelmet>
       <div>
         <h1 className="text-xl font-bold text-center my-10">Team Members</h1>
         <p className="font-bold my-4">Total Members: {allEmployeesInTeam.length}</p>

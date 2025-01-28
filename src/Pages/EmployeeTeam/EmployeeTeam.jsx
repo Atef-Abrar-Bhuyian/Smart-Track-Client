@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Table } from "flowbite-react";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const EmployeeTeam = () => {
   const { user, loading } = useAuth();
@@ -19,7 +20,7 @@ const EmployeeTeam = () => {
 
   return (
     <div className="md:w-6/12 mx-auto my-10">
-      
+      <ReactHelmet title={"My Team"}></ReactHelmet>
       {employees.length === 0 ? (
         <h1 className="text-xl text-center font-bold">No Team Memeber Found</h1>
       ) : ( <>

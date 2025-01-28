@@ -6,6 +6,7 @@ import Lottie from "lottie-react";
 import userHrInfo from "../../hooks/userHrInfo";
 import IncreaseLimitForm from "../../Components/Payments/IncreaseLimitForm";
 import { Label, Select } from "flowbite-react";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 // Load Stripe publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
@@ -31,6 +32,7 @@ const IncreaseLimit = () => {
 
   return (
     <div className="w-11/12 mx-auto">
+      <ReactHelmet title={"Increase Limit"}></ReactHelmet>
       <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center">
         <div className="md:w-2/4 mx-auto mt-4">
           <h1 className="text-xl font-bold text-center mb-4">

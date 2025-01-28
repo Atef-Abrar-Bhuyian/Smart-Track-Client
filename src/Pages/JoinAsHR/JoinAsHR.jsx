@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import JoinAsHRLottie from "../../assets/lottieReact/joinAsHRLottie.json";
 import { useNavigate } from "react-router-dom";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 
 const JoinAsHR = () => {
@@ -78,6 +79,7 @@ const JoinAsHR = () => {
 
   return (
     <div className="my-20 w-4/5 mx-auto">
+      <ReactHelmet title={"Join As HR"}></ReactHelmet>
       <div className="lg:flex justify-evenly gap-6">
         {/* Left Side: Animation and Heading */}
         <div className="flex-1 flex flex-col items-center justify-center mb-6">

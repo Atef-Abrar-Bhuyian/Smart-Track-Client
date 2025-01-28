@@ -6,6 +6,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import userHrInfo from "../../hooks/userHrInfo";
 import { Link } from "react-router-dom";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const AddEmployee = () => {
   const { user } = useContext(AuthContext);
@@ -134,6 +135,7 @@ const AddEmployee = () => {
 
   return (
     <div className="w-11/12 mx-auto my-10">
+      <ReactHelmet title={"Add Employee"}></ReactHelmet>
       <div className="flex justify-between items-center my-6">
         <h1 className="text-xl font-bold">
           Total Employee: {employees?.length}

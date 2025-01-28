@@ -74,7 +74,7 @@ const AddAsset = () => {
 
   return (
     <div>
-      <ReactHelmet title={"Add List"}></ReactHelmet>
+      <ReactHelmet title={"Add Asset"}></ReactHelmet>
       <ToastContainer />
       <div className="my-20 w-4/5 mx-auto">
         <div className="lg:flex justify-evenly gap-6">

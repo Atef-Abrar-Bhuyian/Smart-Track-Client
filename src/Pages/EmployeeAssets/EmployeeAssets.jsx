@@ -8,6 +8,7 @@ import { GiCancel } from "react-icons/gi";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDocument from "../../Components/PdfDocument/PdfDocument";
 import Swal from "sweetalert2";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
@@ -106,6 +107,7 @@ const EmployeeAssets = () => {
 
   return (
     <div className="w-11/12 mx-auto my-10">
+      <ReactHelmet title={"My Assets"}></ReactHelmet>
       <div>
         <h1 className="text-xl font-bold text-center my-10">My Assets</h1>
       </div>

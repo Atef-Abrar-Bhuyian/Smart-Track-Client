@@ -5,6 +5,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const AllRequest = () => {
   const { user } = useAuth();
@@ -71,6 +72,7 @@ const AllRequest = () => {
 
   return (
     <div>
+      <ReactHelmet title={"All Requests"}></ReactHelmet>
       <h1 className="text-xl font-bold my-10 text-center">All Requests</h1>
 
       <div className="overflow-x-auto w-11/12 mx-auto">

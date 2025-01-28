@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Button, Label, Modal, Table, Textarea } from "flowbite-react";
 import Swal from "sweetalert2";
+import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 
 const AssetsRequest = () => {
   const { user, loading } = useAuth();
@@ -51,6 +52,7 @@ const AssetsRequest = () => {
 
   return (
     <div className="w-11/12 mx-auto my-10">
+      <ReactHelmet title={"Asset Requests"}></ReactHelmet>
       <div className="overflow-x-auto">
         {hrAssets.length > 0 ? (
           <Table striped>

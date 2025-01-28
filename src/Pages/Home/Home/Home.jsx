@@ -15,6 +15,7 @@ import PendingRequestsForHr from "../PendingRequestsForHr/PendingRequestsForHr";
 import TopRequestedItems from "../TopRequestedItems/TopRequestedItems";
 import LimitedStockItems from "../LimitedStockItems/LimitedStockItems";
 import RequestedItemsOverview from "../RequestedItemsOverview/RequestedItemsOverview";
+import HrCalendar from "../HrCalendar/HrCalendar";
 
 const Home = () => {
   const { user } = useAuth();
@@ -47,6 +48,7 @@ const Home = () => {
       {isAdmin && <TopRequestedItems></TopRequestedItems>}
       {isAdmin && <LimitedStockItems></LimitedStockItems>}
       {isAdmin && <RequestedItemsOverview></RequestedItemsOverview>}
+      {isAdmin && <HrCalendar></HrCalendar>}
     </div>
   );
 };
