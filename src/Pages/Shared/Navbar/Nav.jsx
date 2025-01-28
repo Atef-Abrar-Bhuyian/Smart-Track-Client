@@ -18,7 +18,6 @@ const Nav = () => {
   const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
   const [cUser, setCUser] = useState({});
-  console.log(cUser);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -267,7 +266,6 @@ const Nav = () => {
         className="bg-cyan-300 text-black bg-opacity-40 rounded-2xl mt-4"
       >
         <Navbar.Brand>
-          <img src="" className="mr-3 h-6 sm:h-9" alt="" />
           {user && isAdmin ? (
             <img
               className="w-16 h-16 rounded-full"
