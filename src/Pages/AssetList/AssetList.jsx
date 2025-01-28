@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, FloatingLabel, Modal, Select, Table } from "flowbite-react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
@@ -12,10 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 const AssetList = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
-  // State for modal and current asset
   const [openModal, setOpenModal] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(null);
+  const [searchItems, setSearchItems] = useState();
 
   const { data: assets = [], refetch } = useQuery({
     queryKey: ["myTeam"],
@@ -81,10 +80,24 @@ const AssetList = () => {
             color: "#fff",
             confirmButtonColor: "#001919",
           });
-          refetch(); 
-          setOpenModal(false); 
+          refetch();
+          setOpenModal(false);
         }
+      });
+  };
+
+  const handleSearch = (productName) => {
+    const email = user?.email;
+    axiosSecure
+      .get(`/searchAssetHr/${email}?productName=${productName}`)
+      .then((res) => {
+        setSearchItems(res.data);
+        console.log(res.data);
+        refetch();
       })
+      .catch((error) => {
+        console.error("Error searching assets:", error);
+      });
   };
 
   return (
@@ -93,7 +106,30 @@ const AssetList = () => {
       <div className="my-6">
         <h1 className="text-center font-bold text-4xl">Asset List</h1>
       </div>
-
+      <div className="md:flex justify-between my-6">
+        <div className="mb-4">
+          <FloatingLabel
+            onChange={(e) => handleSearch(e.target.value)}
+            variant="outlined"
+            label="Search By Product Name"
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => handleSort(e.target.value)}
+            defaultValue={"null"}
+            required
+          >
+            <option value="null" disabled>
+              Filter
+            </option>
+            <option value="available">Available</option>
+            <option value="outOfStock">Out of Stock</option>
+            <option value="Returnable">Returnable</option>
+            <option value="Non-Returnable">Non-Returnable</option>
+          </Select>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <Table>
           <Table.Head>
@@ -104,33 +140,67 @@ const AssetList = () => {
             <Table.HeadCell>Action</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {assets.map((asset) => (
-              <Table.Row
-                key={asset._id}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
-              >
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {asset?.productName}
-                </Table.Cell>
-                <Table.Cell>{asset?.productType}</Table.Cell>
-                <Table.Cell>{asset?.quantity}</Table.Cell>
-                <Table.Cell>
-                  {asset?.assetAddedDate
-                    ? format(new Date(asset?.assetAddedDate), "PPP")
-                    : "Date not available"}
-                </Table.Cell>
-                <Table.Cell>
-                  <div className="flex gap-3">
-                    <button onClick={() => handleModifyAsset(asset)}>
-                      <FiEdit className="text-xl text-cyan-700" />
-                    </button>
-                    <button onClick={() => handleDeleteAsset(asset?._id)}>
-                      <RiDeleteBin6Line className="text-xl text-red-700" />
-                    </button>
-                  </div>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {searchItems?.length > 0 ? (
+              <>
+                {searchItems?.map((asset) => (
+                  <Table.Row
+                    key={asset._id}
+                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                      {asset?.productName}
+                    </Table.Cell>
+                    <Table.Cell>{asset?.productType}</Table.Cell>
+                    <Table.Cell>{asset?.quantity}</Table.Cell>
+                    <Table.Cell>
+                      {asset?.assetAddedDate
+                        ? format(new Date(asset?.assetAddedDate), "PPP")
+                        : "Date not available"}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div className="flex gap-3">
+                        <button onClick={() => handleModifyAsset(asset)}>
+                          <FiEdit className="text-xl text-cyan-700" />
+                        </button>
+                        <button onClick={() => handleDeleteAsset(asset?._id)}>
+                          <RiDeleteBin6Line className="text-xl text-red-700" />
+                        </button>
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </>
+            ) : (
+              <>
+                {assets.map((asset) => (
+                  <Table.Row
+                    key={asset._id}
+                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                      {asset?.productName}
+                    </Table.Cell>
+                    <Table.Cell>{asset?.productType}</Table.Cell>
+                    <Table.Cell>{asset?.quantity}</Table.Cell>
+                    <Table.Cell>
+                      {asset?.assetAddedDate
+                        ? format(new Date(asset?.assetAddedDate), "PPP")
+                        : "Date not available"}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div className="flex gap-3">
+                        <button onClick={() => handleModifyAsset(asset)}>
+                          <FiEdit className="text-xl text-cyan-700" />
+                        </button>
+                        <button onClick={() => handleDeleteAsset(asset?._id)}>
+                          <RiDeleteBin6Line className="text-xl text-red-700" />
+                        </button>
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </>
+            )}
           </Table.Body>
         </Table>
       </div>
