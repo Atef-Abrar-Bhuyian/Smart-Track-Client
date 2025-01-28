@@ -9,6 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDocument from "../../Components/PdfDocument/PdfDocument";
 import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import { Fade } from "react-awesome-reveal";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
@@ -134,11 +135,13 @@ const EmployeeAssets = () => {
   return (
     <div className="w-11/12 mx-auto my-10">
       <ReactHelmet title={"My Assets"} />
+      <Fade>
       <div>
         <h1 className="text-xl font-bold text-center my-10">
           My Requested Assets
         </h1>
       </div>
+      </Fade>
 
       <div className="md:flex justify-between my-6">
         <div className="mb-4">

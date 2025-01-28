@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+import { Fade } from "react-awesome-reveal";
 
 const JoinAsEmployee = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -92,9 +93,11 @@ const JoinAsEmployee = () => {
       <ReactHelmet title={"Join As Employee"}></ReactHelmet>
       <div className="md:flex justify-evenly gap-6">
         <div className="flex-1 flex flex-col items-center justify-center mb-6">
+          <Fade>
           <h1 className="text-center text-xl font-bold">
             Join us and take the first step toward a rewarding career.
           </h1>
+          </Fade>
           <Lottie
             animationData={joinAsEmployeeLottie}
             className="w-3/4"

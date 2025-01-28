@@ -7,6 +7,7 @@ import userHrInfo from "../../hooks/userHrInfo";
 import IncreaseLimitForm from "../../Components/Payments/IncreaseLimitForm";
 import { Label, Select } from "flowbite-react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import { Fade } from "react-awesome-reveal";
 
 // Load Stripe publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
@@ -35,9 +36,11 @@ const IncreaseLimit = () => {
       <ReactHelmet title={"Increase Limit"}></ReactHelmet>
       <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center">
         <div className="md:w-2/4 mx-auto mt-4">
-          <h1 className="text-xl font-bold text-center mb-4">
+         <Fade>
+         <h1 className="text-xl font-bold text-center mb-4">
             Kindly Pay to Increase Your Limit
           </h1>
+         </Fade>
           <p className="text-center mb-12">
             Current Selected Package Is: {hrInfo[0]?.selectedPackage}
           </p>

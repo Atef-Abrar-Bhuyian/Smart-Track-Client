@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
+import { Fade } from "react-awesome-reveal";
 
 const LimitedStockItems = () => {
   const { user } = useAuth();
@@ -24,9 +25,11 @@ const LimitedStockItems = () => {
   return (
     <div className="w-11/12 mx-auto my-10">
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
+       <Fade>
+       <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Limited Stock Items
         </h1>
+       </Fade>
       </div>
 
       <div>

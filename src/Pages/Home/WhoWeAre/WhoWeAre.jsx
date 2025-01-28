@@ -1,17 +1,20 @@
 import React from "react";
 import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
 import { Card } from "flowbite-react";
+import { Fade } from "react-awesome-reveal";
 
 const WhoWeAre = () => {
   return (
     <div className="mt-32 w-4/5 mx-auto">
       {/* About Section */}
-      <HeadingWithDes
-        heading={"Who We Are"}
-        description={
-          "We offer solutions that make your work easier, boost productivity, and keep things running smoothly and organized."
-        }
-      ></HeadingWithDes>
+      <Fade>
+        <HeadingWithDes
+          heading={"Who We Are"}
+          description={
+            "We offer solutions that make your work easier, boost productivity, and keep things running smoothly and organized."
+          }
+        ></HeadingWithDes>
+      </Fade>
 
       {/* Grid section */}
       <div className="mt-6 lg:grid grid-cols-12 gap-6">

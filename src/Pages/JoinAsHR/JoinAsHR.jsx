@@ -83,9 +83,7 @@ const JoinAsHR = () => {
       <div className="lg:flex justify-evenly gap-6">
         {/* Left Side: Animation and Heading */}
         <div className="flex-1 flex flex-col items-center justify-center mb-6">
-          <h1 className="text-center text-xl font-bold">
-            Lead the way in building a smarter, stronger team.
-          </h1>
+          
           <Lottie animationData={JoinAsHRLottie} className="w-3/4"></Lottie>
         </div>
 

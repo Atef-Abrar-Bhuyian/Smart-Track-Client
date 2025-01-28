@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Fade } from "react-awesome-reveal";
 
 const RequestedItemsOverview = () => {
   const COLORS = ["#0088FE", "#00C49F"];
@@ -68,9 +69,11 @@ const RequestedItemsOverview = () => {
     <div className="my-10 bg-gray-100 p-4">
       <div className="w-11/12 mx-auto">
       <div>
+        <Fade>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Requested Items Overview
         </h1>
+        </Fade>
       </div>
 
       <div>

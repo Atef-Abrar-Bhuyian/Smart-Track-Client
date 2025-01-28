@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import { Fade } from "react-awesome-reveal";
 
 const AllRequest = () => {
   const { user } = useAuth();
@@ -87,7 +88,9 @@ const AllRequest = () => {
   return (
     <div>
       <ReactHelmet title={"All Requests"}></ReactHelmet>
+      <Fade>
       <h1 className="text-xl font-bold my-10 text-center">All Requests</h1>
+      </Fade>
 
       <div className="mb-4 w-11/12 mx-auto">
         <div className="md:w-3/12">

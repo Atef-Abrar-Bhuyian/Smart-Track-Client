@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import userHrInfo from "../../hooks/userHrInfo";
 import { Link } from "react-router-dom";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import { Fade } from "react-awesome-reveal";
 
 const AddEmployee = () => {
   const { user } = useContext(AuthContext);
@@ -137,9 +138,11 @@ const AddEmployee = () => {
     <div className="w-11/12 mx-auto my-10">
       <ReactHelmet title={"Add Employee"}></ReactHelmet>
       <div className="flex justify-between items-center my-6">
+        <Fade>
         <h1 className="text-xl font-bold">
           Total Employee: {employees?.length}
         </h1>
+        </Fade>
         <div>
           <Popover
             aria-labelledby="profile-popover"

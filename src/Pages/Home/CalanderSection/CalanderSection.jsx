@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Fade } from "react-awesome-reveal";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -8,9 +9,11 @@ const CalanderSection = () => {
   return (
     <div className="my-10 w-11/12 mx-auto">
       <div>
+        <Fade>
         <h2 className="text-3xl md:text-4xl text-center font-bold mb-5">
           Track Your Schedule
         </h2>
+        </Fade>
       </div>
       <div className="md:flex justify-between">
         <div className="flex items-center justify-center md:w-11/12">

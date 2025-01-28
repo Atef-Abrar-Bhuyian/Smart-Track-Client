@@ -2,17 +2,20 @@ import React from "react";
 import { Card } from "flowbite-react";
 import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
 import { Link } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
 
 const PackagePrice = () => {
   return (
     <div className="w-4/5 mx-auto mt-20">
       <div className="mb-8">
-        <HeadingWithDes
-          heading={"Pick the Right Plan"}
-          description={
-            "Explore our flexible packages designed to fit your team size and budget. Choose the plan that works best for you!"
-          }
-        ></HeadingWithDes>
+        <Fade>
+          <HeadingWithDes
+            heading={"Pick the Right Plan"}
+            description={
+              "Explore our flexible packages designed to fit your team size and budget. Choose the plan that works best for you!"
+            }
+          ></HeadingWithDes>
+        </Fade>
       </div>
       <div className="lg:flex gap-6 w-full justify-between">
         <div className="mb-10">

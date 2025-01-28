@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Card } from "flowbite-react";
+import { Fade } from "react-awesome-reveal";
 
 const TopRequestedItems = () => {
   const { user } = useAuth();
@@ -22,9 +23,11 @@ const TopRequestedItems = () => {
   return (
     <div className="w-11/12 mx-auto my-10">
       <div>
+        <Fade>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Top Most Requested Items
         </h1>
+        </Fade>
       </div>
 
       <div>

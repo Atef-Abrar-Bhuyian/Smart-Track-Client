@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
+import { Fade } from "react-awesome-reveal";
 
 const PendingRequestsForHr = () => {
   const { user } = useAuth();
@@ -25,9 +26,11 @@ const PendingRequestsForHr = () => {
     <div className="bg-gray-100 p-4">
       <div className="w-11/12 mx-auto my-10">
       <div>
+        <Fade>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
           Pending Requests
         </h1>
+        </Fade>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

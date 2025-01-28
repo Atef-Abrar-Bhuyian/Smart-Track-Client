@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import Typewriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import { Fade } from "react-awesome-reveal";
 
 const AddAsset = () => {
   const { user } = useAuth();
@@ -88,9 +89,11 @@ const AddAsset = () => {
                 }}
               />
             </h1>
+            <Fade>
             <p className="font-medium">
               Add a new asset to the system with ease and efficiency.
             </p>
+            </Fade>
           </div>
           <div className="flex-1">
             <Card className="">

@@ -8,6 +8,7 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import { Fade } from "react-awesome-reveal";
 
 const AssetList = () => {
   const { user } = useAuth();
@@ -132,9 +133,11 @@ const AssetList = () => {
   return (
     <div className="w-11/12 mx-auto my-10">
       <ReactHelmet title={"Asset List"}></ReactHelmet>
-      <div className="my-6">
-        <h1 className="text-center font-bold text-4xl">Asset List</h1>
-      </div>
+      <Fade>
+        <div className="my-6">
+          <h1 className="text-center font-bold text-4xl">Asset List</h1>
+        </div>
+      </Fade>
       <div className="md:flex justify-between my-6">
         <div className="mb-4">
           <FloatingLabel

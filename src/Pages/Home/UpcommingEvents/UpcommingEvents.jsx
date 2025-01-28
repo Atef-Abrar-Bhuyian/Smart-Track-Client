@@ -1,4 +1,5 @@
 import { Card } from "flowbite-react";
+import { Fade } from "react-awesome-reveal";
 
 const events = [
   {
@@ -17,7 +18,7 @@ const UpcommingEvents = () => {
   return (
     <div className="bg-gray-100 p-4 my-10">
       <div className="w-11/12 mx-auto">
-      <h2 className="text-2xl md:text-4xl text-center font-bold my-10">Upcoming Events</h2>
+      <Fade><h2 className="text-2xl md:text-4xl text-center font-bold my-10">Upcoming Events</h2></Fade>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {events.map((event, index) => (
         <Card key={index} className="max-w-sm mb-6">
