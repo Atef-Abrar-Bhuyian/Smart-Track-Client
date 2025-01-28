@@ -92,26 +92,40 @@ const AssetList = () => {
       .get(`/searchAssetHr/${email}?productName=${productName}`)
       .then((res) => {
         setSearchItems(res.data);
-        console.log(res.data);
         refetch();
       })
       .catch((error) => {
-        console.error("Error searching assets:", error);
+        // console.error("Error searching assets:", error);
       });
   };
 
-
-  const handleSort = async (value) => {
+  //
+  const handleFilter = async (value) => {
     if (value === "null") return;
     try {
-      const response = await axiosSecure.get(`/requestAssetsFilter/${user?.email}`, {
-        params: { filterType: value },
-      });
-  
+      const response = await axiosSecure.get(
+        `/requestAssetsFilter/${user?.email}`,
+        {
+          params: { filterType: value },
+        }
+      );
+
       setSearchItems(response.data);
-      console.log(response.data); 
     } catch (error) {
-      console.error("Error fetching filtered assets:", error);
+      // console.error("Error fetching filtered assets:", error);
+    }
+  };
+
+  // Sort Item By Quantity
+  const handleSort = async (sortOrder) => {
+    try {
+      const response = await axiosSecure.get(`/assetListSort/${user?.email}`, {
+        params: { filterType: sortOrder }, // Ensure parameter name matches backend
+      });
+
+      setSearchItems(response.data);
+    } catch (error) {
+      console.error("Error fetching sorted assets:", error);
     }
   };
 
@@ -129,9 +143,9 @@ const AssetList = () => {
             label="Search By Product Name"
           />
         </div>
-        <div>
+        <div className="flex gap-4">
           <Select
-            onChange={(e) => handleSort(e.target.value)}
+            onChange={(e) => handleFilter(e.target.value)}
             defaultValue={"null"}
             required
           >
@@ -142,6 +156,17 @@ const AssetList = () => {
             <option value="outOfStock">Out of Stock</option>
             <option value="Returnable">Returnable</option>
             <option value="Non-Returnable">Non-Returnable</option>
+          </Select>
+          <Select
+            onChange={(e) => handleSort(e.target.value)}
+            defaultValue={"null"}
+            required
+          >
+            <option value="null" disabled>
+              Sort By Quantity
+            </option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
           </Select>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {
@@ -13,6 +13,7 @@ import {
 } from "flowbite-react";
 import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const AssetsRequest = () => {
   const { user, loading } = useAuth();
@@ -20,10 +21,24 @@ const AssetsRequest = () => {
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [message, setMessage] = useState("");
   const [searchItems, setSearchItems] = useState();
-
+  const [cUser, setCUser] = useState({});
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
-  const { data: hrAssets = [],refetch } = useQuery({
+  useEffect(() => {
+    if (user?.email) {
+      axiosPublic
+        .get(`/users/${user.email}`)
+        .then((res) => {
+          setCUser(res.data);
+        })
+        .catch((err) => {
+          // console.error("Error fetching user data:", err);
+        });
+    }
+  }, [user, axiosPublic]);
+
+  const { data: hrAssets = [], refetch } = useQuery({
     queryKey: ["hrAssets", user?.email],
     enabled: !loading,
     queryFn: async () => {
@@ -35,7 +50,7 @@ const AssetsRequest = () => {
   const handleRequest = async (id) => {
     const requestInfo = {
       userEmail: user?.email,
-      userName: user?.name,
+      userName: cUser?.name,
       assetsId: id,
       message: message,
       status: "Pending",
@@ -68,22 +83,22 @@ const AssetsRequest = () => {
         refetch();
       })
       .catch((error) => {
-        console.error("Error searching assets:", error);
+        // console.error("Error searching assets:", error);
       });
   };
-
 
   const handleSort = async (value) => {
     if (value === "null") return;
     try {
-      const response = await axiosSecure.get(`/requestAssetsFilter/${user?.email}`, {
-        params: { filterType: value },
-      });
-  
+      const response = await axiosSecure.get(
+        `/requestAssetsFilter/${user?.email}`,
+        {
+          params: { filterType: value },
+        }
+      );
       setSearchItems(response.data);
-      console.log(response.data); 
     } catch (error) {
-      console.error("Error fetching filtered assets:", error);
+      // console.error("Error fetching filtered assets:", error);
     }
   };
 
