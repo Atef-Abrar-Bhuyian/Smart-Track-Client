@@ -68,7 +68,7 @@ const SharedFooter = () => {
         </div>
         <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright by="SmartTrack" year={2022} />
+          <Footer.Copyright by="SmartTrack" year={2025} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon icon={BsFacebook} />
             <Footer.Icon icon={BsInstagram} />
