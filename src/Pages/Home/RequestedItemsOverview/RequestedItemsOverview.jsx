@@ -20,15 +20,15 @@ const RequestedItemsOverview = () => {
     axiosSecure
       .get(`/itemRequestStats/${user?.email}`)
       .then((res) => {
-        console.log("API Response:", res.data);
+        // console.log("API Response:", res.data);
         if (res.data) {
           setItems(res.data);
         } else {
-          console.log("No data received from API");
+          // console.log("No data received from API");
         }
       })
       .catch((error) => {
-        console.error("Error fetching requested items data:", error.message);
+        // console.error("Error fetching requested items data:", error.message);
       });
   }, [user, axiosSecure]);
 
@@ -63,8 +63,6 @@ const RequestedItemsOverview = () => {
     name: data?.productType,
     value: data?.percentage,
   }));
-
-  console.log("Pie Chart Data:", pieChartData);
 
   return (
     <div className="my-10 bg-gray-100 p-4">

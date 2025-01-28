@@ -18,6 +18,7 @@ const Nav = () => {
   const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
   const [cUser, setCUser] = useState({});
+  console.log(cUser);
   const navigate = useNavigate();
 
   useEffect(() => {
