@@ -22,10 +22,10 @@ const CheckOutForm = ({ userInfo }) => {
         })
         .then((res) => {
           setClientSecret(res.data.clientSecret);
-          console.log("Client Secret:", res.data.clientSecret);
+          // console.log("Client Secret:", res.data.clientSecret);
         })
         .catch((err) => {
-          console.error("Error creating payment intent:", err);
+          // console.error("Error creating payment intent:", err);
           setError("Failed to create payment intent. Please try again.");
         });
     }
@@ -50,7 +50,7 @@ const CheckOutForm = ({ userInfo }) => {
     });
 
     if (error) {
-      console.log("Payment Error: ", error);
+      // console.log("Payment Error: ", error);
       setError(error.message);
       return;
     }
@@ -72,10 +72,10 @@ const CheckOutForm = ({ userInfo }) => {
       });
 
     if (confirmError) {
-      console.log("Confirm error:", confirmError);
+      // console.log("Confirm error:", confirmError);
       setError(confirmError.message);
     } else {
-      console.log("Payment intent:", paymentIntent);
+      // console.log("Payment intent:", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         const updatedUserInfo = {
           ...userInfo,

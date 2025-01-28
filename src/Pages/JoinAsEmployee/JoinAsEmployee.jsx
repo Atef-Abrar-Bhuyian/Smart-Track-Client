@@ -82,7 +82,7 @@ const JoinAsEmployee = () => {
           });
         })
         .catch((err) => {
-          console.log("Error Here", err);
+          // console.log("Error Here", err);
         });
     });
   };

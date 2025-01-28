@@ -25,7 +25,7 @@ const ProfilePage = () => {
           setCUser(res.data);
         })
         .catch((err) => {
-          console.error("Error fetching user data:", err);
+          // console.error("Error fetching user data:", err);
         });
     }
   }, [user, axiosPublic]);
@@ -63,7 +63,7 @@ const ProfilePage = () => {
           });
       })
       .catch((err) => {
-        console.error("Error updating profile in Firebase:", err);
+        // console.error("Error updating profile in Firebase:", err);
       });
   };
   

@@ -15,7 +15,7 @@ const TopRequestedItems = () => {
         setItems(res.data);
       })
       .catch((error) => {
-        console.error("Error fetching pending requests:", error.message);
+        // console.error("Error fetching pending requests:", error.message);
       });
   }, [user, axiosSecure]);
 

@@ -28,7 +28,7 @@ const Nav = () => {
           setCUser(res.data);
         })
         .catch((err) => {
-          console.error("Error fetching user data:", err);
+          // console.error("Error fetching user data:", err);
         });
     }
   }, [user, axiosPublic]);
@@ -60,7 +60,7 @@ const Nav = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

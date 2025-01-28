@@ -33,7 +33,7 @@ const EmployeeAssets = () => {
         refetch();
       })
       .catch((error) => {
-        console.error("Error searching assets:", error);
+        // console.error("Error searching assets:", error);
       });
   };
 
@@ -45,9 +45,9 @@ const EmployeeAssets = () => {
       });
   
       setSearchItems(response.data);
-      console.log(response.data); 
+      // console.log(response.data); 
     } catch (error) {
-      console.error("Error fetching filtered assets:", error);
+      // console.error("Error fetching filtered assets:", error);
     }
   };
 

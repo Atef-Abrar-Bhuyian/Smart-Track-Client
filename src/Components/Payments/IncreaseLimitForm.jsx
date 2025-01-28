@@ -22,7 +22,7 @@ const IncreaseLimitForm = ({ selectedPackage, price }) => {
           setClientSecret(res.data.clientSecret);
         })
         .catch((err) => {
-          console.error("Error creating payment intent:", err);
+          // console.error("Error creating payment intent:", err);
           setError("Failed to create payment intent. Please try again.");
         });
     }
@@ -107,7 +107,7 @@ const IncreaseLimitForm = ({ selectedPackage, price }) => {
             navigate("/");
           }
         } catch (err) {
-          console.error("Error updating user information:", err);
+          // console.error("Error updating user information:", err);
           setError("Failed to update user information. Please try again.");
         }
       }

@@ -29,7 +29,7 @@ const AllRequest = () => {
         refetch();
       })
       .catch((error) => {
-        console.error("Error searching assets:", error);
+        // console.error("Error searching assets:", error);
       });
   };
 

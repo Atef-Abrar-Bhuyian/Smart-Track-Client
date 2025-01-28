@@ -21,7 +21,7 @@ const SharedFooter = () => {
           setCUser(res.data);
         })
         .catch((err) => {
-          console.error("Error fetching user data:", err);
+          // console.error("Error fetching user data:", err);
         });
     }
   }, [user, axiosPublic]);
