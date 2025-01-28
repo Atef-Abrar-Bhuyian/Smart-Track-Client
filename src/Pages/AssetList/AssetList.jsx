@@ -105,7 +105,7 @@ const AssetList = () => {
     if (value === "null") return;
     try {
       const response = await axiosSecure.get(
-        `/requestAssetsFilter/${user?.email}`,
+        `/requestAssetsFilterHr/${user?.email}`,
         {
           params: { filterType: value },
         }
