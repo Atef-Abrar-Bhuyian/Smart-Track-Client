@@ -67,6 +67,12 @@ Here are the main npm packages used in the project:
 - `express`: For building the backend API.
 - `mongoose`: For interacting with MongoDB in the backend.
 
+
+## HR Login Credentials
+
+- **Email**: xyz@hr.com
+- **Password**: Xyzhr1
+
 ## Live Website
 
 You can check out the live version of the website here:
