@@ -1,5 +1,8 @@
 # Smart Track
 
+![Homepage](./src/assets/HomePage/smartTrack.PNG)
+
+
 Smart Track is a web application designed for managing and tracking assets within an organization. The system allows HR and employees to interact with assets, request or approve asset distributions, and generate detailed reports. 
 
 ## Features
@@ -79,3 +82,28 @@ You can check out the live version of the website here:
 
 - [Smart Track - Web App](https://smart-track-8eed9.web.app/)
 - [Smart Track - Firebase Hosting](https://smart-track-8eed9.firebaseapp.com/)
+
+
+## ⚙️ Installation
+To run Bistro Boss locally, follow these steps:
+
+### 1️⃣ Clone the Repository
+
+- git clone https://github.com/Atef-Abrar-Bhuyian/Smart-Track-Client.git
+- cd bistro-boss
+
+
+### 2️⃣ Install Dependencies
+- npm install  
+
+### 3️⃣ Set Up .env
+- VITE_apiKey=your_api_key
+- VITE_authDomain=your_auth_domain
+- VITE_projectId=your_project_id
+- VITE_storageBucket=your_storage_bucket
+- VITE_messagingSenderId=your_messaging_sender_id
+- VITE_appId=your_app_id
+- VITE_PAYMENT_GATEWAY_PK=your_publishable_key
+
+### 4️⃣ Start the Development Server
+- npm run dev
