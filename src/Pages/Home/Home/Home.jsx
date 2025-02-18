@@ -17,6 +17,7 @@ import LimitedStockItems from "../LimitedStockItems/LimitedStockItems";
 import RequestedItemsOverview from "../RequestedItemsOverview/RequestedItemsOverview";
 import HrCalendar from "../HrCalendar/HrCalendar";
 import HrAnnouncements from "../HrAnnouncements/HrAnnouncements";
+import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
 
 const Home = () => {
   const { user } = useAuth();
@@ -51,6 +52,7 @@ const Home = () => {
       {isAdmin && <RequestedItemsOverview></RequestedItemsOverview>}
       {isAdmin && <HrCalendar></HrCalendar>}
       {isAdmin && <HrAnnouncements></HrAnnouncements>}
+      <WhyChooseUs></WhyChooseUs>
     </div>
   );
 };

@@ -263,7 +263,7 @@ const Nav = () => {
       <Navbar
         fluid
         rounded
-        className="text-black bg-transparent rounded-2xl w-11/12 mx-auto"
+        className="text-black bg-transparent w-11/12 mx-auto"
       >
         <Navbar.Brand>
           {user && isAdmin ? (
@@ -273,9 +273,9 @@ const Nav = () => {
               alt=""
             />
           ) : (
-            <Link to={"/"} className="self-center whitespace-nowrap text-xl dark:text-white font-bold">
+            <button className="self-center whitespace-nowrap text-xl dark:text-white font-bold">
               SmartTrack
-            </Link>
+            </button>
           )}
         </Navbar.Brand>
         <Navbar.Toggle />
