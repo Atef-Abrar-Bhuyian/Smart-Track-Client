@@ -29,7 +29,14 @@ const Login = () => {
         setUser(user);
       })
       .catch((error) => {
-        Swal.fire("Invalid Credential, Please Try Again");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Credential, Please Try Again",
+          background: "#003333",
+          color: "#fff",
+          confirmButtonColor: "#001919",
+        });
       });
   };
 

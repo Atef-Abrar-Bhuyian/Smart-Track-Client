@@ -71,8 +71,8 @@ const Nav = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-blue-700 dark:text-white font-semibold"
-            : "text-gray-700 dark:text-gray-400"
+            ? "text-white font-bold dark:text-white"
+            : "text-gray-700  dark:text-gray-400 hover:text-white"
         }
       >
         Home
@@ -85,8 +85,8 @@ const Nav = () => {
           to="/assetList"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Asset List
@@ -99,8 +99,8 @@ const Nav = () => {
           to="/addAsset"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Add an Asset
@@ -113,8 +113,8 @@ const Nav = () => {
           to="/allRequest"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           All Requests
@@ -127,8 +127,8 @@ const Nav = () => {
           to="/myTeam"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           My Employee List
@@ -141,8 +141,8 @@ const Nav = () => {
           to="/addEmployee"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Add an Employee
@@ -156,8 +156,8 @@ const Nav = () => {
           to="/employeeAssets"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           My Assets
@@ -170,8 +170,8 @@ const Nav = () => {
           to="/employeeTeam"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           My Team
@@ -184,8 +184,8 @@ const Nav = () => {
           to="/assetsRequest"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Request for an Asset
@@ -212,8 +212,8 @@ const Nav = () => {
           to="/joinAsEmployee"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Join as Employee
@@ -226,8 +226,8 @@ const Nav = () => {
           to="/joinAsHR"
           className={({ isActive }) =>
             isActive
-              ? "text-blue-700 dark:text-white font-semibold"
-              : "text-gray-700 dark:text-gray-400"
+              ? "text-white font-bold dark:text-white  "
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
           }
         >
           Join as HR Manager
@@ -259,11 +259,11 @@ const Nav = () => {
   );
 
   return (
-    <div className="sticky top-0 z-10 backdrop-blur-xl w-11/12 mx-auto rounded-3xl">
+    <div className="sticky top-0 z-50 bg-cyan-400">
       <Navbar
         fluid
         rounded
-        className="bg-cyan-300 text-black bg-opacity-40 rounded-2xl mt-4"
+        className="text-black bg-transparent rounded-2xl w-11/12 mx-auto"
       >
         <Navbar.Brand>
           {user && isAdmin ? (
@@ -273,9 +273,9 @@ const Nav = () => {
               alt=""
             />
           ) : (
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            <Link to={"/"} className="self-center whitespace-nowrap text-xl dark:text-white font-bold">
               SmartTrack
-            </span>
+            </Link>
           )}
         </Navbar.Brand>
         <Navbar.Toggle />
