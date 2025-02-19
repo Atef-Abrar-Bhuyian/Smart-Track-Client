@@ -49,11 +49,11 @@ const WhyChooseUs = () => {
           ></HeadingWithDes>
         </Fade>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-11/12 mx-auto mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {features.map((feature, index) => (
           <Card
             key={index}
-            className="bg-cyan-700 p-6 rounded-2xl shadow-lg text-center border-none"
+            className="bg-cyan-700 p-6 rounded-2xl shadow-lg text-center border-none  cursor-pointer"
           >
             <div className="text-4xl mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold mb-2 text-white">

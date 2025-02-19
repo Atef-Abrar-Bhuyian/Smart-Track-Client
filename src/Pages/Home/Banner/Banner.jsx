@@ -18,7 +18,7 @@ import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
 
 const Banner = () => {
   return (
-    <div className="mt-10 md:w-4/5 mx-auto">
+    <div className="mt-10 md:w-11/12 mx-auto">
       <Swiper
         pagination={{
           dynamicBullets: true,

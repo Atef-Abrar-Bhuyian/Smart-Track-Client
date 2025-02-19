@@ -263,7 +263,7 @@ const Nav = () => {
       <Navbar
         fluid
         rounded
-        className="text-black bg-transparent w-11/12 mx-auto"
+        className="text-black bg-transparent  w-11/12 mx-auto"
       >
         <Navbar.Brand>
           {user && isAdmin ? (

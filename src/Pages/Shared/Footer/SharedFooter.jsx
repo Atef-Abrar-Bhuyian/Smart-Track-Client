@@ -29,7 +29,7 @@ const SharedFooter = () => {
   return (
     <Footer container>
       <div className="w-full">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+        <div className="grid justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 w-11/12 mx-auto">
           <div>
             {user && isAdmin ? (
               <img
@@ -67,7 +67,7 @@ const SharedFooter = () => {
           </div>
         </div>
         <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
+        <div className="w-11/12 mx-auto sm:flex sm:items-center sm:justify-between ">
           <Footer.Copyright by="SmartTrack" year={2025} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon icon={BsFacebook} />

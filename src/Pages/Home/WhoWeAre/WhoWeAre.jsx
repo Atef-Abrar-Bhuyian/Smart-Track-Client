@@ -5,7 +5,7 @@ import { Fade } from "react-awesome-reveal";
 
 const WhoWeAre = () => {
   return (
-    <div className="mt-32 w-11/12 mx-auto">
+    <div className="mt-32">
       {/* About Section */}
       <Fade>
         <HeadingWithDes
@@ -17,7 +17,7 @@ const WhoWeAre = () => {
       </Fade>
 
       {/* Grid section */}
-      <div className="mt-6 lg:grid grid-cols-12 gap-6">
+      <div className="mt-6 lg:grid grid-cols-12 gap-6 w-11/12 mx-auto">
         {/* 1st card */}
         <div className="col-span-3 mb-6">
           <Card className="border-cyan-200 shadow-md shadow-cyan-100">
