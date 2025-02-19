@@ -19,6 +19,7 @@ import HrCalendar from "../HrCalendar/HrCalendar";
 import HrAnnouncements from "../HrAnnouncements/HrAnnouncements";
 import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
 import TestimonialsSection from "../TestimonialsSection/TestimonialsSection";
+import Faq from "../Faq/Faq";
 
 const Home = () => {
   const { user } = useAuth();
@@ -53,8 +54,9 @@ const Home = () => {
       {isAdmin && <RequestedItemsOverview></RequestedItemsOverview>}
       {isAdmin && <HrCalendar></HrCalendar>}
       {isAdmin && <HrAnnouncements></HrAnnouncements>}
-      <WhyChooseUs></WhyChooseUs>
-      <TestimonialsSection></TestimonialsSection>
+      {!user && <WhyChooseUs></WhyChooseUs>}
+      {!user && <TestimonialsSection></TestimonialsSection>}
+      {!user && <Faq></Faq>}
     </div>
   );
 };
