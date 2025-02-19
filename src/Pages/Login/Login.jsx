@@ -6,7 +6,6 @@ import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottieReact/loginLottie.json";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { GrGoogle } from "react-icons/gr";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../provider/AuthProvider";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
@@ -16,19 +15,19 @@ const Login = () => {
   const { setUser, signIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleLogin = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
+    
     signIn(email, password)
       .then((result) => {
         const user = result.user;
         navigate("/");
         setUser(user);
       })
-      .catch((error) => {
+      .catch(() => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -45,11 +44,11 @@ const Login = () => {
       <ReactHelmet title={"Login"} />
       <div className="md:flex justify-between">
         <div className="flex-1 flex items-center justify-center mb-6">
-          <Lottie animationData={loginLottie} className="w-2/4"></Lottie>
+          <Lottie animationData={loginLottie} className="w-2/4" />
         </div>
         <div className="flex-1">
           <Card className="max-w-sm">
-          <h1 className="text-2xl font-bold text-center text-cyan-600">Login</h1>
+            <h1 className="text-2xl font-bold text-center text-cyan-600">Login</h1>
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
@@ -60,6 +59,8 @@ const Login = () => {
                   name="email"
                   placeholder="your email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -72,6 +73,8 @@ const Login = () => {
                     type={showPass ? "text" : "password"}
                     placeholder="your password"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <button
                     className="absolute top-3 right-3 text-lg"
@@ -84,6 +87,31 @@ const Login = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Demo Credentials Buttons */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className="bg-cyan-600 text-white py-2 px-4 rounded-lg hover:bg-cyan-800 transition"
+                  onClick={() => {
+                    setEmail("xyz@employee.com");
+                    setPassword("Xyzemployee1");
+                  }}
+                >
+                  Demo Employee Credentials
+                </button>
+                <button
+                  type="button"
+                  className="bg-cyan-600 text-white py-2 px-4 rounded-lg hover:bg-cyan-800 transition"
+                  onClick={() => {
+                    setEmail("xyz@hr.com");
+                    setPassword("Xyzhr1");
+                  }}
+                >
+                  Demo HR Credentials
+                </button>
+              </div>
+
               <div className="flex items-center gap-2">
                 <Link to={"/forget-password"}>
                   <Label className="underline cursor-pointer">
@@ -91,8 +119,9 @@ const Login = () => {
                   </Label>
                 </Link>
               </div>
-              <CustomBtn text={"Login"} type="submit"></CustomBtn>
+              <CustomBtn text={"Login"} type="submit" />
             </form>
+
             <div className="divide-y divide-dashed">
               <div></div>
               <div>
