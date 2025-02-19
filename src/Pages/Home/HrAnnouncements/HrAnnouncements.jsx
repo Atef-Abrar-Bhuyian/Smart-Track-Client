@@ -24,7 +24,7 @@ const HrAnnouncements = () => {
   ];
 
   return (
-    <div className="bg-gray-100 p-6 rounded-2xl shadow-md">
+    <div className="p-6 rounded-2xl shadow-md">
       <Fade>
         <h2 className="text-2xl font-bold mb-4 text-center">
           Latest HR Announcements

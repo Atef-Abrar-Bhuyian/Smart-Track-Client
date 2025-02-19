@@ -20,6 +20,7 @@ import HrAnnouncements from "../HrAnnouncements/HrAnnouncements";
 import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
 import TestimonialsSection from "../TestimonialsSection/TestimonialsSection";
 import Faq from "../Faq/Faq";
+import Newsletter from "../Newsletter/Newsletter";
 
 const Home = () => {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ const Home = () => {
       {!user && <Banner></Banner>}
       {!user && <WhoWeAre></WhoWeAre>}
       {!user && <PackagePrice></PackagePrice>}
-      {isAdmin && <PackagePrice></PackagePrice>}
+      {!user && <PackagePrice></PackagePrice>}
       {cUser?.team === "in-a-team" && !isAdmin && (
         <EmployeePendingRequests></EmployeePendingRequests>
       )}
@@ -57,6 +58,7 @@ const Home = () => {
       {!user && <WhyChooseUs></WhyChooseUs>}
       {!user && <TestimonialsSection></TestimonialsSection>}
       {!user && <Faq></Faq>}
+      <Newsletter></Newsletter>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const PendingRequestsForHr = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="bg-gray-100 p-4">
+    <div className="bg-cyan-100 p-4">
       <div className="w-11/12 mx-auto my-10">
       <div>
         <Fade>

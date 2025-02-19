@@ -66,7 +66,7 @@ const RequestedItemsOverview = () => {
   }));
 
   return (
-    <div className="my-10 bg-gray-100 p-4">
+    <div className="my-10 bg-cyan-100 p-4">
       <div className="w-11/12 mx-auto">
       <div>
         <Fade>

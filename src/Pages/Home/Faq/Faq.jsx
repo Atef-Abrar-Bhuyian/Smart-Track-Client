@@ -1,12 +1,15 @@
 import React from "react";
 import { Accordion } from "flowbite-react";
+import { Fade } from "react-awesome-reveal";
 
 export default function Faq() {
   return (
     <div className="mt-16 w-11/12 mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-6">
-        Frequently Asked Questions
-      </h2>
+      <Fade>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Frequently Asked Questions
+        </h2>
+      </Fade>
       <Accordion>
         <Accordion.Panel>
           <Accordion.Title>What payment methods do you accept?</Accordion.Title>

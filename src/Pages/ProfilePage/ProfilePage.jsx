@@ -72,7 +72,7 @@ const ProfilePage = () => {
     <div className="mb-32">
       <ReactHelmet title={"My Profile"}></ReactHelmet>
       <div className="relative">
-        <div className="bg-blue-100 w-full h-36 my-10"></div>
+        <div className="bg-cyan-100 w-full h-36 my-10"></div>
         <div className="bg-white h-48 w-4/6 mx-auto rounded-2xl border border-cyan-700 absolute left-1/2 transform -translate-x-1/2 top-[90%] -translate-y-1/2 flex gap-3 p-10 flex-col">
           <div>
           <img
