@@ -29,8 +29,8 @@ const Home = () => {
   return (
     <div>
       <ReactHelmet title={"Home"}></ReactHelmet>
-      <Banner></Banner>
-      <WhoWeAre></WhoWeAre>
+      {!user && <Banner></Banner>}
+      {!user && <WhoWeAre></WhoWeAre>}
       {!user && <PackagePrice></PackagePrice>}
       {isAdmin && <PackagePrice></PackagePrice>}
       {cUser?.team === "in-a-team" && !isAdmin && (

@@ -38,16 +38,18 @@ const SharedFooter = () => {
                 alt=""
               />
             ) : (
-              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              <Link to={"/"} className="self-center whitespace-nowrap text-xl font-bold hover:text-cyan-600 dark:text-white">
                 SmartTrack
-              </span>
+              </Link>
             )}
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+          <div className="grid grid-cols-2 gap-8 mt-6 md:mt-0 sm:grid-cols-3 sm:gap-6">
             <div>
               <Footer.Title title="about" />
               <Footer.LinkGroup col>
-                <Link>SmartTrack</Link>
+                <Link to={"/"} className="hover:text-cyan-600">SmartTrack</Link>
+                <Link to={"/pricing"} className="hover:text-cyan-600">All Plans</Link>
+                <Link to={"/User-Reviews"} className="hover:text-cyan-600">User Reviews</Link>
               </Footer.LinkGroup>
             </div>
             <div>

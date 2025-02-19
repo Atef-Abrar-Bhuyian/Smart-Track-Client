@@ -1,6 +1,8 @@
 import { Avatar, Card } from "flowbite-react";
 import React from "react";
 import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
+import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -27,12 +29,14 @@ const TestimonialsSection = () => {
   return (
     <section className="bg-cyan-100 text-gray-900 py-16 px-6 md:px-12 lg:px-20 mt-10">
       <div className="max-w-4xl mx-auto text-center mb-4">
+        <Fade>
         <HeadingWithDes
           heading={"What Our Users Say"}
           description={
             "Hear from our satisfied users who trust our platform for asset management."
           }
         ></HeadingWithDes>
+        </Fade>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {testimonials.map((testimonial, index) => (
@@ -50,6 +54,9 @@ const TestimonialsSection = () => {
           </Card>
         ))}
       </div>
+        <div className="flex justify-end">
+        <Link className="mt-5 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800" to={"/User-Reviews"}>See All</Link>
+        </div>
     </section>
   );
 };

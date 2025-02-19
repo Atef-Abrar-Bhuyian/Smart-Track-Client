@@ -18,6 +18,7 @@ import AssetsRequest from "../Pages/AssetsRequest/AssetsRequest";
 import IncreaseLimit from "../Pages/IncreaseLimit/IncreaseLimit";
 import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 import Pricing from "../Pages/Pricing/Pricing";
+import UsersReview from "../Pages/UsersReview/UsersReview";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/pricing",
         element: <Pricing></Pricing>,
+      },
+      {
+        path: "/User-Reviews",
+        element: <UsersReview></UsersReview>,
       },
       {
         path: "/myProfile",

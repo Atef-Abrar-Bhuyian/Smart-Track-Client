@@ -91,6 +91,19 @@ const Nav = () => {
           All Plan
         </NavLink>
       )}
+      {/* User-Reviews */}
+      {!user && (
+        <NavLink
+          to="/User-Reviews"
+          className={({ isActive }) =>
+            isActive
+              ? "text-white font-bold dark:text-white"
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
+          }
+        >
+          User Reviews
+        </NavLink>
+      )}
 
       {/* Admin */}
       {/* Asset List For Admin */}
@@ -277,7 +290,7 @@ const Nav = () => {
       <Navbar
         fluid
         rounded
-        className="text-black bg-transparent  w-11/12 mx-auto"
+        className="text-black bg-transparent w-11/12 mx-auto"
       >
         <Navbar.Brand>
           {user && isAdmin ? (
@@ -294,7 +307,7 @@ const Nav = () => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <NavbarCollapse>
-          <div className="flex flex-col sm:flex-row sm:space-x-4 items-center">
+          <div className="flex flex-col sm:flex-row sm:space-x-4 md:space-x-2 lg:space-x-4 items-center">
             {links}
           </div>
         </NavbarCollapse>
