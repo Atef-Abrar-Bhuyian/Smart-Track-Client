@@ -89,10 +89,10 @@ const JoinAsEmployee = () => {
   };
 
   return (
-    <div className="my-20 w-4/5 mx-auto">
+    <div className="my-20 w-11/12 mx-auto">
       <ReactHelmet title={"Join As Employee"}></ReactHelmet>
-      <div className="md:flex justify-evenly gap-6">
-        <div className="flex-1 flex flex-col items-center justify-center mb-6">
+      <div className="lg:flex justify-evenly gap-6">
+        <div className="w-2/4 mx-auto flex flex-col items-center justify-center mb-6">
           <Fade>
           <h1 className="text-center text-xl font-bold">
             Join us and take the first step toward a rewarding career.
@@ -100,17 +100,18 @@ const JoinAsEmployee = () => {
           </Fade>
           <Lottie
             animationData={joinAsEmployeeLottie}
-            className="w-3/4"
+            className="lg:w-3/4"
           ></Lottie>
         </div>
         <div className="flex-1">
-          <Card className="max-w-sm">
+          <Card className="w-11/12 mx-auto">
+            <h1 className="text-2xl text-center text-cyan-600 font-bold">Join As Employee</h1>
             <form
               onSubmit={handleJoinAsEmployee}
               className="flex flex-col gap-4"
             >
-              {/* Name */}
-              <div>
+              <div className="md:flex justify-between gap-6">{/* Name */}
+              <div className="w-full">
                 <div className="mb-2 block">
                   <Label value="Full Name" />
                 </div>
@@ -122,7 +123,7 @@ const JoinAsEmployee = () => {
                 />
               </div>
               {/* photo */}
-              <div>
+              <div className="w-full">
                 <div className="mb-2 block">
                   <Label value="Your Photo URL" />
                 </div>
@@ -132,7 +133,7 @@ const JoinAsEmployee = () => {
                   placeholder="Your Photo URL"
                   required
                 />
-              </div>
+              </div></div>
               {/* Date of Birth */}
               <div>
                 <div className="mb-2 block">

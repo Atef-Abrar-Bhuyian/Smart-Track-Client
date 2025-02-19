@@ -17,6 +17,7 @@ import EmployeeAssets from "../Pages/EmployeeAssets/EmployeeAssets";
 import AssetsRequest from "../Pages/AssetsRequest/AssetsRequest";
 import IncreaseLimit from "../Pages/IncreaseLimit/IncreaseLimit";
 import ProfilePage from "../Pages/ProfilePage/ProfilePage";
+import Pricing from "../Pages/Pricing/Pricing";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing></Pricing>,
       },
       {
         path: "/myProfile",

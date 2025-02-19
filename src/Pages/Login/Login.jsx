@@ -49,6 +49,7 @@ const Login = () => {
         </div>
         <div className="flex-1">
           <Card className="max-w-sm">
+          <h1 className="text-2xl font-bold text-center text-cyan-600">Login</h1>
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">

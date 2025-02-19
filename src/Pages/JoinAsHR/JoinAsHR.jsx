@@ -90,6 +90,7 @@ const JoinAsHR = () => {
         {/* Right Side: Form */}
         <div className="flex-1">
           <Card>
+          <h1 className="text-2xl text-center text-cyan-600 font-bold">Join As HR</h1>
             <form onSubmit={handleJoinAsHR} className="flex flex-col gap-4">
               {/* Name & Company Name */}
               <div className="lg:flex gap-6">

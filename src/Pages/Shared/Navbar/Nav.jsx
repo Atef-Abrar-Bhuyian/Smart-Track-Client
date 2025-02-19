@@ -78,6 +78,20 @@ const Nav = () => {
         Home
       </NavLink>
 
+      {/* Pricing */}
+      {!user && (
+        <NavLink
+          to="/pricing"
+          className={({ isActive }) =>
+            isActive
+              ? "text-white font-bold dark:text-white"
+              : "text-gray-700  dark:text-gray-400 hover:text-white"
+          }
+        >
+          All Plan
+        </NavLink>
+      )}
+
       {/* Admin */}
       {/* Asset List For Admin */}
       {user && isAdmin && (

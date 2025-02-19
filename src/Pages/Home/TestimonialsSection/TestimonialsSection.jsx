@@ -1,5 +1,6 @@
 import { Avatar, Card } from "flowbite-react";
 import React from "react";
+import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -25,14 +26,13 @@ const TestimonialsSection = () => {
   ];
   return (
     <section className="bg-cyan-100 text-gray-900 py-16 px-6 md:px-12 lg:px-20 mt-10">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
-          What Our Users Say
-        </h2>
-        <p className="text-lg text-gray-700 mb-8">
-          Hear from our satisfied users who trust our platform for asset
-          management.
-        </p>
+      <div className="max-w-4xl mx-auto text-center mb-4">
+        <HeadingWithDes
+          heading={"What Our Users Say"}
+          description={
+            "Hear from our satisfied users who trust our platform for asset management."
+          }
+        ></HeadingWithDes>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {testimonials.map((testimonial, index) => (
