@@ -3,45 +3,38 @@ import useAuth from "../../hooks/useAuth";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AuthContext } from "../../provider/AuthProvider";
-
-// Flowbite Modal Component
 import { Modal, Button } from "flowbite-react";
 import Swal from "sweetalert2";
 
 const ProfilePage = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-  const [cUser, setCUser] = useState({});
   const { updateUserProfile } = useContext(AuthContext);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
-  const [newName, setNewName] = useState(cUser?.name || "");
-  const [newPhoto, setNewPhoto] = useState(cUser?.photo || "");
+
+  const [cUser, setCUser] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newPhoto, setNewPhoto] = useState("");
 
   useEffect(() => {
     if (user?.email) {
-      axiosPublic
-        .get(`/users/${user.email}`)
-        .then((res) => {
-          setCUser(res.data);
-        })
-        .catch((err) => {
-          // console.error("Error fetching user data:", err);
-        });
+      axiosPublic.get(`/users/${user.email}`).then((res) => {
+        setCUser(res.data);
+        setNewName(res.data?.name || "");
+        setNewPhoto(res.data?.photo || "");
+      });
     }
   }, [user, axiosPublic]);
 
-  const handleUpdateProfile = (name, photo) => {
-    updateUserProfile(name, photo)
+  const handleUpdateProfile = () => {
+    updateUserProfile(newName, newPhoto)
       .then(() => {
         axiosPublic
-          .patch(`/usersUpdate/${user?.email}`, {
-            name,
-            photo,
-          }, {
-            headers: {
-              'Authorization': `Bearer ${user?.token}`, 
-            }
-          })
+          .patch(
+            `/usersUpdate/${user?.email}`,
+            { name: newName, photo: newPhoto },
+            { headers: { Authorization: `Bearer ${user?.token}` } }
+          )
           .then(() => {
             Swal.fire({
               icon: "success",
@@ -49,68 +42,57 @@ const ProfilePage = () => {
               showConfirmButton: false,
               timer: 1500,
               background: "#003333",
-            color: "#fff",
+              color: "#fff",
             });
-            setCUser((prev) => ({
-              ...prev,
-              name,
-              photo,
-            }));
+            setCUser((prev) => ({ ...prev, name: newName, photo: newPhoto }));
             setIsModalOpen(false);
-          })
-          .catch((err) => {
-            // console.error("Error updating profile in the backend:", err);
           });
-      })
-      .catch((err) => {
-        // console.error("Error updating profile in Firebase:", err);
       });
   };
-  
 
   return (
-    <div className="mb-32">
-      <ReactHelmet title={"My Profile"}></ReactHelmet>
-      <div className="relative">
-        <div className="bg-cyan-100 w-full h-36 my-10"></div>
-        <div className="bg-white h-48 w-4/6 mx-auto rounded-2xl border border-cyan-700 absolute left-1/2 transform -translate-x-1/2 top-[90%] -translate-y-1/2 flex gap-3 p-10 flex-col">
-          <div>
+    <div className="my-16 px-4">
+      <ReactHelmet title="My Profile" />
+      
+      <div className="relative max-w-lg mx-auto">
+        <div className="bg-gradient-to-r from-cyan-500 to-cyan-700 h-36 rounded-lg"></div>
+        
+        <div className="bg-white shadow-lg rounded-lg p-6 -mt-14 flex flex-col items-center relative">
           <img
             src={cUser?.photo}
-            alt=""
-            className="h-20 w-20 rounded-xl mx-auto"
+            alt="Profile"
+            className="h-24 w-24 rounded-full border-4 border-white shadow-md"
           />
-          <div className="text-center flex items-center justify-center flex-col">
-            <h1 className="text-xl font-bold">{cUser?.name}</h1>
-            <p>{cUser?.email}</p>
-          </div>
-          </div>
-          <button
+          <h1 className="text-xl font-semibold mt-3">Full Name: {cUser?.name}</h1>
+          <p className="text-gray-600">Email: {cUser?.email}</p>
+
+          <Button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 hover:animate-pulse"
+            className="mt-4 bg-cyan-600 text-white hover:bg-cyan-700 px-6 py-2 rounded-lg transition"
           >
             Edit Profile
-          </button>
+          </Button>
         </div>
       </div>
 
+      {/* Modal */}
       <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Header>Update Profile</Modal.Header>
         <Modal.Body>
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="New Name"c
+              placeholder="New Name"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-cyan-500"
+              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-500"
             />
             <input
               type="text"
               placeholder="New Photo URL"
               value={newPhoto}
               onChange={(e) => setNewPhoto(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-cyan-500"
+              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-500"
             />
           </div>
         </Modal.Body>
@@ -119,8 +101,8 @@ const ProfilePage = () => {
             Cancel
           </Button>
           <Button
-            onClick={() => handleUpdateProfile(newName, newPhoto)}
-            className="bg-cyan-600 text-white"
+            onClick={handleUpdateProfile}
+            className="bg-cyan-600 text-white hover:bg-cyan-700"
           >
             Save Changes
           </Button>
