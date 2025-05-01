@@ -33,7 +33,6 @@ const Home = () => {
       {!user && <Banner></Banner>}
       {!user && <WhoWeAre></WhoWeAre>}
       {!user && <PackagePrice></PackagePrice>}
-      {!user && <PackagePrice></PackagePrice>}
       {cUser?.team === "in-a-team" && !isAdmin && (
         <EmployeePendingRequests></EmployeePendingRequests>
       )}
