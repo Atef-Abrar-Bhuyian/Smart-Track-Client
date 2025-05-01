@@ -1,315 +1,342 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   Avatar,
   Button,
   Navbar,
+  NavbarBrand,
   NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
   Tooltip,
+  Dropdown,
 } from "flowbite-react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
-import Swal from "sweetalert2";
 import useAdmin from "../../../hooks/useAdmin";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import {
+  FiChevronDown,
+  FiUser,
+  FiLogOut,
+  FiHome,
+  FiDollarSign,
+  FiMessageSquare,
+  FiList,
+  FiPlus,
+  FiUsers,
+  FiPackage,
+  FiUserPlus,
+  FiBriefcase,
+} from "react-icons/fi";
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
-
   const axiosPublic = useAxiosPublic();
   const [isAdmin] = useAdmin();
   const [cUser, setCUser] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const navbarRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const profileDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (user?.email) {
-      axiosPublic
-        .get(`/users/${user.email}`)
-        .then((res) => {
-          setCUser(res.data);
-        })
-        .catch((err) => {
-          // console.error("Error fetching user data:", err);
-        });
+      axiosPublic.get(`/users/${user.email}`).then((res) => {
+        setCUser(res.data);
+      });
     }
   }, [user, axiosPublic]);
 
-  // Logout
   const handleLogOut = () => {
-    logOut()
-      .then(() => {
-        Swal.fire({
-          title: "Logout Successful",
-          background: "#003333",
-          color: "#fff",
-          confirmButtonColor: "#001919",
-          showClass: {
-            popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `,
-          },
-          hideClass: {
-            popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `,
-          },
-        });
-        navigate("/");
-      })
-      .catch((err) => {
-        // console.log(err);
+    logOut().then(() => {
+      Swal.fire({
+        title: "Logout Successful",
+        background: "#1e293b",
+        color: "#fff",
+        confirmButtonColor: "#0891b2",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
       });
+      navigate("/");
+    });
   };
 
-  const links = (
-    <>
-      {/* Home */}
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          isActive
-            ? "text-white font-bold dark:text-white"
-            : "text-gray-700  dark:text-gray-400 hover:text-white"
-        }
-      >
-        Home
-      </NavLink>
+  const navbarClass = `fixed top-0 w-full z-50 transition-all duration-300 ${
+    isScrolled
+      ? "bg-slate-900 shadow-lg"
+      : "bg-gradient-to-r from-slate-800 to-slate-900"
+  }`;
 
-      {/* Pricing */}
-      {!user && (
-        <NavLink
-          to="/pricing"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white"
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          All Plan
-        </NavLink>
-      )}
-      {/* User-Reviews */}
-      {!user && (
-        <NavLink
-          to="/User-Reviews"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white"
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          User Reviews
-        </NavLink>
-      )}
+  const getDropdownItemClass = (path) => {
+    const isActive = location.pathname === path;
+    return isActive
+      ? "flex items-center py-2 px-4 text-sm text-white bg-cyan-700 hover:bg-cyan-800"
+      : "flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700 hover:text-white";
+  };
 
-      {/* Admin */}
-      {/* Asset List For Admin */}
-      {user && isAdmin && (
-        <NavLink
-          to="/assetList"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Asset List
-        </NavLink>
-      )}
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target) &&
+        !event.target.closest('[data-toggle-menu="true"]')
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target) &&
+        !event.target.closest('[data-toggle-profile="true"]')
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+    }
 
-      {/* Add Asset For Admin */}
-      {user && isAdmin && (
-        <NavLink
-          to="/addAsset"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Add an Asset
-        </NavLink>
-      )}
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-      {/* Request to join team Fro Admin */}
-      {user && isAdmin && (
-        <NavLink
-          to="/allRequest"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          All Requests
-        </NavLink>
-      )}
-
-      {/* My Team for Admin */}
-      {user && isAdmin && (
-        <NavLink
-          to="/myTeam"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          My Employee List
-        </NavLink>
-      )}
-
-      {/* Add an Employee for Admin */}
-      {user && isAdmin && (
-        <NavLink
-          to="/addEmployee"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Add an Employee
-        </NavLink>
-      )}
-
-      {/* Employee */}
-      {/* My Assets For Employee */}
-      {user && !isAdmin && (
-        <NavLink
-          to="/employeeAssets"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          My Assets
-        </NavLink>
-      )}
-
-      {/* My Assets For Employee */}
-      {user && !isAdmin && (
-        <NavLink
-          to="/employeeTeam"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          My Team
-        </NavLink>
-      )}
-
-      {/* My Assets For Employee */}
-      {user && !isAdmin && (
-        <NavLink
-          to="/assetsRequest"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Request for an Asset
-        </NavLink>
-      )}
-
-      {/* Profile */}
-      {user && (
-        <NavLink to="/myProfile">
-          <Tooltip content={user?.displayName}>
-            <img
-              referrerPolicy="no-referrer"
-              className="rounded-full w-12 h-12"
-              src={cUser?.photo}
-              alt=""
-            />
-          </Tooltip>
-        </NavLink>
-      )}
-
-      {/* For not Logged in Users */}
-      {!user && (
-        <NavLink
-          to="/joinAsEmployee"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Join as Employee
-        </NavLink>
-      )}
-
-      {/* For not Logged in Users */}
-      {!user && (
-        <NavLink
-          to="/joinAsHR"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-bold dark:text-white  "
-              : "text-gray-700  dark:text-gray-400 hover:text-white"
-          }
-        >
-          Join as HR Manager
-        </NavLink>
-      )}
-
-      {user ? (
-        <li>
-          <button
-            onClick={handleLogOut}
-            className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 hover:animate-pulse"
-          >
-            Logout
-          </button>
-        </li>
-      ) : (
-        <li>
-          <NavLink
-            className={
-              "inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 hover:animate-pulse"
-            }
-            to={"/login"}
-          >
-            Login
-          </NavLink>
-        </li>
-      )}
-    </>
-  );
+  const customTheme = {
+    root: {
+      base: "bg-transparent px-2 py-2.5 sm:px-4 w-full",
+      inner: {
+        base: "mx-auto flex flex-wrap items-center justify-between w-full md:w-11/12 lg:w-10/12",
+      },
+    },
+    brand: {
+      base: "flex items-center",
+    },
+    collapse: {
+      list: "mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-2 lg:space-x-4",
+    },
+    link: {
+      base: "block py-2 px-3 md:p-0",
+      active: {
+        on: "bg-cyan-700 text-white md:bg-transparent md:border-b-2 md:border-cyan-500 md:text-cyan-500",
+        off: "border-b-2 border-transparent text-gray-300 hover:bg-gray-700 hover:text-white md:hover:bg-transparent md:hover:text-cyan-400 md:hover:border-cyan-400",
+      },
+    },
+    toggle: {
+      base: "inline-flex items-center rounded-lg p-2 text-gray-300 hover:bg-gray-700 hover:text-white md:hidden",
+      icon: "h-6 w-6 shrink-0",
+    },
+  };
 
   return (
-    <div className="sticky top-0 z-50 bg-cyan-400">
-      <Navbar
-        fluid
-        rounded
-        className="text-black bg-transparent w-11/12 mx-auto"
-      >
-        <Navbar.Brand>
-          {user && isAdmin ? (
+    <div className={navbarClass} ref={navbarRef}>
+      <Navbar fluid theme={customTheme} className="px-3 lg:px-5">
+        <NavbarBrand as={Link} to="/">
+          {user && isAdmin && cUser?.companyLogo ? (
             <img
-              className="w-16 h-16 rounded-full"
               src={cUser?.companyLogo}
-              alt=""
+              className="mr-3 h-10 w-10 rounded-full object-cover"
+              alt="Company Logo"
             />
           ) : (
-            <button className="self-center whitespace-nowrap text-xl dark:text-white font-bold">
-              SmartTrack
-            </button>
+            <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
+              <span className="text-cyan-400">Smart</span>Track
+            </span>
           )}
-        </Navbar.Brand>
-        <Navbar.Toggle />
+        </NavbarBrand>
+
+        <div className="flex items-center md:order-2 space-x-3">
+          {user ? (
+            <>
+              <Tooltip
+                content={user?.displayName || "Profile"}
+                placement="bottom"
+              >
+                <NavLink to="/myProfile" className="flex">
+                  <Avatar
+                    img={cUser?.photo}
+                    rounded
+                    bordered
+                    color="info"
+                    alt={user?.displayName}
+                    className="ring-2 ring-cyan-500 transition-transform hover:scale-110"
+                  />
+                </NavLink>
+              </Tooltip>
+
+              <Button
+                color="cyan"
+                onClick={handleLogOut}
+                className="hidden md:flex items-center"
+                pill
+              >
+                <FiLogOut className="mr-2" /> Logout
+              </Button>
+            </>
+          ) : (
+            <Button
+              as={Link}
+              to="/login"
+              color="cyan"
+              pill
+              className="hidden md:flex items-center"
+            >
+              <FiUser className="mr-2" /> Login
+            </Button>
+          )}
+
+          <NavbarToggle className="border border-gray-600" />
+        </div>
+
         <NavbarCollapse>
-          <div className="flex flex-col sm:flex-row sm:space-x-4 md:space-x-2 lg:space-x-4 items-center">
-            {links}
-          </div>
+          <NavbarLink as={Link} to="/" active={location.pathname === "/"}>
+            <div className="flex items-center">
+              <FiHome className="mr-1" /> Home
+            </div>
+          </NavbarLink>
+
+          {!user && (
+            <>
+              <NavbarLink
+                as={Link}
+                to="/pricing"
+                active={location.pathname === "/pricing"}
+              >
+                <div className="flex items-center">
+                  <FiDollarSign className="mr-1" /> All Plans
+                </div>
+              </NavbarLink>
+
+              <NavbarLink
+                as={Link}
+                to="/User-Reviews"
+                active={location.pathname === "/User-Reviews"}
+              >
+                <div className="flex items-center">
+                  <FiMessageSquare className="mr-1" /> User Reviews
+                </div>
+              </NavbarLink>
+            </>
+          )}
+
+          {/* Join links for non-logged users */}
+          {!user && (
+            <>
+              <NavbarLink
+                as={Link}
+                to="/joinAsEmployee"
+                active={location.pathname === "/joinAsEmployee"}
+              >
+                <div className="flex items-center">
+                  <FiUser className="mr-1" /> Join as Employee
+                </div>
+              </NavbarLink>
+
+              <NavbarLink
+                as={Link}
+                to="/joinAsHR"
+                active={location.pathname === "/joinAsHR"}
+              >
+                <div className="flex items-center">
+                  <FiBriefcase className="mr-1" /> Join as HR
+                </div>
+              </NavbarLink>
+
+              {/* Mobile only login button */}
+              <div className="md:hidden mt-3">
+                <Button as={Link} to="/login" color="cyan" className="w-full">
+                  <FiUser className="mr-2" /> Login
+                </Button>
+              </div>
+            </>
+          )}
+
+          {user && isAdmin && (
+            <Dropdown
+              label={
+                <span className="flex items-center text-gray-300">
+                  <FiBriefcase className="mr-1" /> Admin
+                  <FiChevronDown className="ml-1" />
+                </span>
+              }
+              dismissOnClick={true}
+              inline
+              arrowIcon={false}
+              className="bg-slate-800 border border-slate-700"
+            >
+              <Dropdown.Item
+                as={Link}
+                to="/assetList"
+                className={getDropdownItemClass("/assetList")}
+              >
+                <FiList className="mr-2" /> Asset List
+              </Dropdown.Item>
+              <Dropdown.Item
+                as={Link}
+                to="/addAsset"
+                className={getDropdownItemClass("/addAsset")}
+              >
+                <FiPlus className="mr-2" /> Add an Asset
+              </Dropdown.Item>
+              <Dropdown.Item
+                as={Link}
+                to="/allRequest"
+                className={getDropdownItemClass("/allRequest")}
+              >
+                <FiPackage className="mr-2" /> All Requests
+              </Dropdown.Item>
+              <Dropdown.Item
+                as={Link}
+                to="/myTeam"
+                className={getDropdownItemClass("/myTeam")}
+              >
+                <FiUsers className="mr-2" /> My Employee List
+              </Dropdown.Item>
+              <Dropdown.Item
+                as={Link}
+                to="/addEmployee"
+                className={getDropdownItemClass("/addEmployee")}
+              >
+                <FiUserPlus className="mr-2" /> Add an Employee
+              </Dropdown.Item>
+            </Dropdown>
+          )}
+
+          {user && !isAdmin && (
+            <>
+              <NavbarLink
+                as={Link}
+                to="/employeeAssets"
+                active={location.pathname === "/employeeAssets"}
+              >
+                <div className="flex items-center">
+                  <FiPackage className="mr-1" /> My Assets
+                </div>
+              </NavbarLink>
+
+              <NavbarLink
+                as={Link}
+                to="/employeeTeam"
+                active={location.pathname === "/employeeTeam"}
+              >
+                <div className="flex items-center">
+                  <FiUsers className="mr-1" /> My Team
+                </div>
+              </NavbarLink>
+            </>
+          )}
         </NavbarCollapse>
       </Navbar>
     </div>
