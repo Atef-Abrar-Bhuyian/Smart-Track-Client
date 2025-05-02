@@ -50,24 +50,17 @@ const Banner = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 py-16 mt-14">
-      {/* Background abstract shapes (darkened) */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-cyan-700 rounded-full mix-blend-multiply filter blur-xl"></div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-700 rounded-full mix-blend-multiply filter blur-xl"></div>
-        <div className="absolute bottom-0 left-20 w-64 h-64 bg-purple-700 rounded-full mix-blend-multiply filter blur-xl"></div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-12">
+    <div className="relative min-h-screen w-full bg-white py-16 mt-14">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-16">
           {/* Text content */}
           <div className="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
             <h1
-              className={`text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r ${slides[activeSlide].gradient} inline-block text-transparent bg-clip-text`}
+              className={`text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r ${slides[activeSlide].gradient} inline-block text-transparent bg-clip-text`}
             >
               {slides[activeSlide].title}
             </h1>
-            <p className="text-lg text-gray-300 mb-6 max-w-xl">
+            <p className="text-xl text-gray-700 mb-8 max-w-xl">
               {slides[activeSlide].description}
             </p>
             <button
@@ -85,7 +78,7 @@ const Banner = () => {
           <div className="w-full md:w-1/2 order-1 md:order-2">
             <div className="max-w-lg mx-auto">
               <LottieAnimation
-                className="w-full h-64 md:h-80"
+                className="w-full h-72 md:h-[22rem]"
                 animationData={slides[activeSlide].animation}
               />
             </div>
@@ -100,7 +93,7 @@ const Banner = () => {
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 activeSlide === index
                   ? "bg-cyan-500 w-6"
-                  : "bg-gray-600 hover:bg-cyan-600"
+                  : "bg-gray-400 hover:bg-cyan-500"
               }`}
               onClick={() => setActiveSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
