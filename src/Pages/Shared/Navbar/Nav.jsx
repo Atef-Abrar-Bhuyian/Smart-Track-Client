@@ -38,8 +38,6 @@ const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   const navbarRef = useRef(null);
   const mobileMenuRef = useRef(null);
@@ -191,9 +189,10 @@ const Nav = () => {
               to="/login"
               color="cyan"
               pill
-              className="hidden md:flex items-center"
+              className="hidden md:flex"
             >
-              <FiUser className="mr-2" /> Login
+              
+              Login
             </Button>
           )}
 
@@ -202,9 +201,7 @@ const Nav = () => {
 
         <NavbarCollapse>
           <NavbarLink as={Link} to="/" active={location.pathname === "/"}>
-            <div className="flex items-center">
-              <FiHome className="mr-1" /> Home
-            </div>
+            <div>Home</div>
           </NavbarLink>
 
           {!user && (
@@ -214,9 +211,7 @@ const Nav = () => {
                 to="/pricing"
                 active={location.pathname === "/pricing"}
               >
-                <div className="flex items-center">
-                  <FiDollarSign className="mr-1" /> All Plans
-                </div>
+                <div>All Plans</div>
               </NavbarLink>
 
               <NavbarLink
@@ -224,9 +219,7 @@ const Nav = () => {
                 to="/User-Reviews"
                 active={location.pathname === "/User-Reviews"}
               >
-                <div className="flex items-center">
-                  <FiMessageSquare className="mr-1" /> User Reviews
-                </div>
+                <div>User Reviews</div>
               </NavbarLink>
             </>
           )}
@@ -239,9 +232,7 @@ const Nav = () => {
                 to="/joinAsEmployee"
                 active={location.pathname === "/joinAsEmployee"}
               >
-                <div className="flex items-center">
-                  <FiUser className="mr-1" /> Join as Employee
-                </div>
+                <div>Join as Employee</div>
               </NavbarLink>
 
               <NavbarLink
@@ -249,15 +240,13 @@ const Nav = () => {
                 to="/joinAsHR"
                 active={location.pathname === "/joinAsHR"}
               >
-                <div className="flex items-center">
-                  <FiBriefcase className="mr-1" /> Join as HR
-                </div>
+                <div>Join as HR</div>
               </NavbarLink>
 
               {/* Mobile only login button */}
               <div className="md:hidden mt-3">
                 <Button as={Link} to="/login" color="cyan" className="w-full">
-                  <FiUser className="mr-2" /> Login
+                  Login
                 </Button>
               </div>
             </>
