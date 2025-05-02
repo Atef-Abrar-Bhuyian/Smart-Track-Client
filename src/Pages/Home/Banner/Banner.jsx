@@ -1,74 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import Lottie from "lottie-react";
 import bannerHr from "../../../assets/lottieReact/bannerHR.json";
 import bannerEmployee from "../../../assets/lottieReact/bannerEmployee.json";
-import Lottie from "lottie-react";
-import { Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import required modules
-import { Pagination } from "swiper/modules";
-import CustomBtn from "../../Shared/CustomBtn/CustomBtn";
+const LottieAnimation = ({ className, animationData }) => {
+  return (
+    <div className={`${className} rounded-lg`}>
+      <Lottie
+        animationData={animationData}
+        loop
+        autoplay
+        className="w-full h-full"
+      />
+    </div>
+  );
+};
 
 const Banner = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const navigate = useNavigate();
+
+  const slides = [
+    {
+      id: 1,
+      title: "Empowering Your Team",
+      gradient: "from-cyan-500 to-blue-500",
+      buttonGradient:
+        "from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500",
+      description:
+        "Discover innovative HR solutions that streamline recruitment, boost employee engagement, and drive organizational success.",
+      buttonText: "Join as HR Manager",
+      path: "/joinAsHR",
+      animation: bannerHr,
+    },
+    {
+      id: 2,
+      title: "Unleash Your Potential",
+      gradient: "from-cyan-500 to-blue-500",
+      buttonGradient:
+        "from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500",
+      description:
+        "Explore opportunities, enhance your skills, and achieve your career goals in a supportive and inspiring workplace.",
+      buttonText: "Join as Employee",
+      path: "/joinAsEmployee",
+      animation: bannerEmployee,
+    },
+  ];
+
   return (
-    <div className="mt-10 md:w-11/12 mx-auto">
-      <Swiper
-        pagination={{
-          dynamicBullets: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <div className="flex flex-col-reverse md:flex-row justify-between items-center cursor-pointer">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold mb-3">Empowering Your Team</h1>
-              <p className="md:w-3/4 mb-3 mx-auto">
-                Discover innovative HR solutions that streamline recruitment,
-                boost employee engagement, and drive organizational success
-              </p>
-              <Link to={"/joinAsHR"}>
-                <button className="inline-flex justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">
-                  Join as HR Manager
-                </button>
-              </Link>
-            </div>
-            <Lottie
-              animationData={bannerHr}
-              className="w-6/12 lg:w-2/4"
-            ></Lottie>
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 py-16 mt-14">
+      {/* Background abstract shapes (darkened) */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-cyan-700 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-700 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute bottom-0 left-20 w-64 h-64 bg-purple-700 rounded-full mix-blend-multiply filter blur-xl"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-12">
+          {/* Text content */}
+          <div className="w-full md:w-1/2 text-center md:text-left order-2 md:order-1">
+            <h1
+              className={`text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r ${slides[activeSlide].gradient} inline-block text-transparent bg-clip-text`}
+            >
+              {slides[activeSlide].title}
+            </h1>
+            <p className="text-lg text-gray-300 mb-6 max-w-xl">
+              {slides[activeSlide].description}
+            </p>
+            <button
+              className={`group relative px-6 py-3 font-medium text-white rounded-lg overflow-hidden bg-gradient-to-r ${slides[activeSlide].buttonGradient} shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95`}
+              onClick={() => navigate(slides[activeSlide]?.path)}
+            >
+              <span className="relative flex items-center gap-2">
+                {slides[activeSlide].buttonText}
+                <MdOutlineKeyboardDoubleArrowRight className="text-xl" />
+              </span>
+            </button>
           </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="flex flex-col-reverse md:flex-row justify-between items-center cursor-pointer">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold mb-3">
-                Unleash Your Potential
-              </h1>
-              <p className="md:w-3/4 mb-3 mx-auto">
-                Explore opportunities, enhance your skills, and achieve your
-                career goals in a supportive and inspiring workplace.
-              </p>
-              <Link to={"/joinAsEmployee"}>
-                <button className="inline-flex justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">
-                  Join as Employee
-                </button>
-              </Link>
+
+          {/* Lottie animation */}
+          <div className="w-full md:w-1/2 order-1 md:order-2">
+            <div className="max-w-lg mx-auto">
+              <LottieAnimation
+                className="w-full h-64 md:h-80"
+                animationData={slides[activeSlide].animation}
+              />
             </div>
-            <Lottie
-              animationData={bannerEmployee}
-              className="w-2/4 lg:w-2/4"
-            ></Lottie>
           </div>
-        </SwiperSlide>
-      </Swiper>
+        </div>
+
+        {/* Pagination dots */}
+        <div className="flex justify-center gap-2 mt-4">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.id}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                activeSlide === index
+                  ? "bg-cyan-500 w-6"
+                  : "bg-gray-600 hover:bg-cyan-600"
+              }`}
+              onClick={() => setActiveSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

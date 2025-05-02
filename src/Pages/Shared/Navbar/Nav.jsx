@@ -191,9 +191,10 @@ const Nav = () => {
               to="/login"
               color="cyan"
               pill
-              className="hidden md:flex items-center"
+              className="hidden md:flex items-center justify-center gap-2"
             >
-              <FiUser className="mr-2" /> Login
+              <FiUser className="text-lg" />
+              Login
             </Button>
           )}
 
