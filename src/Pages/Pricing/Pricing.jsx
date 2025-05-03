@@ -9,7 +9,7 @@ import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 const pricingPlans = [
   {
     title: "Basic",
-    price: "$0/month",
+    price: "$5/month",
     features: ["Basic Features", "Maximum 5 employees","Basic dashboard"],
     unavailable: [
       "Premium Features",
@@ -19,7 +19,7 @@ const pricingPlans = [
   },
   {
     title: "Pro",
-    price: "$4.99/month",
+    price: "$8/month",
     features: [
       "All Free features",
       "Maximum 10 employee",
@@ -30,7 +30,7 @@ const pricingPlans = [
   },
   {
     title: "Ultimate",
-    price: "$9.99/month",
+    price: "$15/month",
     features: [
       "Maximum 20 employees",
       "All Basic Features",

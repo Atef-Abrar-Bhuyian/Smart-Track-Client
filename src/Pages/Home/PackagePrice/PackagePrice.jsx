@@ -6,7 +6,7 @@ const PackagePrice = () => {
   const plans = [
     {
       name: "Basic",
-      price: "$0",
+      price: "$5/month",
       features: [
         { text: "Basic Features", available: true },
         { text: "Maximum 5 employees", available: true },
@@ -19,7 +19,7 @@ const PackagePrice = () => {
     },
     {
       name: "Pro",
-      price: "$4.99/month",
+      price: "$8/month",
       features: [
         { text: "All Free features", available: true },
         { text: "Maximum 10 employee", available: true },
@@ -32,7 +32,7 @@ const PackagePrice = () => {
     },
     {
       name: "Ultimate",
-      price: "$9.99/month",
+      price: "$15/month",
       features: [
         { text: "Maximum 20 employees", available: true },
         { text: "All Basic Features", available: true },

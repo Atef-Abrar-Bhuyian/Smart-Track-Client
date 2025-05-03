@@ -1,6 +1,7 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import HeaderSection from "../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const testimonials = [
   {
@@ -79,10 +80,11 @@ const testimonials = [
 
 export default function UsersReview() {
   return (
-    <div className="min-h-screen py-20 px-6 bg-gradient-to-tr from-[#e0f7fa] to-[#fff] dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen py-20 px-6 bg-gradient-to-tr from-[#e0f7fa] to-[#fff] dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
       <div className="mt-5">
         <HeaderSection title={"Hear From Our Customers"} />
       </div>
+      <GradientUI />
       <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
         {testimonials.map((testimonial, index) => (
           <Fade key={index} delay={index * 50} triggerOnce={true}>
