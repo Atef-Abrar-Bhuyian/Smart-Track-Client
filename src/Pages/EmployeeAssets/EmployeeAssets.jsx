@@ -10,6 +10,7 @@ import PdfDocument from "../../Components/PdfDocument/PdfDocument";
 import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
@@ -41,12 +42,15 @@ const EmployeeAssets = () => {
   const handleSort = async (value) => {
     if (value === "null") return;
     try {
-      const response = await axiosSecure.get(`/assetsRequestFilter/${user?.email}`, {
-        params: { filterType: value },
-      });
-  
+      const response = await axiosSecure.get(
+        `/assetsRequestFilter/${user?.email}`,
+        {
+          params: { filterType: value },
+        }
+      );
+
       setSearchItems(response.data);
-      // console.log(response.data); 
+      // console.log(response.data);
     } catch (error) {
       // console.error("Error fetching filtered assets:", error);
     }
@@ -133,240 +137,162 @@ const EmployeeAssets = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-10">
-      <ReactHelmet title={"My Assets"} />
-      <Fade>
-      <div>
-        <h1 className="text-xl font-bold text-center my-10">
-          My Requested Assets
-        </h1>
-      </div>
-      </Fade>
+    <div className="py-16 px-4 md:px-8 dark:bg-gray-900 min-h-screen">
+      <ReactHelmet title="My Assets" />
 
-      <div className="md:flex justify-between my-6">
-        <div className="mb-4">
-          <FloatingLabel
+      {/* Page Header */}
+      <div className="text-center mb-10 mt-10">
+        <HeaderSection title="My Requested Assets" />
+      </div>
+
+      {/* Filter & Search Controls */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+        {/* Redesigned Search Input */}
+        <div className="relative w-full md:w-1/2">
+          <input
+            type="text"
+            placeholder="Search by Product Name"
             onChange={(e) => handleSearch(e.target.value)}
-            variant="outlined"
-            label="Search By Product Name"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
           />
-        </div>
-        <div>
-          <Select
-            onChange={(e) => handleSort(e.target.value)}
-            defaultValue={"null"}
-            required
+          <svg
+            className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-300 pointer-events-none"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <option value="null" disabled>
-              Filter
-            </option>
-            <option value="Pending">Pending Requests</option>
-            <option value="Approved">Approved Requests</option>
-            <option value="Returnable">Returnable</option>
-            <option value="Non-Returnable">Non-Returnable</option>
-          </Select>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"
+            />
+          </svg>
         </div>
+
+        {/* Sort Dropdown */}
+        <Select
+          onChange={(e) => handleSort(e.target.value)}
+          defaultValue="null"
+          className="w-full md:w-1/3"
+          required
+        >
+          <option value="null" disabled>
+            Filter by Status
+          </option>
+          <option value="Pending">Pending Requests</option>
+          <option value="Approved">Approved Requests</option>
+          <option value="Returnable">Returnable</option>
+          <option value="Non-Returnable">Non-Returnable</option>
+        </Select>
       </div>
 
-      <div className="overflow-x-auto">
-        <Table hoverable>
-          <Table.Head>
+      {/* Table */}
+      <div className="overflow-x-auto rounded-xl shadow-md dark:shadow-none">
+        <Table hoverable className="text-sm">
+          <Table.Head className="bg-gray-100 dark:bg-gray-700">
             <Table.HeadCell>Asset Name</Table.HeadCell>
-            <Table.HeadCell>Asset Type</Table.HeadCell>
-            <Table.HeadCell>Request Date</Table.HeadCell>
-            <Table.HeadCell>Approval Date</Table.HeadCell>
-            <Table.HeadCell>Request Status</Table.HeadCell>
-            <Table.HeadCell>Actions</Table.HeadCell>
+            <Table.HeadCell>Type</Table.HeadCell>
+            <Table.HeadCell>Requested</Table.HeadCell>
+            <Table.HeadCell>Approved</Table.HeadCell>
+            <Table.HeadCell>Status</Table.HeadCell>
+            <Table.HeadCell className="text-center">Action</Table.HeadCell>
           </Table.Head>
+
           <Table.Body className="divide-y">
-            {searchItems?.length > 0 ? (
-              searchItems.map((asset) =>
+            {(searchItems?.length ? searchItems : employeesAssets)?.map(
+              (asset) =>
                 asset?.requests
-                  .filter((request) => request?.userEmail === user?.email)
-                  .map((request, idx) => (
-                    <Table.Row
-                      key={idx}
-                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  .filter((req) => req?.userEmail === user?.email)
+                  .map((req, idx) => (
+                    <Table.Row key={idx} className="bg-white dark:bg-gray-800">
+                      <Table.Cell className="font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         {asset?.productName}
                       </Table.Cell>
                       <Table.Cell>{asset?.productType}</Table.Cell>
                       <Table.Cell>
-                        {format(new Date(request?.requestedDate), "PPP")}
+                        {format(new Date(req?.requestedDate), "PPP")}
                       </Table.Cell>
                       <Table.Cell>
-                        {request?.status === "Returned"
-                          ? ""
-                          : request?.approvaldDate
-                          ? format(new Date(request?.approvaldDate), "PPP")
-                          : "Not Approved Yet"}
+                        {req?.status === "Returned"
+                          ? "-"
+                          : req?.approvaldDate
+                          ? format(new Date(req?.approvaldDate), "PPP")
+                          : "Not Approved"}
                       </Table.Cell>
                       <Table.Cell>
-                        <p
-                          className={`${
-                            request?.status === "Pending"
-                              ? "bg-yellow-400 text-black p-2 w-fit rounded-xl"
-                              : ""
-                          } ${
-                            request?.status === "Approved"
-                              ? "bg-green-600 text-white p-2 w-fit rounded-xl"
-                              : ""
-                          } ${
-                            request?.status === "Rejected"
-                              ? "bg-red-600 text-white p-2 w-fit rounded-xl"
+                        <span
+                          className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                            req?.status === "Pending"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : req?.status === "Approved"
+                              ? "bg-green-100 text-green-800"
+                              : req?.status === "Rejected"
+                              ? "bg-red-100 text-red-800"
+                              : req?.status === "Returned"
+                              ? "bg-gray-200 text-gray-700"
                               : ""
                           }`}
                         >
-                          {request?.status}
-                        </p>
+                          {req?.status}
+                        </span>
                       </Table.Cell>
-                      {request?.status === "Pending" && (
-                        <Table.Cell>
-                          <button
-                            onClick={() =>
-                              handleCancelRequest(asset?._id, request?._id)
-                            }
-                            className="text-white flex items-center gap-1 p-2 rounded-xl bg-red-600"
-                          >
-                            Cancel <GiCancel />
-                          </button>
-                        </Table.Cell>
-                      )}
-                      {request?.status === "Approved" && (
-                        <Table.Cell className="flex gap-2">
-                          <PDFDownloadLink
-                            document={
-                              <PdfDocument
-                                companyName={asset?.companyName}
-                                hrEmail={asset?.hrEmail}
-                                productName={asset?.productName}
-                                productType={asset?.productType}
-                                requestDate={request?.requestedDate}
-                                approvalDate={request?.approvaldDate}
-                              />
-                            }
-                            fileName="Asset's Information.pdf"
-                            className="bg-blue-600 p-2 rounded-xl text-white"
-                          >
-                            Print
-                          </PDFDownloadLink>
-                          {asset?.productType === "Returnable" && (
+                      <Table.Cell>
+                        <div className="flex flex-col md:flex-row gap-2 justify-center">
+                          {req?.status === "Pending" && (
                             <button
                               onClick={() =>
-                                handleReturn(asset._id, request._id)
+                                handleCancelRequest(asset?._id, req?._id)
                               }
-                              disabled={request?.status === "Returned"}
-                              className={`${
-                                request?.status === "Returned"
-                                  ? "bg-gray-400"
-                                  : "bg-blue-600"
-                              } p-2 rounded-xl text-white`}
+                              className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg transition"
                             >
-                              {request?.status === "Returned"
-                                ? "Returned"
-                                : "Return"}
+                              Cancel <GiCancel />
                             </button>
                           )}
-                        </Table.Cell>
-                      )}
-                    </Table.Row>
-                  ))
-              )
-            ) : (
-              employeesAssets.map((asset) =>
-                asset?.requests
-                  .filter((request) => request?.userEmail === user?.email)
-                  .map((request, idx) => (
-                    <Table.Row
-                      key={idx}
-                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        {asset?.productName}
-                      </Table.Cell>
-                      <Table.Cell>{asset?.productType}</Table.Cell>
-                      <Table.Cell>
-                        {format(new Date(request?.requestedDate), "PPP")}
-                      </Table.Cell>
-                      <Table.Cell>
-                        {request?.status === "Returned"
-                          ? ""
-                          : request?.approvaldDate
-                          ? format(new Date(request?.approvaldDate), "PPP")
-                          : "Not Approved Yet"}
-                      </Table.Cell>
-                      <Table.Cell>
-                        <p
-                          className={`${
-                            request?.status === "Pending"
-                              ? "bg-yellow-400 text-black p-2 w-fit rounded-xl"
-                              : ""
-                          } ${
-                            request?.status === "Approved"
-                              ? "bg-green-600 text-white p-2 w-fit rounded-xl"
-                              : ""
-                          } ${
-                            request?.status === "Rejected"
-                              ? "bg-red-600 text-white p-2 w-fit rounded-xl"
-                              : ""
-                          }`}
-                        >
-                          {request?.status}
-                        </p>
-                      </Table.Cell>
-                      {request?.status === "Pending" && (
-                        <Table.Cell>
-                          <button
-                            onClick={() =>
-                              handleCancelRequest(asset?._id, request?._id)
-                            }
-                            className="text-white flex items-center gap-1 p-2 rounded-xl bg-red-600"
-                          >
-                            Cancel <GiCancel />
-                          </button>
-                        </Table.Cell>
-                      )}
-                      {request?.status === "Approved" && (
-                        <Table.Cell className="flex gap-2">
-                          <PDFDownloadLink
-                            document={
-                              <PdfDocument
-                                companyName={asset?.companyName}
-                                hrEmail={asset?.hrEmail}
-                                productName={asset?.productName}
-                                productType={asset?.productType}
-                                requestDate={request?.requestedDate}
-                                approvalDate={request?.approvaldDate}
-                              />
-                            }
-                            fileName="Asset's Information.pdf"
-                            className="bg-blue-600 p-2 rounded-xl text-white"
-                          >
-                            Print
-                          </PDFDownloadLink>
-                          {asset?.productType === "Returnable" && (
-                            <button
-                              onClick={() =>
-                                handleReturn(asset._id, request._id)
-                              }
-                              disabled={request?.status === "Returned"}
-                              className={`${
-                                request?.status === "Returned"
-                                  ? "bg-gray-400"
-                                  : "bg-blue-600"
-                              } p-2 rounded-xl text-white`}
-                            >
-                              {request?.status === "Returned"
-                                ? "Returned"
-                                : "Return"}
-                            </button>
+
+                          {req?.status === "Approved" && (
+                            <>
+                              <PDFDownloadLink
+                                document={
+                                  <PdfDocument
+                                    companyName={asset?.companyName}
+                                    hrEmail={asset?.hrEmail}
+                                    productName={asset?.productName}
+                                    productType={asset?.productType}
+                                    requestDate={req?.requestedDate}
+                                    approvalDate={req?.approvaldDate}
+                                  />
+                                }
+                                fileName="Asset_Information.pdf"
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg transition"
+                              >
+                                Print
+                              </PDFDownloadLink>
+
+                              {asset?.productType === "Returnable" && (
+                                <button
+                                  onClick={() =>
+                                    handleReturn(asset._id, req._id)
+                                  }
+                                  disabled={req?.status === "Returned"}
+                                  className={`px-3 py-1 rounded-lg text-white ${
+                                    req?.status === "Returned"
+                                      ? "bg-gray-400 cursor-not-allowed"
+                                      : "bg-indigo-600 hover:bg-indigo-700"
+                                  }`}
+                                >
+                                  {req?.status === "Returned"
+                                    ? "Returned"
+                                    : "Return"}
+                                </button>
+                              )}
+                            </>
                           )}
-                        </Table.Cell>
-                      )}
+                        </div>
+                      </Table.Cell>
                     </Table.Row>
                   ))
-              )
             )}
           </Table.Body>
         </Table>
