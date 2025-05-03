@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "flowbite-react";
 import { Fade } from "react-awesome-reveal";
-import HeadingWithDes from "../../Shared/HeadingWithDes/HeadingWithDes";
+import HeaderSection from "../../../Components/HeaderSection/HeaderSection";
 
 const WhyChooseUs = () => {
   const features = [
@@ -38,11 +38,11 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-10 bg-white dark:bg-gray-900">
+    <section className="py-16 px-4 md:px-10 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="text-center">
         <Fade>
-          <HeadingWithDes
-            heading="Why Choose Us?"
+          <HeaderSection
+            title="Why Choose Us?"
             description="Smart asset management with security, efficiency, and real-time insights."
           />
         </Fade>
@@ -51,12 +51,12 @@ const WhyChooseUs = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
         {features.map((feature, index) => (
           <Fade key={index} cascade damping={0.1}>
-            <Card className="rounded-3xl border border-cyan-500/10 bg-gradient-to-b from-white/80 to-white dark:from-gray-800/80 dark:to-gray-800 shadow-md p-6 transition-all duration-300 hover:shadow-lg hover:scale-[1.03]">
+            <Card className="rounded-3xl border border-cyan-500/10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-md p-6 transition-all duration-300 hover:shadow-lg hover:scale-[1.03]">
               <div className="text-4xl text-cyan-600 mb-4">{feature.icon}</div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
                 {feature.description}
               </p>
             </Card>
