@@ -56,7 +56,9 @@ const UltraModernWhoWeAre = () => {
             <div
               key={feature.id}
               className={`md:col-span-3 lg:col-span-4 ${
-                feature.featured ? "md:col-span-6 lg:col-span-4 md:row-span-2" : ""
+                feature.featured
+                  ? "md:col-span-6 lg:col-span-4 md:row-span-2"
+                  : ""
               }`}
             >
               <div className="h-full bg-white/60 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
