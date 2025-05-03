@@ -29,6 +29,8 @@ import {
   FiUserPlus,
   FiBriefcase,
 } from "react-icons/fi";
+import { FiSun, FiMoon } from "react-icons/fi";
+import { ThemeContext } from "../../../provider/ThemeProvider";
 
 const Nav = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -38,7 +40,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
   const navbarRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const profileDropdownRef = useRef(null);
@@ -182,18 +184,49 @@ const Nav = () => {
               >
                 <FiLogOut className="mr-2" /> Logout
               </Button>
+              <Button
+                onClick={toggleTheme}
+                color="gray"
+                pill
+                className="!p-2"
+                title={
+                  darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+                }
+              >
+                {darkMode ? (
+                  <FiSun className="text-yellow-400" />
+                ) : (
+                  <FiMoon className="text-white" />
+                )}
+              </Button>
             </>
           ) : (
-            <Button
-              as={Link}
-              to="/login"
-              color="cyan"
-              pill
-              className="hidden md:flex"
-            >
-              
-              Login
-            </Button>
+            <>
+              <Button
+                as={Link}
+                to="/login"
+                color="cyan"
+                pill
+                className="hidden md:flex"
+              >
+                Login
+              </Button>
+              <Button
+                onClick={toggleTheme}
+                color="gray"
+                pill
+                className="!p-2"
+                title={
+                  darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+                }
+              >
+                {darkMode ? (
+                  <FiSun className="text-yellow-400" />
+                ) : (
+                  <FiMoon className="text-black" />
+                )}
+              </Button>
+            </>
           )}
 
           <NavbarToggle className="border border-gray-600" />
