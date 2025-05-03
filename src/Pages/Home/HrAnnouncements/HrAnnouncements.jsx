@@ -1,5 +1,7 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../../Components/GradientUI/GradientUI";
 
 const HrAnnouncements = () => {
   const announcements = [
@@ -24,27 +26,36 @@ const HrAnnouncements = () => {
   ];
 
   return (
-    <div className="p-6 rounded-2xl shadow-md">
-      <Fade>
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          Latest HR Announcements
-        </h2>
-      </Fade>
-      <ul className="space-y-4">
+    <div className="p-6 shadow-md dark:bg-gray-900 py-12 relative overflow-hidden">
+      <GradientUI />
+    <HeaderSection title={"Latest HR Announcements"} />
+  
+    {announcements?.length > 0 ? (
+      <ul className="space-y-5">
         {announcements.map((announcement, index) => (
           <li
             key={index}
-            className="p-4 border rounded-lg bg-white shadow-sm hover:shadow-md"
+            className="p-5 rounded-xl bg-white/10 backdrop-blur-lg border border-cyan-500/20 shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-gray-800/50"
           >
-            <h3 className="text-xl font-semibold">{announcement.title}</h3>
-            <p className="text-gray-600 mt-2">{announcement.description}</p>
-            <p className="text-sm text-gray-400 mt-1">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              {announcement.title}
+            </h3>
+            <p className="mt-2 text-gray-700 dark:text-gray-300">
+              {announcement.description}
+            </p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Posted on: {announcement.date}
             </p>
           </li>
         ))}
       </ul>
-    </div>
+    ) : (
+      <p className="text-center text-gray-500 dark:text-gray-400">
+        No announcements at the moment.
+      </p>
+    )}
+  </div>
+  
   );
 };
 

@@ -2,28 +2,29 @@ import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import HeaderSection from "../../../Components/HeaderSection/HeaderSection";
 
 const HrCalendar = () => {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="my-10 w-11/12 mx-auto">
-      <div>
-        <Fade>
-        <h2 className="text-3xl md:text-4xl text-center font-bold mb-5">
-        Work Calendar
-        </h2>
-        </Fade>
-      </div>
+    <div className="py-16 px-12 dark:bg-gray-900 bg-gray-100">
+      <HeaderSection title={"Work Calendar"} />
 
-      <div className="md:flex justify-between">
-        <div className="flex justify-center items-center">
-          <Calendar onChange={setDate} value={date} />
+      <div className="md:flex md:items-center md:justify-between gap-10">
+        {/* Calendar Section */}
+        <div className="flex justify-center items-center mb-10 md:mb-0">
+          <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-lg border border-cyan-500/30 dark:bg-gray-800/40">
+            <Calendar onChange={setDate} value={date} />
+          </div>
         </div>
-        <div className="flex items-center justify-center md:w-11/12">
-          <h3 className="text-2xl font-semibold text-center mb-10 md:w-4/5 mx-auto">
-            Effortlessly plan, track, and coordinate all activities with
-            intuitive calendar tool.
+
+        {/* Description Section */}
+        <div className="md:w-3/5 text-center md:text-left">
+          <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-300 leading-relaxed">
+            Effortlessly plan, track, and coordinate all your work-related
+            activities with our intuitive calendar tool. Stay ahead and never
+            miss a task or deadline.
           </h3>
         </div>
       </div>
