@@ -8,11 +8,12 @@ const PackagePrice = () => {
       name: "Free",
       price: "$0",
       features: [
-        "Limited quiz access",
-        "Community support",
-        "Basic dashboard",
-        "No AI support",
-        "Limited updates",
+        { text: "Basic Features", available: true },
+        { text: "Maximum 5 employees", available: true },
+        { text: "Basic dashboard", available: true },
+        { text: "Premium Features", available: false },
+        { text: "Limited updates", available: false },
+        { text: "Unlimited Access", available: false },
       ],
       highlight: false,
     },
@@ -20,30 +21,32 @@ const PackagePrice = () => {
       name: "Pro",
       price: "$9.99/month",
       features: [
-        "All Free features",
-        "Unlimited quizzes",
-        "Early access to updates",
-        "Priority support",
-        "No ads",
+        { text: "All Free features", available: true },
+        { text: "Maximum 10 employee", available: true },
+        { text: "Premium Features", available: true },
+        { text: "Priority support", available: true },
+        { text: "Unlimited Access", available: false },
+        { text: "Complete documentation", available: false },
       ],
-      highlight: true, // 👈 Highlight this plan
+      highlight: true,
     },
     {
       name: "Elite",
       price: "$19.99/month",
       features: [
-        "All Pro features",
-        "Access to ZapAI chatbot",
-        "Personalized AI quizzes",
-        "1-on-1 mentorship (beta)",
-        "Feature request priority",
+        { text: "Maximum 20 employees", available: true },
+        { text: "All Basic Features", available: true },
+        { text: "All Premium Features", available: true },
+        { text: "Unlimited Access", available: true },
+        { text: "Feature request priority", available: true },
+        { text: "Complete documentation", available: true },
       ],
       highlight: false,
     },
   ];
 
   return (
-    <section className="py-20 px-4 md:px-10 bg-white dark:bg-gray-900">
+    <section className="py-14 px-4 md:px-10 bg-white dark:bg-gray-900">
       <HeaderSection
         title={"Pricing Plans"}
         description={"Choose the plan that fits your learning journey."}
@@ -76,10 +79,18 @@ const PackagePrice = () => {
               {plan.features.map((feature, idx) => (
                 <li
                   key={idx}
-                  className="flex items-center text-gray-700 dark:text-gray-300"
+                  className={`flex items-center ${
+                    feature.available
+                      ? "text-cyan-600"
+                      : "text-gray-400 line-through"
+                  }`}
                 >
-                  <FaCheckCircle className="text-cyan-500 mr-2" />
-                  <span className="text-sm">{feature}</span>
+                  <FaCheckCircle
+                    className={`mr-2 ${
+                      feature.available ? "text-cyan-500" : "text-gray-400"
+                    }`}
+                  />
+                  <span className="text-sm">{feature.text}</span>
                 </li>
               ))}
             </ul>
