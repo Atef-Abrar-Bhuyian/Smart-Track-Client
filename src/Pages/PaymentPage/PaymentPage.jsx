@@ -16,23 +16,27 @@ const PaymentPage = () => {
 
 
   return (
-    <div className="w-11/12 mx-auto">
-      <ReactHelmet title={"Payment"}></ReactHelmet>
-      <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center">
-      <div className="md:w-2/4 mx-auto">
-        <h1 className="text-xl font-bold text-center my-12">Kindly Pay to Create Your Account</h1>
-          {/* Payment Form */}
-          <Elements stripe={stripePromise}>
-            <CheckOutForm userInfo={userInfo} />
-          </Elements>
-        </div>
+    <div className="py-12 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+  <ReactHelmet title={"Payment"} />
 
-        <div className="md:w-1/4 mx-auto">
-          <Lottie animationData={payment}></Lottie>
-        </div>
-        
-      </div>
+  <div className="grid md:grid-cols-2 gap-12 items-center">
+    {/* Animation Section */}
+    <div className="order-1 md:order-none">
+      <Lottie animationData={payment} className="w-full max-w-sm mx-auto" />
     </div>
+
+    {/* Payment Form Section */}
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-8">
+      <h1 className="text-2xl font-semibold text-center text-cyan-600 mb-6">
+        Kindly Pay to Create Your Account
+      </h1>
+      <Elements stripe={stripePromise}>
+        <CheckOutForm userInfo={userInfo} />
+      </Elements>
+    </div>
+  </div>
+</div>
+
   );
 };
 

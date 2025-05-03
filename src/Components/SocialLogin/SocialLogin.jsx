@@ -26,9 +26,12 @@ const SocialLogin = () => {
   return (
     <div className="flex items-center w-10/12 mx-auto">
       <div className="divider before:bg-neutral after:bg-neutral"></div>
-      <p className="mr-3 font-bold"> Or Login With</p>
+      <p className="mr-3 font-bold dark:text-cyan-600"> Login With</p>
       <div>
-        <button onClick={handleGoogleSignIn} className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 items-center gap-1">
+        <button
+          onClick={handleGoogleSignIn}
+          className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900 items-center gap-1"
+        >
           <FaGoogle></FaGoogle>
           Google
         </button>

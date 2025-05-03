@@ -171,7 +171,7 @@ const Nav = () => {
                     bordered
                     color="info"
                     alt={user?.displayName}
-                    className="ring-2 ring-cyan-500 transition-transform hover:scale-110"
+                    className="transition-transform hover:scale-110"
                   />
                 </NavLink>
               </Tooltip>

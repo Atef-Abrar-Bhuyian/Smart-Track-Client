@@ -7,14 +7,13 @@ import CustomBtn from "../Shared/CustomBtn/CustomBtn";
 import JoinAsHRLottie from "../../assets/lottieReact/joinAsHRLottie.json";
 import { useNavigate } from "react-router-dom";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
-
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const JoinAsHR = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
 
- 
   const navigate = useNavigate();
 
   // Handle form submission
@@ -72,147 +71,130 @@ const JoinAsHR = () => {
       price,
     };
 
-   
     navigate("/payment", { state: { userInfo } });
-
   };
 
   return (
-    <div className="my-20 w-4/5 mx-auto">
-      <ReactHelmet title={"Join As HR"}></ReactHelmet>
-      <div className="lg:flex justify-evenly gap-6">
-        {/* Left Side: Animation and Heading */}
-        <div className="flex-1 flex flex-col items-center justify-center mb-6">
-          
-          <Lottie animationData={JoinAsHRLottie} className="w-3/4"></Lottie>
-        </div>
+    <div className="py-20 dark:bg-gray-900">
+      <div className="pt-14 relative overflow-auto">
+      <GradientUI />
+        <ReactHelmet title={"Join As HR"} />
+        <div className="lg:flex justify-evenly gap-6">
+          {/* Left Side: Animation and Heading */}
+          <div className="flex-1 flex flex-col items-center justify-center mb-6 w-[80%]">
+            <Lottie animationData={JoinAsHRLottie} className="w-3/4" />
+          </div>
 
-        {/* Right Side: Form */}
-        <div className="flex-1">
-          <Card>
-          <h1 className="text-2xl text-center text-cyan-600 font-bold">Join As HR</h1>
-            <form onSubmit={handleJoinAsHR} className="flex flex-col gap-4">
-              {/* Name & Company Name */}
-              <div className="lg:flex gap-6">
-                <div className="flex-1 mb-3">
-                  <div className="mb-2 block">
-                    <Label value="Your Name" />
+          {/* Right Side: Form */}
+          <div className="flex-1">
+            <Card className="md:w-[80%] mx-auto">
+              <h1 className="text-2xl text-center text-cyan-600 font-bold mb-4">
+                Join As HR
+              </h1>
+              <form onSubmit={handleJoinAsHR} className="flex flex-col gap-4">
+                {/* Name & Company Name */}
+                <div className="lg:flex gap-6">
+                  <div className="flex-1">
+                    <Label value="Your Name" className="mb-2 block" />
+                    <TextInput
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                    />
                   </div>
+                  <div className="flex-1">
+                    <Label value="Company Name" className="mb-2 block" />
+                    <TextInput
+                      type="text"
+                      name="companyName"
+                      placeholder="Your Company Name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Company Logo */}
+                <div>
+                  <Label value="Company Logo" className="mb-2 block" />
                   <TextInput
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
+                    type="url"
+                    name="companyLogo"
+                    placeholder="Your Company Logo"
                     required
                   />
                 </div>
-                <div className="flex-1">
-                  <div className="mb-2 block">
-                    <Label value="Company Name" />
-                  </div>
+
+                {/* Your Photo */}
+                <div>
+                  <Label value="Your Photo" className="mb-2 block" />
                   <TextInput
-                    type="text"
-                    name="companyName"
-                    placeholder="Your Company Name"
+                    type="url"
+                    name="photo"
+                    placeholder="Your Photo"
                     required
                   />
                 </div>
-              </div>
 
-              {/* Company Logo */}
-              <div className="max-w-md">
-                <div className="mb-2 block">
-                  <Label value="Company Logo" />
-                </div>
-                <TextInput
-                  type="url"
-                  name="companyLogo"
-                  placeholder="Your Company Logo"
-                  required
-                />
-              </div>
-
-              {/* Your Photo */}
-              <div className="max-w-md">
-                <div className="mb-2 block">
-                  <Label value="Your Photo" />
-                </div>
-                <TextInput
-                  type="url"
-                  name="photo"
-                  placeholder="Your Photo"
-                  required
-                />
-              </div>
-
-              {/* Date of Birth & Plan Selection */}
-              <div className="md:flex gap-6">
-                <div className="flex-1 mb-3">
-                  <div className="mb-2 block">
-                    <Label value="Date of Birth" />
+                {/* Date of Birth & Plan */}
+                <div className="md:flex gap-6">
+                  <div className="flex-1">
+                    <Label value="Date of Birth" className="mb-2 block" />
+                    <DatePicker
+                      className="border-cyan-600 rounded-xl w-full"
+                      name="dateOfBirth"
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
                   </div>
-                  <DatePicker
-                    className="border-cyan-600 rounded-xl"
-                    name="dateOfBirth"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="mb-2 block">
-                    <Label value="Select a Plan" />
+                  <div className="flex-1">
+                    <Label value="Select a Plan" className="mb-2 block" />
+                    <Select name="selectedPackage" required>
+                      <option value={"basic"}>Basic Plan 5$</option>
+                      <option value={"advance"}>Advanced Plan 8$</option>
+                      <option value={"ultimate"}>Ultimate Plan 15$</option>
+                    </Select>
                   </div>
-                  <Select name="selectedPackage" required>
-                    <option value={"basic"}>Basic Plan 5$</option>
-                    <option value={"advance"}>Advanced Plan 8$</option>
-                    <option value={"ultimate"}>Ultimate Plan 15$</option>
-                  </Select>
                 </div>
-              </div>
 
-              {/* Email */}
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Your email" />
-                </div>
-                <TextInput
-                  type="email"
-                  name="email"
-                  placeholder="your email"
-                  required
-                />
-              </div>
-
-              {/* Password */}
-              <div>
-                <div className="mb-2">
-                  <Label value="Your password" />
-                </div>
-                <div className="relative">
+                {/* Email */}
+                <div>
+                  <Label value="Your email" className="mb-2 block" />
                   <TextInput
-                    name="password"
-                    type={showPass ? "text" : "password"}
-                    placeholder="your password"
+                    type="email"
+                    name="email"
+                    placeholder="Your email"
                     required
                   />
-                  <button
-                    className="absolute top-3 right-3 text-lg"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowPass(!showPass);
-                    }}
-                  >
-                    {showPass ? <FaEye /> : <FaEyeSlash />}
-                  </button>
-                  {error && <p className="text-red-500">{error}</p>}
                 </div>
-              </div>
 
-              <CustomBtn
-                text={"Pay and Join as HR"}
-                type={"submit"}
-              ></CustomBtn>
-            </form>
-          </Card>
+                {/* Password */}
+                <div>
+                  <Label value="Your password" className="mb-2 block" />
+                  <div className="relative">
+                    <TextInput
+                      name="password"
+                      type={showPass ? "text" : "password"}
+                      placeholder="Your password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="absolute top-3 right-3 text-lg text-gray-600 dark:text-gray-300"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                  </div>
+                  {error && (
+                    <p className="text-red-500 text-sm mt-1 ml-1">{error}</p>
+                  )}
+                </div>
+
+                <CustomBtn text={"Pay and Join as HR"} type={"submit"} />
+              </form>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

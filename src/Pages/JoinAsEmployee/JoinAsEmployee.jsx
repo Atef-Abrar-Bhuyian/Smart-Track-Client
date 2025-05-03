@@ -14,10 +14,12 @@ import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { Fade } from "react-awesome-reveal";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const JoinAsEmployee = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
@@ -89,108 +91,111 @@ const JoinAsEmployee = () => {
   };
 
   return (
-    <div className="my-20 w-11/12 mx-auto">
-      <ReactHelmet title={"Join As Employee"}></ReactHelmet>
-      <div className="lg:flex justify-evenly gap-6">
-        <div className="w-2/4 mx-auto flex flex-col items-center justify-center mb-6">
-          <Fade>
-          <h1 className="text-center text-xl font-bold">
-            Join us and take the first step toward a rewarding career.
-          </h1>
+    <div className="py-16 mt-16 px-4 lg:px-0 dark:bg-gray-900 relative overflow-hidden">
+      <ReactHelmet title="Join As Employee" />
+      <GradientUI />
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 max-w-7xl mx-auto">
+        {/* Left: Text & Animation */}
+        <div className="lg:w-1/2 text-center lg:text-left">
+          <Fade cascade>
+            <h1 className="text-3xl lg:text-4xl font-bold text-cyan-700 mb-4">
+              Join us and take the first step toward a rewarding career
+            </h1>
+            <p className="text-gray-600 text-sm lg:text-base mb-6">
+              Fill in the form to register as an employee and start your journey
+              with us.
+            </p>
+            <Lottie
+              animationData={joinAsEmployeeLottie}
+              className="w-full max-w-md mx-auto"
+            />
           </Fade>
-          <Lottie
-            animationData={joinAsEmployeeLottie}
-            className="lg:w-3/4"
-          ></Lottie>
         </div>
-        <div className="flex-1">
-          <Card className="w-11/12 mx-auto">
-            <h1 className="text-2xl text-center text-cyan-600 font-bold">Join As Employee</h1>
+
+        {/* Right: Form Card */}
+        <div className="lg:w-1/2">
+          <Card className="shadow-lg rounded-xl border border-cyan-100">
+            <h2 className="text-2xl font-bold text-center text-cyan-600 mb-4">
+              Join As Employee
+            </h2>
+
             <form
               onSubmit={handleJoinAsEmployee}
               className="flex flex-col gap-4"
             >
-              <div className="md:flex justify-between gap-6">{/* Name */}
-              <div className="w-full">
-                <div className="mb-2 block">
+              {/* Name & Photo */}
+              <div className="md:flex gap-4">
+                <div className="w-full">
                   <Label value="Full Name" />
+                  <TextInput
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                  />
                 </div>
-                <TextInput
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                />
+                <div className="w-full">
+                  <Label value="Photo URL" />
+                  <TextInput
+                    type="url"
+                    name="photo"
+                    placeholder="Your Photo URL"
+                    required
+                  />
+                </div>
               </div>
-              {/* photo */}
-              <div className="w-full">
-                <div className="mb-2 block">
-                  <Label value="Your Photo URL" />
-                </div>
-                <TextInput
-                  type="url"
-                  name="photo"
-                  placeholder="Your Photo URL"
-                  required
-                />
-              </div></div>
+
               {/* Date of Birth */}
               <div>
-                <div className="mb-2 block">
-                  <Label value="Date of Birth" />
-                </div>
+                <Label value="Date of Birth" className="mr-4" />
                 <DatePicker
-                  className="border-cyan-600 rounded-xl"
                   name="dateOfBirth"
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
+                  className="w-full p-2 rounded-lg border border-gray-300 focus:outline-cyan-600"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <div className="mb-2 block">
-                  <Label value="Your email" />
-                </div>
+                <Label value="Your Email" />
                 <TextInput
                   type="email"
                   name="email"
-                  placeholder="your email"
+                  placeholder="your@email.com"
                   required
                 />
               </div>
+
               {/* Password */}
               <div>
-                <div className="mb-2">
-                  <Label value="Your password" />
-                </div>
+                <Label value="Password" />
                 <div className="relative">
                   <TextInput
-                    name="password"
                     type={showPass ? "text" : "password"}
-                    placeholder="your password"
+                    name="password"
+                    placeholder="Password"
                     required
                   />
                   <button
-                    className="absolute top-3 right-3 text-lg"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowPass(!showPass);
-                    }}
+                    type="button"
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute top-2.5 right-3 text-xl text-gray-500"
                   >
                     {showPass ? <FaEye /> : <FaEyeSlash />}
                   </button>
                 </div>
               </div>
-              <CustomBtn text={"Join as Employee"} type="submit"></CustomBtn>
-            </form>
-            <div className="divide-y divide-dashed">
-              <div></div>
-              <div>
-                <h4 className="text-md font-bold text-center my-4">OR</h4>
+
+              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+
+              <CustomBtn text="Join as Employee" type="submit" />
+
+              <div className="my-4 border-t border-dashed pt-4">
+                <h4 className="text-center text-gray-500 font-semibold">OR</h4>
                 <SocialLogin />
               </div>
-            </div>
+            </form>
           </Card>
         </div>
       </div>

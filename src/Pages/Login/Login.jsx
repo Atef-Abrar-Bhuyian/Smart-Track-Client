@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    
+
     signIn(email, password)
       .then((result) => {
         const user = result.user;
@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="my-20 w-11/12 mx-auto">
+    <div className="py-20 dark:bg-gray-900">
       <ReactHelmet title={"Login"} />
       <div className="md:flex justify-between">
         <div className="flex-1 flex items-center justify-center mb-6">
@@ -48,7 +48,9 @@ const Login = () => {
         </div>
         <div className="flex-1">
           <Card className="max-w-sm">
-            <h1 className="text-2xl font-bold text-center text-cyan-600">Login</h1>
+            <h1 className="text-2xl font-bold text-center text-cyan-600">
+              Login
+            </h1>
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
