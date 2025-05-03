@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Footer } from "flowbite-react";
 import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
@@ -9,7 +8,6 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 const SharedFooter = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
-
   const axiosPublic = useAxiosPublic();
   const [cUser, setCUser] = useState({});
 
@@ -20,66 +18,111 @@ const SharedFooter = () => {
         .then((res) => {
           setCUser(res.data);
         })
-        .catch((err) => {
-          // console.error("Error fetching user data:", err);
-        });
+        .catch(() => {});
     }
   }, [user, axiosPublic]);
 
   return (
-    <Footer container>
-      <div className="w-full">
-        <div className="grid justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 w-11/12 mx-auto">
+    <footer className="bg-gray-900 text-gray-300 py-10 border-t border-gray-700">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {/* About */}
           <div>
-            {user && isAdmin ? (
-              <img
-                className="w-16 h-16 rounded-full"
-                src={cUser?.companyLogo}
-                alt=""
-              />
-            ) : (
-              <Link to={"/"} className="self-center whitespace-nowrap text-xl font-bold hover:text-cyan-600 dark:text-white">
-                SmartTrack
-              </Link>
-            )}
+            <h3 className="text-xl font-semibold text-white mb-4">
+              <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
+                <span className="text-cyan-400">Smart</span>Track
+              </span>
+            </h3>
+            <p className="text-sm leading-relaxed text-gray-400">
+              We're a team of developers passionate about building modern,
+              user-friendly web applications. Let's innovate together.
+            </p>
           </div>
-          <div className="grid grid-cols-2 gap-8 mt-6 md:mt-0 sm:grid-cols-3 sm:gap-6">
-            <div>
-              <Footer.Title title="about" />
-              <Footer.LinkGroup col>
-                <Link to={"/"} className="hover:text-cyan-600">SmartTrack</Link>
-                <Link to={"/pricing"} className="hover:text-cyan-600">All Plans</Link>
-                <Link to={"/User-Reviews"} className="hover:text-cyan-600">User Reviews</Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Follow us" />
-              <Footer.LinkGroup col>
-                <Link to={"/"}>Github</Link>
-                <Link to={"/"}>Discord</Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col>
-                <Link to={"/"}>Privacy Policy</Link>
-                <Link to={"/"}>Terms &amp; Conditions</Link>
-              </Footer.LinkGroup>
-            </div>
+
+          {/* Links */}
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-4">
+              Useful Links
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  to="/"
+                  className="hover:text-cyan-400 transition-colors duration-200"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pricing"
+                  className="hover:text-cyan-400 transition-colors duration-200"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/User-Reviews"
+                  className="hover:text-cyan-400 transition-colors duration-200"
+                >
+                  User Review
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-4">Contact</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>Email: info@smarttrack.com</li>
+            </ul>
           </div>
         </div>
-        <Footer.Divider />
-        <div className="w-11/12 mx-auto sm:flex sm:items-center sm:justify-between ">
-          <Footer.Copyright by="SmartTrack" year={2025} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon icon={BsFacebook} />
-            <Footer.Icon icon={BsInstagram} />
-            <Footer.Icon icon={BsTwitter} />
-            <Footer.Icon icon={BsGithub} />
-          </div>
+
+        {/* Social Icons */}
+        <div className="mt-10 flex justify-center space-x-6">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-xl"
+          >
+            <BsFacebook />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-xl"
+          >
+            <BsTwitter />
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-xl"
+          >
+            <BsGithub />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-xl"
+          >
+            <BsInstagram />
+          </a>
+        </div>
+
+        {/* Copyright */}
+        <div className="mt-6 text-center text-sm text-gray-500">
+          &copy; 2025 Your Website. All rights reserved.
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 };
 
