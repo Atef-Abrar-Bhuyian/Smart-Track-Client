@@ -9,6 +9,8 @@ import Typewriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const AddAsset = () => {
   const { user } = useAuth();
@@ -74,78 +76,83 @@ const AddAsset = () => {
   };
 
   return (
-    <div>
-      <ReactHelmet title={"Add Asset"}></ReactHelmet>
+    <div className="py-16 px-6 dark:bg-gray-900 min-h-screen relative overflow-hidden">
+      <GradientUI />
+      <ReactHelmet title={"Add Asset"} />
       <ToastContainer />
-      <div className="my-20 w-4/5 mx-auto">
-        <div className="lg:flex justify-evenly gap-6">
-          <div className=" flex flex-col items-center justify-center mb-6">
-            <h1 className="text-center text-3xl font-bold">
-              <Typewriter
-                options={{
-                  strings: ["Add a New Asset"],
-                  autoStart: true,
-                  loop: true,
-                }}
-              />
-            </h1>
-            <Fade>
-            <p className="font-medium">
-              Add a new asset to the system with ease and efficiency.
-            </p>
-            </Fade>
-          </div>
-          <div className="flex-1">
-            <Card className="">
-              <form onSubmit={handleAddAsset} className="flex flex-col gap-4">
-                <div className="lg:flex gap-6">
-                  {/* produt name */}
-                  <div className="flex-1 mb-3">
-                    <div className="mb-2 block">
-                      <Label value="Product Name" />
-                    </div>
-                    <TextInput
-                      type="text"
-                      name="productName"
-                      placeholder="Product Name"
-                      required
-                    />
-                  </div>
-                  {/* Quantity */}
-                  <div className="flex-1">
-                    <div className="mb-2 block">
-                      <Label value="Product Quantity" />
-                    </div>
-                    <TextInput
-                      type="number"
-                      name="quantity"
-                      placeholder="Quantity"
-                      required
-                    />
-                  </div>
 
-                  {/* Product Type */}
-                  <div className="flex-1">
-                    <div className="mb-2 block">
-                      <Label value="Product Type" />
-                    </div>
-                    <Select
-                      defaultValue={"default"}
-                      name="productType"
-                      required
-                    >
-                      <option value={"default"} disabled>
-                        Select Type
-                      </option>
-                      <option value={"Returnable"}>Returnable</option>
-                      <option value={"Non-Returnable"}>Non-Returnable</option>
-                    </Select>
-                  </div>
-                </div>
-                <CustomBtn text={"Add Asset"} type="submit"></CustomBtn>
-              </form>
-            </Card>
-          </div>
+      <div className="flex flex-col items-center">
+        {/* Header Section */}
+        <div className="text-center mt-10">
+          <HeaderSection
+            title="Add New Asset"
+            description="Add your new assets effortlessly to the system."
+          />
+        </div>
+
+        {/* Glassmorphism Card */}
+        <div className="w-full max-w-4xl backdrop-blur-xl bg-white/50 dark:bg-white/0 dark:bg-gradient-to-br dark:from-white/5 dark:via-cyan-400/10 dark:to-blue-500/10 border border-gray-700 rounded-3xl shadow-xl p-10">
+        
+          <form onSubmit={handleAddAsset} className="space-y-8">
+            {/* Input Group */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Product Name */}
+              <div className="flex flex-col">
+                <Label className="text-cyan-500 font-semibold mb-1">
+                  Product Name
+                </Label>
+                <TextInput
+                  type="text"
+                  name="productName"
+                  placeholder="Enter product name"
+                  required
+                  className="w-full bg-gray-700/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl focus:ring-cyan-500 transition"
+                />
+              </div>
+
+              {/* Quantity */}
+              <div className="flex flex-col">
+                <Label className="text-cyan-500 font-semibold mb-1">
+                  Quantity
+                </Label>
+                <TextInput
+                  type="number"
+                  name="quantity"
+                  placeholder="Enter quantity"
+                  required
+                  className="w-full bg-gray-700/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl focus:ring-cyan-500 transition"
+                />
+              </div>
+            </div>
+
+            {/* Product Type */}
+            <div className="flex flex-col">
+              <Label className="text-cyan-500 font-semibold mb-1">
+                Product Type
+              </Label>
+              <Select
+                defaultValue="default"
+                name="productType"
+                required
+                className="bg-gray-700/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl transition"
+              >
+                <option value="default" disabled>
+                  Select Product Type
+                </option>
+                <option value="Returnable">Returnable</option>
+                <option value="Non-Returnable">Non-Returnable</option>
+              </Select>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center pt-6">
+              <CustomBtn
+                text="Add Asset"
+                type="submit"
+                className="w-full py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-semibold rounded-2xl hover:opacity-90 transition duration-300"
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>

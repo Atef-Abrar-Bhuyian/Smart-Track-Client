@@ -9,6 +9,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const AssetList = () => {
   const { user } = useAuth();
@@ -131,26 +133,30 @@ const AssetList = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-10">
-      <ReactHelmet title={"Asset List"}></ReactHelmet>
+    <div className="pt-28 py-12 dark:bg-gray-900 relative overflow-hidden">
+      <GradientUI />
+      <ReactHelmet title={"Asset List"} />
       <Fade>
-        <div className="my-6">
-          <h1 className="text-center font-bold text-4xl">Asset List</h1>
+        <div className="mb-8">
+          <HeaderSection title={"Asset List"} />
         </div>
       </Fade>
-      <div className="md:flex justify-between my-6">
-        <div className="mb-4">
-          <FloatingLabel
+
+      {/* Filters & Search */}
+      <div className="md:flex justify-between items-center mb-8 gap-4 w-11/12 mx-auto">
+        <div className="w-full md:w-1/3">
+          <input
+            type="text"
             onChange={(e) => handleSearch(e.target.value)}
-            variant="outlined"
-            label="Search By Product Name"
+            placeholder="Search By Product Name"
+            className="w-full px-4 py-2 border border-cyan-300 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition duration-200 bg-transparent"
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-full md:w-auto">
           <Select
             onChange={(e) => handleFilter(e.target.value)}
             defaultValue={"null"}
-            required
+            className="w-full md:w-48"
           >
             <option value="null" disabled>
               Filter
@@ -163,7 +169,7 @@ const AssetList = () => {
           <Select
             onChange={(e) => handleSort(e.target.value)}
             defaultValue={"null"}
-            required
+            className="w-full md:w-48"
           >
             <option value="null" disabled>
               Sort By Quantity
@@ -173,111 +179,90 @@ const AssetList = () => {
           </Select>
         </div>
       </div>
-      <div className="overflow-x-auto">
-        <Table>
+
+      {/* Table */}
+      <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-xl shadow-md w-11/12 mx-auto">
+        <Table hoverable>
           <Table.Head>
             <Table.HeadCell>Product name</Table.HeadCell>
             <Table.HeadCell>Product Type</Table.HeadCell>
-            <Table.HeadCell>Product Quantity</Table.HeadCell>
+            <Table.HeadCell>Quantity</Table.HeadCell>
             <Table.HeadCell>Date Added</Table.HeadCell>
             <Table.HeadCell>Action</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {searchItems?.length > 0 ? (
-              <>
-                {searchItems?.map((asset) => (
-                  <Table.Row
-                    key={asset._id}
-                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                  >
-                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                      {asset?.productName}
-                    </Table.Cell>
-                    <Table.Cell>{asset?.productType}</Table.Cell>
-                    <Table.Cell>{asset?.quantity}</Table.Cell>
-                    <Table.Cell>
-                      {asset?.assetAddedDate
-                        ? format(new Date(asset?.assetAddedDate), "PPP")
-                        : "Date not available"}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <div className="flex gap-3">
-                        <button onClick={() => handleModifyAsset(asset)}>
-                          <FiEdit className="text-xl text-cyan-700" />
-                        </button>
-                        <button onClick={() => handleDeleteAsset(asset?._id)}>
-                          <RiDeleteBin6Line className="text-xl text-red-700" />
-                        </button>
-                      </div>
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </>
-            ) : (
-              <>
-                {assets.map((asset) => (
-                  <Table.Row
-                    key={asset._id}
-                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                  >
-                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                      {asset?.productName}
-                    </Table.Cell>
-                    <Table.Cell>{asset?.productType}</Table.Cell>
-                    <Table.Cell>{asset?.quantity}</Table.Cell>
-                    <Table.Cell>
-                      {asset?.assetAddedDate
-                        ? format(new Date(asset?.assetAddedDate), "PPP")
-                        : "Date not available"}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <div className="flex gap-3">
-                        <button onClick={() => handleModifyAsset(asset)}>
-                          <FiEdit className="text-xl text-cyan-700" />
-                        </button>
-                        <button onClick={() => handleDeleteAsset(asset?._id)}>
-                          <RiDeleteBin6Line className="text-xl text-red-700" />
-                        </button>
-                      </div>
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </>
-            )}
+            {(searchItems?.length > 0 ? searchItems : assets).map((asset) => (
+              <Table.Row
+                key={asset._id}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              >
+                <Table.Cell className="font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                  {asset.productName}
+                </Table.Cell>
+                <Table.Cell className="text-gray-700 dark:text-gray-300">
+                  {asset.productType}
+                </Table.Cell>
+                <Table.Cell className="text-gray-700 dark:text-gray-300">
+                  {asset.quantity}
+                </Table.Cell>
+                <Table.Cell className="text-gray-700 dark:text-gray-300">
+                  {asset.assetAddedDate
+                    ? format(new Date(asset.assetAddedDate), "PPP")
+                    : "Date not available"}
+                </Table.Cell>
+                <Table.Cell>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => handleModifyAsset(asset)}
+                      title="Edit"
+                    >
+                      <FiEdit className="text-xl text-cyan-600 hover:text-cyan-400 transition-colors" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteAsset(asset._id)}
+                      title="Delete"
+                    >
+                      <RiDeleteBin6Line className="text-xl text-red-600 hover:text-red-400 transition-colors" />
+                    </button>
+                  </div>
+                </Table.Cell>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </div>
 
+      {/* Edit Modal */}
       {currentAsset && (
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
           <Modal.Header>Modify Asset</Modal.Header>
           <Modal.Body>
             <form onSubmit={handleUpdateAsset}>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Product Name
                   </label>
                   <input
                     type="text"
-                    defaultValue={currentAsset?.productName}
                     readOnly
-                    className="w-full p-2 border rounded-lg"
+                    defaultValue={currentAsset.productName}
+                    className="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Product Type
                   </label>
                   <input
                     type="text"
-                    defaultValue={currentAsset?.productType}
                     readOnly
-                    className="w-full p-2 border rounded-lg"
+                    defaultValue={currentAsset.productType}
+                    className="w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     Quantity
                   </label>
                   <input
@@ -290,10 +275,17 @@ const AssetList = () => {
                         quantity: e.target.value,
                       })
                     }
-                    className="w-full p-2 border rounded-lg"
+                    className="w-full p-2 border rounded-lg dark:bg-gray-900 dark:text-white"
                   />
                 </div>
-                <Button type="submit">Save Changes</Button>
+                <div className="text-right">
+                  <Button
+                    type="submit"
+                    className="bg-purple-600 hover:bg-purple-500"
+                  >
+                    Save Changes
+                  </Button>
+                </div>
               </div>
             </form>
           </Modal.Body>
