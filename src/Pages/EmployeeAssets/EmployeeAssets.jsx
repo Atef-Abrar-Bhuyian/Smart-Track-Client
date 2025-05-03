@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { Fade } from "react-awesome-reveal";
 import HeaderSection from "../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const EmployeeAssets = () => {
   const { user, loading } = useAuth();
@@ -137,8 +138,9 @@ const EmployeeAssets = () => {
   };
 
   return (
-    <div className="py-16 px-4 md:px-8 dark:bg-gray-900 min-h-screen">
+    <div className="py-16 px-4 md:px-8 dark:bg-gray-900 min-h-screen relative overflow-hidden">
       <ReactHelmet title="My Assets" />
+      <GradientUI />
 
       {/* Page Header */}
       <div className="text-center mb-10 mt-10">
