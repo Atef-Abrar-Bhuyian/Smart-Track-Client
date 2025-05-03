@@ -196,7 +196,7 @@ const Nav = () => {
                 {darkMode ? (
                   <FiSun className="text-yellow-400" />
                 ) : (
-                  <FiMoon className="text-white" />
+                  <FiMoon className="text-black" />
                 )}
               </Button>
             </>

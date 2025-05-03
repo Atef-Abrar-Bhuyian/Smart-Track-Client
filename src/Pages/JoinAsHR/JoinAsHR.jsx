@@ -76,7 +76,7 @@ const JoinAsHR = () => {
 
   return (
     <div className="py-20 dark:bg-gray-900">
-      <div className="pt-14 relative overflow-auto">
+      <div className="pt-14 relative overflow-hidden">
       <GradientUI />
         <ReactHelmet title={"Join As HR"} />
         <div className="lg:flex justify-evenly gap-6">
