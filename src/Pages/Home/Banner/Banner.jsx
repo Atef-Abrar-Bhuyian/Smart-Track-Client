@@ -50,7 +50,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full bg-white py-16 mt-14">
+    <div className="relative min-h-screen w-full bg-white dark:bg-gray-900 py-16 mt-14 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-16">
           {/* Text content */}
@@ -60,7 +60,7 @@ const Banner = () => {
             >
               {slides[activeSlide].title}
             </h1>
-            <p className="text-xl text-gray-700 mb-8 max-w-xl">
+            <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-xl">
               {slides[activeSlide].description}
             </p>
             <button
@@ -90,10 +90,10 @@ const Banner = () => {
           {slides.map((slide, index) => (
             <button
               key={slide.id}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`h-3 rounded-full transition-all duration-300 ${
                 activeSlide === index
                   ? "bg-cyan-500 w-6"
-                  : "bg-gray-400 hover:bg-cyan-500"
+                  : "w-3 bg-gray-400 dark:bg-gray-600 hover:bg-cyan-500"
               }`}
               onClick={() => setActiveSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
