@@ -1,6 +1,6 @@
 import React from "react";
-import { Card } from "flowbite-react";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 
 const testimonials = [
   {
@@ -79,30 +79,29 @@ const testimonials = [
 
 export default function UsersReview() {
   return (
-    <div className="min-h-screen py-12 flex flex-col items-center">
-      <Fade>
-        <h1 className="text-4xl font-bold mb-8">What Users Say</h1>
-      </Fade>
-      <Fade delay={500}>
-        <div className="w-11/12 mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="bg-cyan-700 rounded-xl shadow-lg p-6 text-center"
-            >
+    <div className="min-h-screen py-20 px-6 bg-gradient-to-tr from-[#e0f7fa] to-[#fff] dark:from-gray-900 dark:to-gray-800">
+      <div className="mt-5">
+        <HeaderSection title={"Hear From Our Customers"} />
+      </div>
+      <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        {testimonials.map((testimonial, index) => (
+          <Fade key={index} delay={index * 50} triggerOnce={true}>
+            <div className="relative bg-white/30 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-2xl p-6 shadow-xl text-center transition-all duration-300 hover:scale-[1.02]">
               <img
-                className="w-20 h-20 rounded-full mx-auto"
                 src={testimonial.picture}
                 alt={testimonial.name}
+                className="w-16 h-16 rounded-full mx-auto mb-4 border-4 border-white shadow-md"
               />
-              <h2 className="text-xl font-bold mt-4 mb-2 text-white">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                 {testimonial.name}
-              </h2>
-              <p className="text-white italic">"{testimonial.review}"</p>
-            </Card>
-          ))}
-        </div>
-      </Fade>
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
+                “{testimonial.review}”
+              </p>
+            </div>
+          </Fade>
+        ))}
+      </div>
     </div>
   );
 }

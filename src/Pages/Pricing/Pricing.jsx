@@ -9,36 +9,34 @@ import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 const pricingPlans = [
   {
     title: "Basic",
-    price: "$10/month",
-    features: ["Maximum 5 employees", "Basic Features"],
+    price: "$0/month",
+    features: ["Basic Features", "Maximum 5 employees","Basic dashboard"],
     unavailable: [
       "Premium Features",
+      "Limited updates",
       "Unlimited Access",
-      "Complete documentation",
-      "24/7 Chat Support",
     ],
   },
   {
     title: "Pro",
-    price: "$25/month",
+    price: "$4.99/month",
     features: [
-      "Maximum 10 employees",
-      "Basic Features",
+      "All Free features",
+      "Maximum 10 employee",
       "Premium Features",
-      "Unlimited Access",
+      "Priority support",
     ],
-    unavailable: ["Complete documentation", "24/7 Chat Support"],
+    unavailable: ["Unlimited Access", "Complete documentation"],
   },
   {
     title: "Ultimate",
-    price: "$50/month",
+    price: "$9.99/month",
     features: [
       "Maximum 20 employees",
-      "Basic Features",
-      "Premium Features",
+      "All Basic Features",
+      "All Premium Features",
       "Unlimited Access",
       "Complete documentation",
-      "24/7 Chat Support",
     ],
     unavailable: [],
   },
@@ -46,7 +44,7 @@ const pricingPlans = [
 
 export default function Pricing() {
   return (
-    <div className="min-h-screen py-10 mt-14 px-4 md:px-8 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-200 transition-colors">
+    <div className="min-h-screen py-10 mt-14 px-4 md:px-8 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-200 transition-colors relative overflow-hidden">
       <ReactHelmet title={"Price Plans"} />
       <HeaderSection title={"Choose Your Plane"} />
       <GradientUI />

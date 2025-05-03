@@ -2,6 +2,7 @@ import React from "react";
 import { FaBullseye, FaChartBar, FaUsers, FaChartLine } from "react-icons/fa";
 import { BsShield } from "react-icons/bs";
 import HeaderSection from "../../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../../Components/GradientUI/GradientUI";
 
 const UltraModernWhoWeAre = () => {
   const features = [
@@ -44,7 +45,8 @@ const UltraModernWhoWeAre = () => {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 relative overflow-hidden">
+      <GradientUI />
       <div className="max-w-7xl mx-auto">
         <HeaderSection
           title="Who We Are"

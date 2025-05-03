@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "flowbite-react";
 import { Fade } from "react-awesome-reveal";
 import HeaderSection from "../../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../../Components/GradientUI/GradientUI";
 
 const WhyChooseUs = () => {
   const features = [
@@ -38,7 +39,8 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-10 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="py-16 px-4 md:px-10 bg-white dark:bg-gray-900 transition-colors duration-300 relative overflow-hidden">
+      <GradientUI />
       <div className="text-center">
         <Fade>
           <HeaderSection
