@@ -17,17 +17,11 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import {
   FiChevronDown,
-  FiUser,
-  FiLogOut,
-  FiHome,
-  FiDollarSign,
-  FiMessageSquare,
   FiList,
   FiPlus,
   FiUsers,
   FiPackage,
   FiUserPlus,
-  FiBriefcase,
 } from "react-icons/fi";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { ThemeContext } from "../../../provider/ThemeProvider";
@@ -88,8 +82,8 @@ const Nav = () => {
   const getDropdownItemClass = (path) => {
     const isActive = location.pathname === path;
     return isActive
-      ? "flex items-center py-2 px-4 text-sm text-white bg-cyan-700 hover:bg-cyan-800"
-      : "flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-700 hover:text-white";
+      ? "flex items-center py-2 px-4 text-sm text-white bg-cyan-700 hover:bg-cyan-800 hover:text-white"
+      : "flex items-center py-2 px-4 text-sm text-gray-300 hover:bg-cyan-800 hover:text-white";
   };
 
   useEffect(() => {
@@ -182,7 +176,7 @@ const Nav = () => {
                 className="hidden md:flex items-center"
                 pill
               >
-                <FiLogOut className="mr-2" /> Logout
+                Logout
               </Button>
               <Button
                 onClick={toggleTheme}
@@ -286,10 +280,11 @@ const Nav = () => {
           )}
 
           {user && isAdmin && (
+            <>
             <Dropdown
               label={
                 <span className="flex items-center text-gray-300">
-                  <FiBriefcase className="mr-1" /> Admin
+                   Admin
                   <FiChevronDown className="ml-1" />
                 </span>
               }
@@ -334,6 +329,7 @@ const Nav = () => {
                 <FiUserPlus className="mr-2" /> Add an Employee
               </Dropdown.Item>
             </Dropdown>
+            </>
           )}
 
           {user && !isAdmin && (
@@ -343,9 +339,7 @@ const Nav = () => {
                 to="/employeeAssets"
                 active={location.pathname === "/employeeAssets"}
               >
-                <div className="flex items-center">
-                  <FiPackage className="mr-1" /> My Assets
-                </div>
+                <div>My Assets</div>
               </NavbarLink>
 
               <NavbarLink
@@ -353,9 +347,7 @@ const Nav = () => {
                 to="/employeeTeam"
                 active={location.pathname === "/employeeTeam"}
               >
-                <div className="flex items-center">
-                  <FiUsers className="mr-1" /> My Team
-                </div>
+                <div>My Team</div>
               </NavbarLink>
             </>
           )}
