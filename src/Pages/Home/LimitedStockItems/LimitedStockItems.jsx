@@ -23,7 +23,7 @@ const LimitedStockItems = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="dark:bg-gray-900 py-16 px-4">
+    <div className="dark:bg-gray-900 py-16">
       <div className="w-11/12 mx-auto">
         <Fade>
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800 dark:text-white">

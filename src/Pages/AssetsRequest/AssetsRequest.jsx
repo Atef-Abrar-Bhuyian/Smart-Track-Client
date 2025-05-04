@@ -14,6 +14,7 @@ import {
 import Swal from "sweetalert2";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 
 const AssetsRequest = () => {
   const { user, loading } = useAuth();
@@ -103,9 +104,10 @@ const AssetsRequest = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-10">
+    <div className="py-24 dark:bg-gray-900">
       <ReactHelmet title={"Asset Requests"}></ReactHelmet>
-      <div className="md:flex justify-between my-6">
+      <HeaderSection title={"Request Asset"} />
+      <div className="md:flex justify-between mb-6 w-11/12 mx-auto">
         <div className="mb-4">
           <FloatingLabel
             onChange={(e) => handleSearch(e.target.value)}
@@ -129,7 +131,7 @@ const AssetsRequest = () => {
           </Select>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-11/12 mx-auto">
         {searchItems?.length > 0 ? (
           <>
             {searchItems?.length > 0 ? (

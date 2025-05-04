@@ -8,6 +8,8 @@ import userHrInfo from "../../hooks/userHrInfo";
 import { Link } from "react-router-dom";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
 import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
+import GradientUI from "../../Components/GradientUI/GradientUI";
 
 const AddEmployee = () => {
   const { user } = useContext(AuthContext);
@@ -26,9 +28,9 @@ const AddEmployee = () => {
   const handleCheckboxChange = (employeeId) => {
     setSelectedEmployees((prevSelected) => {
       if (prevSelected.includes(employeeId)) {
-        return prevSelected.filter((id) => id !== employeeId); 
+        return prevSelected.filter((id) => id !== employeeId);
       } else {
-        return [...prevSelected, employeeId]; 
+        return [...prevSelected, employeeId];
       }
     });
   };
@@ -46,7 +48,10 @@ const AddEmployee = () => {
     }));
 
     axiosSecure
-  .post("/addMultipleEmployeeTeam", { employees: addNewEmployees, hrEmail: user?.email })
+      .post("/addMultipleEmployeeTeam", {
+        employees: addNewEmployees,
+        hrEmail: user?.email,
+      })
       .then((res) => {
         if (res.data.insertedIds) {
           refetch();
@@ -54,7 +59,7 @@ const AddEmployee = () => {
             title: `Employees added to your team.`,
             background: "#003333",
             color: "#fff",
-            confirmButtonColor: "#001919",
+            confirmButtonColor: "#06b6d4", // Matching button color
             showClass: {
               popup: `
                 animate__animated
@@ -80,7 +85,7 @@ const AddEmployee = () => {
           text: "Failed to add employees. Please try again!",
           background: "#003333",
           color: "#fff",
-          confirmButtonColor: "#001919",
+          confirmButtonColor: "#06b6d4", // Matching button color
         });
       });
   };
@@ -99,9 +104,11 @@ const AddEmployee = () => {
           refetch();
           Swal.fire({
             title: `${name} is in Your Team Now.`,
-            background: "#003333",
-            color: "#fff",
-            confirmButtonColor: "#001919",
+            background: "#0f172a", // Dark slate tone
+            color: "#e0f2f1", // Soft light teal text
+            icon: "success",
+            iconColor: "#06b6d4", // Cyan from Flowbite (tailwind's cyan-400)
+            confirmButtonColor: "#06b6d4", // Matching button color
             showClass: {
               popup: `
                 animate__animated
@@ -128,58 +135,62 @@ const AddEmployee = () => {
             text: "You’ve reached the team member limit. Please upgrade!",
             background: "#003333",
             color: "#fff",
-            confirmButtonColor: "#001919",
+            confirmButtonColor: "#06b6d4", // Matching button color
           });
         }
       });
   };
 
   return (
-    <div className="w-11/12 mx-auto my-10">
+    <div className="py-10 dark:bg-gray-900 relative overflow-hidden">
+      <GradientUI />
       <ReactHelmet title={"Add Employee"}></ReactHelmet>
-      <div className="flex justify-between items-center my-6">
-        <Fade>
-        <h1 className="text-xl font-bold">
-          Total Employee: {employees?.length}
-        </h1>
-        </Fade>
-        <div>
-          <Popover
-            aria-labelledby="profile-popover"
-            content={
-              <div className="w-64 p-3">
-                <div className="mb-2 flex items-center justify-between">
+      <div className="my-6 w-11/12 mx-auto mt-14">
+        <HeaderSection title={"Add Employee"} />
+        <div className="flex justify-between items-center">
+          <Fade>
+            <h1 className="text-xl font-bold dark:text-cyan-500">
+              Total Employee: {employees?.length}
+            </h1>
+          </Fade>
+          <div>
+            <Popover
+              aria-labelledby="profile-popover"
+              content={
+                <div className="w-64 p-3">
+                  <div className="mb-2 flex items-center justify-between dark:text-cyan-500">
+                    <div>
+                      <h4>Selected Packge: {userInfo[0]?.selectedPackage}</h4>
+                    </div>
+                  </div>
+                  <p className="mb-4 text-sm dark:text-cyan-500">
+                    Maximum Member:{" "}
+                    {userInfo[0]?.selectedPackage === "basic" ? 5 : ""}
+                    {userInfo[0]?.selectedPackage === "advance" ? 10 : ""}
+                    {userInfo[0]?.selectedPackage === "ultimate" ? 20 : ""}
+                  </p>
                   <div>
-                    <h4>Selected Packge: {userInfo[0]?.selectedPackage}</h4>
+                    <Link to={"/increaseLimit"}>
+                      <button
+                        type="button"
+                        className="rounded-lg bg-cyan-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+                      >
+                        Increase Your Limit
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <p className="mb-4 text-sm">
-                  Maximum Member:{" "}
-                  {userInfo[0]?.selectedPackage === "basic" ? 5 : ""}
-                  {userInfo[0]?.selectedPackage === "advance" ? 10 : ""}
-                  {userInfo[0]?.selectedPackage === "ultimate" ? 20 : ""}
-                </p>
-                <div>
-                  <Link to={"/increaseLimit"}>
-                    <button
-                      type="button"
-                      className="rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Increase Your Limit
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            }
-          >
-            <button className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">
-              Package Details
-            </button>
-          </Popover>
+              }
+            >
+              <button className="inline-flex w-full justify-center rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">
+                Package Details
+              </button>
+            </Popover>
+          </div>
         </div>
       </div>
 
-      <div>
+      <div className="w-11/12 mx-auto">
         <Table hoverable>
           <Table.Head>
             <Table.HeadCell className="p-4"></Table.HeadCell>
@@ -223,9 +234,13 @@ const AddEmployee = () => {
             </Table.Body>
           ))}
         </Table>
-          <button onClick={handleAddMultipleEmployees}
+        <button
+          onClick={handleAddMultipleEmployees}
           disabled={selectedEmployees.length === 0}
-          className="disabled:bg-gray-600 disabled:cursor-not-allowed mt-4 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900">Add Selected Employee</button>
+          className="disabled:bg-gray-600 disabled:cursor-not-allowed mt-4 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-200 dark:focus:ring-cyan-900"
+        >
+          Add Selected Employee
+        </button>
       </div>
     </div>
   );

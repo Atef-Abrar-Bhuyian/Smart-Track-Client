@@ -3,7 +3,7 @@ import { Fade } from "react-awesome-reveal";
 
 const HeaderSection = ({ title, description }) => {
   return (
-    <div className="text-center mb-20 relative">
+    <div className="text-center mb-16 relative">
       <div className="inline-block relative">
         <Fade>
           <h2 className="relative text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">

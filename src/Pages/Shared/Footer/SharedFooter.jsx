@@ -23,8 +23,8 @@ const SharedFooter = () => {
   }, [user, axiosPublic]);
 
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10 border-t border-gray-700 w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gray-900 text-gray-300 py-10 border-t border-gray-700">
+      <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* About */}
           <div>

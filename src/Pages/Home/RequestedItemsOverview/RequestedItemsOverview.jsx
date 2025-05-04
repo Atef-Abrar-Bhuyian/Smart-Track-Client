@@ -68,7 +68,7 @@ const RequestedItemsOverview = () => {
   }));
 
   return (
-    <div className="py-16 px-4 dark:bg-gray-900 bg-gray-100 relative overflow-hidden">
+    <div className="py-16 dark:bg-gray-900 bg-gray-100 relative overflow-hidden">
       <GradientUI />
     <div className="w-11/12 mx-auto">
       <HeaderSection title={"Requested Items Overview"} />

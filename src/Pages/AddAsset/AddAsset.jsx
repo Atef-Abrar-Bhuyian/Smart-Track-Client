@@ -44,9 +44,9 @@ const AddAsset = () => {
           icon: "error",
           title: "Oops...",
           text: "Asset Already Exists",
-          background: "#003333",
-          color: "#fff",
-          confirmButtonColor: "#001919",
+          background: "#0f172a", // Dark slate tone
+          color: "#e0f2f1", // Soft light teal text
+          confirmButtonColor: "#06b6d4", // Matching button color
         });
       }
       if (res.data.insertedId) {
@@ -55,7 +55,7 @@ const AddAsset = () => {
           title: `${productName} Added Successfully`,
           background: "#003333",
           color: "#fff",
-          confirmButtonColor: "#001919",
+          confirmButtonColor: "#06b6d4", // Matching button color
           showClass: {
             popup: `
                           animate__animated
@@ -92,7 +92,6 @@ const AddAsset = () => {
 
         {/* Glassmorphism Card */}
         <div className="w-full max-w-4xl backdrop-blur-xl bg-white/50 dark:bg-white/0 dark:bg-gradient-to-br dark:from-white/5 dark:via-cyan-400/10 dark:to-blue-500/10 border border-gray-700 rounded-3xl shadow-xl p-10">
-        
           <form onSubmit={handleAddAsset} className="space-y-8">
             {/* Input Group */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
