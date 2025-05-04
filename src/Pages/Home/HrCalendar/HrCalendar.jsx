@@ -8,10 +8,10 @@ const HrCalendar = () => {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="py-16 px-12 dark:bg-gray-900 bg-gray-100">
+    <div className="py-16 dark:bg-gray-900 bg-gray-100">
       <HeaderSection title={"Work Calendar"} />
 
-      <div className="md:flex md:items-center md:justify-between gap-10">
+      <div className="md:flex md:items-center md:justify-between gap-10 w-11/12 mx-auto">
         {/* Calendar Section */}
         <div className="flex justify-center items-center mb-10 md:mb-0">
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-lg border border-cyan-500/30 dark:bg-gray-800/40">

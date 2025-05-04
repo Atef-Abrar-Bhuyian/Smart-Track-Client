@@ -85,22 +85,22 @@ const IncreaseLimitForm = ({ selectedPackage, price }) => {
             Swal.fire({
               title: "Payment Successful & Limit Increased!",
               text: "Thank you for your payment. Your limit has been increased successfully.",
-              background: "#003333",
-              color: "#fff",
-              confirmButtonColor: "#001919",
+              background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+              icon: "success",
+              iconColor: "#06b6d4", // Cyan from Flowbite (tailwind's cyan-400)
+              confirmButtonColor: "#06b6d4", // Matching button color
+              confirmButtonText: "Awesome!",
+              customClass: {
+                popup: "rounded-xl shadow-lg px-6 py-4",
+                title: "text-xl font-semibold",
+                confirmButton: "text-white font-medium",
+              },
               showClass: {
-                popup: `
-                  animate__animated
-                  animate__fadeInUp
-                  animate__faster
-                `,
+                popup: "animate__animated animate__fadeInUp animate__faster",
               },
               hideClass: {
-                popup: `
-                  animate__animated
-                  animate__fadeOutDown
-                  animate__faster
-                `,
+                popup: "animate__animated animate__fadeOutDown animate__faster",
               },
             });
             setError("");

@@ -24,7 +24,7 @@ const PendingRequestsForHr = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="dark:bg-gray-900 py-16 px-4 min-h-screen">
+    <div className="dark:bg-gray-900 py-16 min-h-screen">
       <div className="w-11/12 mx-auto mt-10">
         <HeaderSection title={"Pending Requests"} />
 

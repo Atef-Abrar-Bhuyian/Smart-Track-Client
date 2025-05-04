@@ -23,7 +23,7 @@ const TopRequestedItems = () => {
   }, [user, axiosSecure]);
 
   return (
-    <div className="dark:bg-gray-900 py-16 px-4 relative overflow-hidden">
+    <div className="dark:bg-gray-900 py-16 relative overflow-hidden">
       <GradientUI />
     <div className="w-11/12 mx-auto">
       <HeaderSection title={"Top Most Requested Items"} />

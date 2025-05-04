@@ -7,41 +7,37 @@ import userHrInfo from "../../hooks/userHrInfo";
 import IncreaseLimitForm from "../../Components/Payments/IncreaseLimitForm";
 import { Label, Select } from "flowbite-react";
 import ReactHelmet from "../../Components/ReactHelmet/ReactHelmet";
-import { Fade } from "react-awesome-reveal";
+import HeaderSection from "../../Components/HeaderSection/HeaderSection";
 
 // Load Stripe publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const IncreaseLimit = () => {
   const hrInfo = userHrInfo();
-  const [price,setPrice] = useState(0);
+  const [price, setPrice] = useState(0);
   const [selectedPackage, setSelectedPackage] = useState("");
 
   const handleSelectedPlan = (e) => {
-    const selectedValue = e.target.value; 
+    const selectedValue = e.target.value;
     setSelectedPackage(selectedValue);
-    if(selectedValue === "basic"){
-        setPrice(5)
+    if (selectedValue === "basic") {
+      setPrice(5);
     }
-    if(selectedValue === "advance"){
-        setPrice(8)
+    if (selectedValue === "advance") {
+      setPrice(8);
     }
-    if(selectedValue === "ultimate"){
-        setPrice(15)
-    }          
+    if (selectedValue === "ultimate") {
+      setPrice(15);
+    }
   };
 
   return (
-    <div className="w-11/12 mx-auto">
+    <div className=" min-h-screen flex items-center justify-center dark:bg-gray-900">
       <ReactHelmet title={"Increase Limit"}></ReactHelmet>
-      <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center">
+      <div className="flex flex-col-reverse md:flex-row-reverse justify-center items-center w-11/12 mx-auto pt-24">
         <div className="md:w-2/4 mx-auto mt-4">
-         <Fade>
-         <h1 className="text-xl font-bold text-center mb-4">
-            Kindly Pay to Increase Your Limit
-          </h1>
-         </Fade>
-          <p className="text-center mb-12">
+          <HeaderSection title={"Kindly Pay to Increase Your Limit"} />
+          <p className="text-center mb-6 dark:text-cyan-500">
             Current Selected Package Is: {hrInfo[0]?.selectedPackage}
           </p>
 
@@ -49,8 +45,14 @@ const IncreaseLimit = () => {
             <div className="mb-2 block">
               <Label value="Select your country" />
             </div>
-            <Select defaultValue={"none"} onChange={handleSelectedPlan} required>
-              <option disabled value={"none"}>Select a Plan</option>
+            <Select
+              defaultValue={"none"}
+              onChange={handleSelectedPlan}
+              required
+            >
+              <option disabled value={"none"}>
+                Select a Plan
+              </option>
               <option value={"basic"}>Basic 5$</option>
               <option value={"advance"}>Advance 8$</option>
               <option value={"ultimate"}>Ultimate 15$</option>
@@ -59,7 +61,10 @@ const IncreaseLimit = () => {
 
           {/* Payment Form */}
           <Elements stripe={stripePromise}>
-            <IncreaseLimitForm selectedPackage={selectedPackage} price={price}/>
+            <IncreaseLimitForm
+              selectedPackage={selectedPackage}
+              price={price}
+            />
           </Elements>
         </div>
 

@@ -61,7 +61,7 @@ const Nav = () => {
         title: "Logout Successful",
         background: "#1e293b",
         color: "#fff",
-        confirmButtonColor: "#0891b2",
+        confirmButtonColor: "#06b6d4", // Matching button color
         showClass: {
           popup: "animate__animated animate__fadeInUp animate__faster",
         },
@@ -112,7 +112,7 @@ const Nav = () => {
     root: {
       base: "bg-transparent px-2 py-2.5 sm:px-4 w-full",
       inner: {
-        base: "mx-auto flex flex-wrap items-center justify-between w-full md:w-11/12 lg:w-10/12",
+        base: "mx-auto flex flex-wrap items-center justify-between w-full md:w-11/12",
       },
     },
     brand: {
@@ -136,7 +136,7 @@ const Nav = () => {
 
   return (
     <div className={navbarClass} ref={navbarRef}>
-      <Navbar fluid theme={customTheme} className="px-3 lg:px-5">
+      <Navbar fluid theme={customTheme} className="">
         <NavbarBrand as={Link} to="/">
           {user && isAdmin && cUser?.companyLogo ? (
             <img
@@ -348,6 +348,13 @@ const Nav = () => {
                 active={location.pathname === "/employeeTeam"}
               >
                 <div>My Team</div>
+              </NavbarLink>
+              <NavbarLink
+                as={Link}
+                to="/assetsRequest"
+                active={location.pathname === "/employeeTeam"}
+              >
+                <div>Request Asset</div>
               </NavbarLink>
             </>
           )}

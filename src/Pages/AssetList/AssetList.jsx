@@ -35,9 +35,9 @@ const AssetList = () => {
       showCancelButton: true,
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-      background: "#003333",
-      color: "#fff",
-      confirmButtonColor: "#001919",
+      background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+      confirmButtonColor: "#06b6d4", // Matching button color
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
@@ -48,9 +48,9 @@ const AssetList = () => {
                 title: "Deleted!",
                 text: "Asset has been deleted.",
                 icon: "success",
-                background: "#003333",
-                color: "#fff",
-                confirmButtonColor: "#001919",
+                background: "#0f172a", // Dark slate tone
+                color: "#e0f2f1", // Soft light teal text
+                confirmButtonColor: "#06b6d4", // Matching button color
               });
               refetch();
             }
@@ -79,9 +79,9 @@ const AssetList = () => {
             title: "Updated!",
             text: "Asset quantity has been updated successfully.",
             icon: "success",
-            background: "#003333",
-            color: "#fff",
-            confirmButtonColor: "#001919",
+            background: "#0f172a", // Dark slate tone
+            color: "#e0f2f1", // Soft light teal text
+            confirmButtonColor: "#06b6d4", // Matching button color
           });
           refetch();
           setOpenModal(false);
@@ -133,7 +133,7 @@ const AssetList = () => {
   };
 
   return (
-    <div className="pt-28 py-12 dark:bg-gray-900 relative overflow-hidden">
+    <div className="pt-24 py-12 dark:bg-gray-900 relative overflow-hidden">
       <GradientUI />
       <ReactHelmet title={"Asset List"} />
       <Fade>

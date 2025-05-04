@@ -32,9 +32,9 @@ const Login = () => {
           icon: "error",
           title: "Oops...",
           text: "Invalid Credential, Please Try Again",
-          background: "#003333",
-          color: "#fff",
-          confirmButtonColor: "#001919",
+          background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+          confirmButtonColor: "#06b6d4", // Matching button color
         });
       });
   };

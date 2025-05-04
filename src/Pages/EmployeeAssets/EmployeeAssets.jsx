@@ -65,9 +65,9 @@ const EmployeeAssets = () => {
       showCancelButton: true,
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-      background: "#003333",
-      color: "#fff",
-      confirmButtonColor: "#001919",
+      background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+      confirmButtonColor: "#06b6d4", // Matching button color
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
@@ -80,9 +80,9 @@ const EmployeeAssets = () => {
                 title: "Deleted!",
                 text: "Your request has been successfully deleted.",
                 icon: "success",
-                background: "#003333",
-                color: "#fff",
-                confirmButtonColor: "#001919",
+                background: "#0f172a", // Dark slate tone
+                color: "#e0f2f1", // Soft light teal text
+                confirmButtonColor: "#06b6d4", // Matching button color
               });
               refetch();
             }
@@ -106,9 +106,9 @@ const EmployeeAssets = () => {
       showCancelButton: true,
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, return it!",
-      background: "#003333",
-      color: "#fff",
-      confirmButtonColor: "#001919",
+      background: "#0f172a", // Dark slate tone
+      color: "#e0f2f1", // Soft light teal text
+      confirmButtonColor: "#06b6d4", // Matching button color
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
@@ -119,9 +119,9 @@ const EmployeeAssets = () => {
                 title: "Returned!",
                 text: "Your asset has been successfully returned.",
                 icon: "success",
-                background: "#003333",
-                color: "#fff",
-                confirmButtonColor: "#001919",
+                background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+                confirmButtonColor: "#06b6d4", // Matching button color
               });
               refetch();
             }

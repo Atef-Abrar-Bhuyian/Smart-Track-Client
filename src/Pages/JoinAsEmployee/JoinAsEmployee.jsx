@@ -62,9 +62,9 @@ const JoinAsEmployee = () => {
             if (res.data.insertedId) {
               Swal.fire({
                 title: "Profile Created Successfully",
-                background: "#003333",
-                color: "#fff",
-                confirmButtonColor: "#001919",
+                background: "#0f172a", // Dark slate tone
+              color: "#e0f2f1", // Soft light teal text
+                confirmButtonColor: "#06b6d4", // Matching button color
                 showClass: {
                   popup: `
                           animate__animated
