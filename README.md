@@ -1,6 +1,6 @@
 # Smart Track
 
-![Homepage](./src/assets/HomePage/smartTrack.png)
+![Homepage](./src/assets/HomePage/smartTrack.PNG)
 
 
 Smart Track is a web application designed for managing and tracking assets within an organization. The system allows HR and employees to interact with assets, request or approve asset distributions, and generate detailed reports. 
